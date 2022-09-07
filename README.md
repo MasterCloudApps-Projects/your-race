@@ -1,4 +1,4 @@
-# Your Race - Máster CloudApps
+# Your Race
 Rafael Gómez Olmedo, Raquel Toscano Marchena.
 
 _WORK_IN_PROGRESS_
