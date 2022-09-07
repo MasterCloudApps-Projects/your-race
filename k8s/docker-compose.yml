@@ -1,0 +1,19 @@
+# Trabajaremos con la versión 3 docker
+version: '3'
+
+# Creamos los servicios
+services:
+  mydb:                                 # Creamos el servicios mydb para identificar la imagen
+    image: postgres:14.5                # Usamos la imagen postgresql en la versión 12
+    volumes:
+      - postgresdb:/var/lib/postgresql  # Crearemos un volumen para almacenar los datos de la db
+    ports:                               
+      - "5555:5432"                     # Habilitamos el puerto 5432 para acceder a la db
+    environment:                        # Creamos las variables del usuario contraseña y base de datos 
+      POSTGRES_USER: admin              #   que se crea cuando inicia docker
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: racedb
+
+volumes:                                # Creamos y asignamos el volumen de docker
+  postgresdb:
+    driver: local

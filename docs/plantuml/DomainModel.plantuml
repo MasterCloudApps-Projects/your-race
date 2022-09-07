@@ -1,0 +1,61 @@
+@startuml
+title Your Race - Domain Model
+
+class YourRace
+class Athlete
+class Organizer
+class Race
+class Registration
+class Distance
+class Date
+class Location
+class Consult
+class Manage
+class Apply
+class Score
+class PaymentInfo
+class Dorsal
+class ApplicationPeriod
+class TrackRecord
+class Suscription
+
+YourRace *--> Athlete
+YourRace *--> Organizer
+
+Organizer --> Manage
+
+Athlete ..> Apply
+Athlete --> Consult
+Athlete *--> TrackRecord
+
+Athlete *--> ApplicationCode
+
+Apply ..> Race
+
+Consult --> Race
+
+Manage --> Race
+
+
+Race *--> Distance
+Race *--> Date
+Race *--> Location
+Race *--> Score
+Race *--> Type
+Race *--> ApplicationPeriod
+
+
+Registration <-left- Race 
+Registration *--> PaymentInfo
+Registration *--> Dorsal
+Registration *--> RegistrationType
+Registration *--> RegistrationDate
+
+RegistrationType <|-- ByDrawing
+RegistrationType <|-- ByOrder
+
+
+Organizer --> Suscription
+
+
+@enduml
