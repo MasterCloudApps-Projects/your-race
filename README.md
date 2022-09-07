@@ -4,7 +4,7 @@ Rafael Gómez Olmedo, Raquel Toscano Marchena.
 https://github.com/MasterCloudApps-Projects/your-race
 
 ### Overview
-Your Race is a scalable platform for managing entry assignment in highly demanded races, e.g. New York City Marathon or _101 Km de Ronda_ (Spain).
+Your Race is a scalable platform for managing entry assignment in highly demanded races, like the New York City Marathon or _101 Km de Ronda_ (Spain).
 
 
 
