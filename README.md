@@ -1,19 +1,14 @@
 # Your Race - Máster CloudApps
 Rafael Gómez Olmedo, Raquel Toscano Marchena.
 
-## Status
-WORK_IN_PROGRESS
+__WORK_IN_PROGRESS__
 
-## Repository link
-https://github.com/MasterCloudApps-Projects/your-race
 
 ## Technical Documentation
+https://github.com/MasterCloudApps-Projects/your-race
 
 ### Overview
 Your Race is a scalable platform for managing entry assignment in highly demanded races, e.g. New York City Marathon or _101 Km de Ronda_ (Spain).
-
-
-
 
 
 
