@@ -1,18 +1,22 @@
-# Trabajo Fin de Máster - Máster CloudApps
-Trabajo Fin de Master Rafael Gómez Olmedo y Raquel Toscano Marchena.
+# Your Race - Máster CloudApps
+Rafael Gómez Olmedo, Raquel Toscano Marchena.
 
-## Objetivo
+## Status
+WORK_IN_PROGRESS
 
-Repositorio temporal, contiene los archivos del trabajo realizado. Estos deberán ser movidos al nuevo proyecto que se cree en el repositorio oficial:
+## Repository link
+https://github.com/MasterCloudApps-Projects/your-race
 
-https://github.com/MasterCloudApps-Projects 
+## Overview
 
 
-## Repositorio
-_Pendiente de creación_
 
-## Planificación
 
+
+
+
+## Documentación Trabajo Fin de Máster
+### Planificación
 ![](docs/TFM%20Planificacion%20-%20Rafa-Raquel.drawio.png)
 
 Se encuentra  en [este archivo de la carpeta docs](docs/TFM%20Planificacion%20-%20Rafa-Raquel.drawio.png). También está como [formato HTML](docs/TFM%20Planificacion%20-%20Rafa-Raquel.drawio.html) (Hay que descargarlo y abrir en un navegador para verla bien). 
@@ -23,9 +27,9 @@ Enlace para [verla en Draw.io](https://app.diagrams.net/#G10V7K3EQUfpSZU6wmqHQTt
 [Trabajo Fin de Máster.](/docs/TFM-Memoria-Rafa-Raquel.odt)
 Enlace para [verlo en Google Docs.](https://docs.google.com/document/d/17cHzdHlvV2ujh2DzF1rlHlmz_qfKArxPLsnF-EycibQ/edit)
 
-## Documentación técnica
+### Documentación técnica
 _Pendiente de creación_
 
-## Presentación
+### Presentación
 _Pendiente de creación_
 
