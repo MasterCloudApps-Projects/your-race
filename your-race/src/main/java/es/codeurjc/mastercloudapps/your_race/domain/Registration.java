@@ -59,8 +59,8 @@ public class Registration {
     private String paymentInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "registration_id")
-    private Race registration;
+    @JoinColumn(name = "race_id")
+    private Race race;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "athlete_registration_id")
@@ -122,12 +122,12 @@ public class Registration {
         this.paymentInfo = paymentInfo;
     }
 
-    public Race getRegistration() {
-        return registration;
+    public Race getRace() {
+        return race;
     }
 
-    public void setRegistration(final Race registration) {
-        this.registration = registration;
+    public void setRace(final Race race) {
+        this.race = race;
     }
 
     public Athlete getAthleteRegistration() {

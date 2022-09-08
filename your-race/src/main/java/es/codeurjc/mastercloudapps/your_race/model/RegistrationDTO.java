@@ -24,7 +24,7 @@ public class RegistrationDTO {
     @Size(max = 255)
     private String paymentInfo;
 
-    private Long registration;
+    private Long race;
 
     private Long athleteRegistration;
 
@@ -84,12 +84,12 @@ public class RegistrationDTO {
         this.paymentInfo = paymentInfo;
     }
 
-    public Long getRegistration() {
-        return registration;
+    public Long getRace() {
+        return race;
     }
 
-    public void setRegistration(final Long registration) {
-        this.registration = registration;
+    public void setRace(final Long race) {
+        this.race = race;
     }
 
     public Long getAthleteRegistration() {

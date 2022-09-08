@@ -68,7 +68,7 @@ public class RegistrationService {
         registrationDTO.setDorsal(registration.getDorsal());
         registrationDTO.setType(registration.getType());
         registrationDTO.setPaymentInfo(registration.getPaymentInfo());
-        registrationDTO.setRegistration(registration.getRegistration() == null ? null : registration.getRegistration().getId());
+        registrationDTO.setRace(registration.getRace() == null ? null : registration.getRace().getId());
         registrationDTO.setAthleteRegistration(registration.getAthleteRegistration() == null ? null : registration.getAthleteRegistration().getId());
         return registrationDTO;
     }
@@ -81,9 +81,9 @@ public class RegistrationService {
         registration.setDorsal(registrationDTO.getDorsal());
         registration.setType(registrationDTO.getType());
         registration.setPaymentInfo(registrationDTO.getPaymentInfo());
-        final Race registration = registrationDTO.getRegistration() == null ? null : raceRepository.findById(registrationDTO.getRegistration())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "registration not found"));
-        registration.setRegistration(registration);
+        final Race race = registrationDTO.getRace() == null ? null : raceRepository.findById(registrationDTO.getRace())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "race not found"));
+        registration.setRace(race);
         final Athlete athleteRegistration = registrationDTO.getAthleteRegistration() == null ? null : athleteRepository.findById(registrationDTO.getAthleteRegistration())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "athleteRegistration not found"));
         registration.setAthleteRegistration(athleteRegistration);

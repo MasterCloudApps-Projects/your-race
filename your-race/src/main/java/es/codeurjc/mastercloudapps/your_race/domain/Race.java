@@ -50,8 +50,8 @@ public class Race {
     @Column
     private String type;
 
-    @OneToMany(mappedBy = "registration")
-    private Set<Registration> registrationRegistrations;
+    @OneToMany(mappedBy = "race")
+    private Set<Registration> raceRegistrations;
 
     @OneToOne
     @JoinColumn(name = "application_period_id")
@@ -120,12 +120,12 @@ public class Race {
         this.type = type;
     }
 
-    public Set<Registration> getRegistrationRegistrations() {
-        return registrationRegistrations;
+    public Set<Registration> getRaceRegistrations() {
+        return raceRegistrations;
     }
 
-    public void setRegistrationRegistrations(final Set<Registration> registrationRegistrations) {
-        this.registrationRegistrations = registrationRegistrations;
+    public void setRaceRegistrations(final Set<Registration> raceRegistrations) {
+        this.raceRegistrations = raceRegistrations;
     }
 
     public ApplicationPeriod getApplicationPeriod() {
