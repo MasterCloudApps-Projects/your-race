@@ -1,0 +1,2105 @@
+{
+	"info": {
+		"_postman_id": "1222d090-2555-4068-91b9-429be9350f08",
+		"name": "your-race",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "registrations",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get Registration",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/registrations/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"registrations",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"id\": -30837773,\n \"date\": \"1965-09-09T04:39:21.264Z\",\n \"status\": \"est dol\",\n \"score\": {\n  \"time\": 81563329.1532225,\n  \"position\": 14450608\n },\n \"dorsal\": 31181358,\n \"type\": \"BYORDER\",\n \"paymentInfo\": \"aute eiusmod elit\",\n \"race\": 16521715,\n \"athleteRegistration\": 70670238\n}"
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/registrations/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"registrations",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "update Registration",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": -30837773,\n    \"date\": \"1965-09-09T04:39:21.264Z\",\n    \"status\": \"est dol\",\n    \"score\": {\n        \"time\": 81563329.1532225,\n        \"position\": 14450608\n    },\n    \"dorsal\": 31181358,\n    \"type\": \"BYORDER\",\n    \"paymentInfo\": \"aute eiusmod elit\",\n    \"race\": 16521715,\n    \"athleteRegistration\": 70670238\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": -30837773,\n    \"date\": \"1965-09-09T04:39:21.264Z\",\n    \"status\": \"est dol\",\n    \"score\": {\n        \"time\": 81563329.1532225,\n        \"position\": 14450608\n    },\n    \"dorsal\": 31181358,\n    \"type\": \"BYORDER\",\n    \"paymentInfo\": \"aute eiusmod elit\",\n    \"race\": 16521715,\n    \"athleteRegistration\": 70670238\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/registrations/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"registrations",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": -30837773,\n    \"date\": \"1965-09-09T04:39:21.264Z\",\n    \"status\": \"est dol\",\n    \"score\": {\n        \"time\": 81563329.1532225,\n        \"position\": 14450608\n    },\n    \"dorsal\": 31181358,\n    \"type\": \"BYORDER\",\n    \"paymentInfo\": \"aute eiusmod elit\",\n    \"race\": 16521715,\n    \"athleteRegistration\": 70670238\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/registrations/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"registrations",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "delete Registration",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/registrations/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"registrations",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/registrations/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"registrations",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get All Registrations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/registrations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"registrations"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"id\": -60095913,\n  \"date\": \"1973-04-08T08:55:33.069Z\",\n  \"status\": \"nostrud sunt\",\n  \"score\": {\n   \"time\": -48808039.931505755,\n   \"position\": -53256548\n  },\n  \"dorsal\": 31309166,\n  \"type\": \"BYORDER\",\n  \"paymentInfo\": \"ea in\",\n  \"race\": 60470035,\n  \"athleteRegistration\": -22908787\n },\n {\n  \"id\": 98222748,\n  \"date\": \"1945-01-13T02:31:38.607Z\",\n  \"status\": \"deserunt\",\n  \"score\": {\n   \"time\": 52159707.92191106,\n   \"position\": 17780425\n  },\n  \"dorsal\": 26813604,\n  \"type\": \"BYORDER\",\n  \"paymentInfo\": \"Lorem elit consectetur\",\n  \"race\": -66073645,\n  \"athleteRegistration\": -6497008\n }\n]"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "create Registration",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": -30837773,\n    \"date\": \"1965-09-09T04:39:21.264Z\",\n    \"status\": \"est dol\",\n    \"score\": {\n        \"time\": 81563329.1532225,\n        \"position\": 14450608\n    },\n    \"dorsal\": 31181358,\n    \"type\": \"BYORDER\",\n    \"paymentInfo\": \"aute eiusmod elit\",\n    \"race\": 16521715,\n    \"athleteRegistration\": 70670238\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/registrations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"registrations"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": -30837773,\n    \"date\": \"1965-09-09T04:39:21.264Z\",\n    \"status\": \"est dol\",\n    \"score\": {\n        \"time\": 81563329.1532225,\n        \"position\": 14450608\n    },\n    \"dorsal\": 31181358,\n    \"type\": \"BYORDER\",\n    \"paymentInfo\": \"aute eiusmod elit\",\n    \"race\": 16521715,\n    \"athleteRegistration\": 70670238\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "31774110"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": -30837773,\n    \"date\": \"1965-09-09T04:39:21.264Z\",\n    \"status\": \"est dol\",\n    \"score\": {\n        \"time\": 81563329.1532225,\n        \"position\": 14450608\n    },\n    \"dorsal\": 31181358,\n    \"type\": \"BYORDER\",\n    \"paymentInfo\": \"aute eiusmod elit\",\n    \"race\": 16521715,\n    \"athleteRegistration\": 70670238\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/registrations",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"registrations"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "races",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get Race",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/races/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/races/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"races",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"location\": \"fugiat amet tempor dolore\",\n \"name\": \"ut officia ipsum dolor\",\n \"organizer\": -81892401,\n \"id\": -5759243,\n \"description\": \"in dolore ad et officia\",\n \"date\": \"1990-06-26T20:07:53.205Z\",\n \"distance\": -86353132,\n \"type\": \"cillum voluptate\",\n \"applicationPeriod\": -27093144\n}"
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/races/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"races",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "update Race",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/races/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/races/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"races",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/races/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"races",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "delete Race",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/races/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/races/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"races",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/races/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"races",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get All Races",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/races",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"races"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/races",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"location\": \"tempor in enim ipsum cupidatat\",\n  \"name\": \"esse labore dolor laborum\",\n  \"organizer\": -26649917,\n  \"id\": 84308201,\n  \"description\": \"elit\",\n  \"date\": \"1955-01-02T04:41:11.153Z\",\n  \"distance\": 35935944,\n  \"type\": \"adipisicing aliquip voluptate ipsum in\",\n  \"applicationPeriod\": -88464331\n },\n {\n  \"location\": \"nulla veniam culpa id\",\n  \"name\": \"qui vel\",\n  \"organizer\": 48044885,\n  \"id\": 7957060,\n  \"description\": \"elit in ea exercitation\",\n  \"date\": \"1998-09-15T23:53:53.493Z\",\n  \"distance\": -97159406,\n  \"type\": \"nulla cillum sed\",\n  \"applicationPeriod\": 29619192\n }\n]"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/races",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "create Race",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/races",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"races"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/races",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "31774110"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/races",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"races"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "organizers",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get Organizer",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/organizers/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"organizers",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"id\": 93096361,\n \"name\": \"proident\",\n \"suscription\": \"reprehenderit\",\n \"suscriptionStatus\": \"ut\"\n}"
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/organizers/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"organizers",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "update Organizer",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 93096361,\n    \"name\": \"proident\",\n    \"suscription\": \"reprehenderit\",\n    \"suscriptionStatus\": \"ut\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 93096361,\n    \"name\": \"proident\",\n    \"suscription\": \"reprehenderit\",\n    \"suscriptionStatus\": \"ut\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/organizers/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"organizers",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 93096361,\n    \"name\": \"proident\",\n    \"suscription\": \"reprehenderit\",\n    \"suscriptionStatus\": \"ut\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/organizers/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"organizers",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "delete Organizer",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/organizers/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"organizers",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/organizers/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"organizers",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get All Organizers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/organizers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"organizers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"id\": 24699993,\n  \"name\": \"ex veniam Lorem\",\n  \"suscription\": \"incididunt anim nostrud Duis\",\n  \"suscriptionStatus\": \"officia ullamco\"\n },\n {\n  \"id\": -31041714,\n  \"name\": \"incididunt Ut reprehenderit elit amet\",\n  \"suscription\": \"consectetur est\",\n  \"suscriptionStatus\": \"consectetur ad\"\n }\n]"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "create Organizer",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 93096361,\n    \"name\": \"proident\",\n    \"suscription\": \"reprehenderit\",\n    \"suscriptionStatus\": \"ut\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/organizers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"organizers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 93096361,\n    \"name\": \"proident\",\n    \"suscription\": \"reprehenderit\",\n    \"suscriptionStatus\": \"ut\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "31774110"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 93096361,\n    \"name\": \"proident\",\n    \"suscription\": \"reprehenderit\",\n    \"suscriptionStatus\": \"ut\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/organizers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"organizers"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "athletes",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get Athlete",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/athletes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"athletes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"name\": \"minim ea nostrud occaecat\",\n \"id\": 26544066,\n \"surname\": \"Duis sint aliquip non\",\n \"trackRecord\": {\n  \"raceName\": \"ex tempor ipsum nulla\",\n  \"score\": {\n   \"time\": 97007935.02420008,\n   \"position\": -33026879\n  },\n  \"date\": \"1978-08-17\"\n }\n}"
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/athletes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"athletes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "update Athlete",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"minim ea nostrud occaecat\",\n    \"id\": 26544066,\n    \"surname\": \"Duis sint aliquip non\",\n    \"trackRecord\": {\n        \"raceName\": \"ex tempor ipsum nulla\",\n        \"score\": {\n            \"time\": 97007935.02420008,\n            \"position\": -33026879\n        },\n        \"date\": \"1978-08-17\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\": \"minim ea nostrud occaecat\",\n    \"id\": 26544066,\n    \"surname\": \"Duis sint aliquip non\",\n    \"trackRecord\": {\n        \"raceName\": \"ex tempor ipsum nulla\",\n        \"score\": {\n            \"time\": 97007935.02420008,\n            \"position\": -33026879\n        },\n        \"date\": \"1978-08-17\"\n    }\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/athletes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"athletes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\": \"minim ea nostrud occaecat\",\n    \"id\": 26544066,\n    \"surname\": \"Duis sint aliquip non\",\n    \"trackRecord\": {\n        \"raceName\": \"ex tempor ipsum nulla\",\n        \"score\": {\n            \"time\": 97007935.02420008,\n            \"position\": -33026879\n        },\n        \"date\": \"1978-08-17\"\n    }\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/athletes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"athletes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "delete Athlete",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "31774110",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/athletes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"athletes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/athletes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"athletes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "31774110",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get All Athletes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/athletes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"athletes"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"name\": \"occaecat ex do eu pariatur\",\n  \"id\": 581899,\n  \"surname\": \"tempor quis magna\",\n  \"trackRecord\": {\n   \"raceName\": \"eiusmod velit\",\n   \"score\": {\n    \"time\": 43002838.380013615,\n    \"position\": 99700957\n   },\n   \"date\": \"1961-10-22\"\n  }\n },\n {\n  \"name\": \"aute voluptate in\",\n  \"id\": -68025891,\n  \"surname\": \"amet officia\",\n  \"trackRecord\": {\n   \"raceName\": \"consequat id incididunt\",\n   \"score\": {\n    \"time\": -23866149.18060732,\n    \"position\": -33969782\n   },\n   \"date\": \"1989-12-17\"\n  }\n }\n]"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "create Athlete",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"minim ea nostrud occaecat\",\n    \"id\": 26544066,\n    \"surname\": \"Duis sint aliquip non\",\n    \"trackRecord\": {\n        \"raceName\": \"ex tempor ipsum nulla\",\n        \"score\": {\n            \"time\": 97007935.02420008,\n            \"position\": -33026879\n        },\n        \"date\": \"1978-08-17\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/athletes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"athletes"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"minim ea nostrud occaecat\",\n    \"id\": 26544066,\n    \"surname\": \"Duis sint aliquip non\",\n    \"trackRecord\": {\n        \"raceName\": \"ex tempor ipsum nulla\",\n        \"score\": {\n            \"time\": 97007935.02420008,\n            \"position\": -33026879\n        },\n        \"date\": \"1978-08-17\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "31774110"
+								},
+								{
+									"name": "Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"minim ea nostrud occaecat\",\n    \"id\": 26544066,\n    \"surname\": \"Duis sint aliquip non\",\n    \"trackRecord\": {\n        \"raceName\": \"ex tempor ipsum nulla\",\n        \"score\": {\n            \"time\": 97007935.02420008,\n            \"position\": -33026879\n        },\n        \"date\": \"1978-08-17\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/athletes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"athletes"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
