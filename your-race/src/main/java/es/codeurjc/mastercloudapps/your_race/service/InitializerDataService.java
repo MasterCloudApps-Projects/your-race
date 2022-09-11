@@ -31,16 +31,16 @@ public class InitializerDataService {
     @PostConstruct
     public  void init(){
 
-      //  this.applicationPeriodRepository.deleteAll();
-      //  this.raceRepository.deleteAll();
-      //  this.organizerRepository.deleteAll();
+       // this.applicationPeriodRepository.deleteAll();
+        this.raceRepository.deleteAll();
+        this.organizerRepository.deleteAll();
 
 
 
         Organizer organizer1 = new Organizer("New York Road Runners", "Running race organization","New");
         ApplicationPeriod applicationPeriod1 =  new ApplicationPeriod(LocalDateTime.of(2022, Month.JANUARY,1,0,0), LocalDateTime.of(2022, Month.OCTOBER,31,23,59));
 
-        Organizer organizer2 = new Organizer("La Legión", "Running race organization","New");
+       // Organizer organizer2 = new Organizer("La Legión", "Running race organization","New");
 
 
         Race race1 = new Race ("New York City Marathon",
@@ -57,8 +57,8 @@ public class InitializerDataService {
 
 
                 this.organizerRepository.save(organizer1);
-                this.applicationPeriodRepository.save(applicationPeriod1);
-                this.organizerRepository.save(organizer2);
+         //       this.applicationPeriodRepository.save(applicationPeriod1);
+            //    this.organizerRepository.save(organizer2);
 
                 this.raceRepository.save(race1);
 
