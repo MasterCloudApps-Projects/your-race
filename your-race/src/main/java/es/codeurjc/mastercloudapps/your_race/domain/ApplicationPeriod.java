@@ -40,6 +40,14 @@ public class ApplicationPeriod {
     )
     private Race applicationPeriod;
 
+    public ApplicationPeriod(LocalDateTime initialDate, LocalDateTime lastDate) {
+        this.initialDate = initialDate;
+        this.lastDate = lastDate;
+    }
+
+    public ApplicationPeriod() {
+    }
+
     public Long getId() {
         return id;
     }
