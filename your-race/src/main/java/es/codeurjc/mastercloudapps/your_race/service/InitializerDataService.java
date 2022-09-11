@@ -31,7 +31,6 @@ public class InitializerDataService {
     @PostConstruct
     public  void init(){
 
-       // this.applicationPeriodRepository.deleteAll();
         this.raceRepository.deleteAll();
         this.organizerRepository.deleteAll();
 
@@ -50,14 +49,14 @@ public class InitializerDataService {
                 "New York, NY, USA",
                 42.195,
                 "Running",
-                applicationPeriod1,
+                new ApplicationPeriod(LocalDateTime.of(2022, Month.JANUARY,1,0,0), LocalDateTime.of(2022, Month.OCTOBER,31,23,59)),
                 organizer1
                 );
 
 
 
                 this.organizerRepository.save(organizer1);
-         //       this.applicationPeriodRepository.save(applicationPeriod1);
+
             //    this.organizerRepository.save(organizer2);
 
                 this.raceRepository.save(race1);
