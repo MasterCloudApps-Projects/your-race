@@ -6,6 +6,10 @@ FULL outer join application_period ap
 ON r.application_period_id  = ap.id 
 where r.organizer_id = o.id 
 
+select * from athlete a 
+
+
+
 
 
 // DDL Statements
