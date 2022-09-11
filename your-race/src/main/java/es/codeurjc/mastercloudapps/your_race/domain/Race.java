@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 
+
 @Entity
 public class Race {
 
@@ -45,7 +46,7 @@ public class Race {
     private String location;
 
     @Column
-    private BigDecimal distance;
+    private double distance;
 
     @Column
     private String type;
@@ -64,7 +65,7 @@ public class Race {
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
-    public Race(String name, String description, LocalDateTime date, String location, Integer distance, String type, ApplicationPeriod applicationPeriod, Organizer organizer) {
+    public Race(String name, String description, LocalDateTime date, String location, double distance, String type, ApplicationPeriod applicationPeriod, Organizer organizer) {
         this.name = name;
         this.description = description;
         this.date = date;
@@ -118,11 +119,11 @@ public class Race {
         this.location = location;
     }
 
-    public Integer getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(final Integer distance) {
+    public void setDistance(final double distance) {
         this.distance = distance;
     }
 
