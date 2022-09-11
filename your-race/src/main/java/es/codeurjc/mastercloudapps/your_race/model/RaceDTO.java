@@ -22,7 +22,7 @@ public class RaceDTO {
     @Size(max = 255)
     private String location;
 
-    private Integer distance;
+    private double distance;
 
     @Size(max = 255)
     private String type;
@@ -72,11 +72,11 @@ public class RaceDTO {
         this.location = location;
     }
 
-    public Integer getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(final Integer distance) {
+    public void setDistance(final double distance) {
         this.distance = distance;
     }
 
