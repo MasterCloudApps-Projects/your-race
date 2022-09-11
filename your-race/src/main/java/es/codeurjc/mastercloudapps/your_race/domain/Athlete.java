@@ -49,6 +49,14 @@ public class Athlete {
     @OneToMany(mappedBy = "applicationAthlete")
     private Set<Application> applicationAthleteApplications;
 
+    public Athlete(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Athlete() {
+    }
+
     public Long getId() {
         return id;
     }
