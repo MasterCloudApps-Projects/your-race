@@ -45,7 +45,7 @@ public class Race {
     private String location;
 
     @Column
-    private Integer distance;
+    private BigDecimal distance;
 
     @Column
     private String type;
@@ -63,6 +63,20 @@ public class Race {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
+
+    public Race(String name, String description, LocalDateTime date, String location, Integer distance, String type, ApplicationPeriod applicationPeriod, Organizer organizer) {
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.location = location;
+        this.distance = distance;
+        this.type = type;
+        this.applicationPeriod = applicationPeriod;
+        this.organizer = organizer;
+    }
+
+    public Race() {
+    }
 
     public Long getId() {
         return id;
