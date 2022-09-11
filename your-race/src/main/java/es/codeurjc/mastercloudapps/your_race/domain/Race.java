@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.CascadeType;
 
 
 
@@ -54,7 +55,7 @@ public class Race {
     @OneToMany(mappedBy = "race")
     private Set<Registration> raceRegistrations;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "application_period_id")
     private ApplicationPeriod applicationPeriod;
 
