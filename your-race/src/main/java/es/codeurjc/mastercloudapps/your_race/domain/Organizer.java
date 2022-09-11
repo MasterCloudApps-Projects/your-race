@@ -39,6 +39,16 @@ public class Organizer {
     @OneToMany(mappedBy = "organizer")
     private Set<Race> organizerRaces;
 
+    public Organizer(String name, String suscription, String suscriptionStatus) {
+        this.name = name;
+        this.suscription = suscription;
+        this.suscriptionStatus = suscriptionStatus;
+    }
+
+    public Organizer() {
+
+    }
+
     public Long getId() {
         return id;
     }
