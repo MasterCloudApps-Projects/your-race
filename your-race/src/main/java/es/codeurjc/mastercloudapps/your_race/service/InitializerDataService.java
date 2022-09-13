@@ -46,6 +46,8 @@ public class InitializerDataService {
 
         Race race1 = getRace1(organizer1);
         Race race2 = getRace2(organizer2);
+        Race race3 = getRace3(organizer2);
+        Race race4 = getRace4(organizer2);
 
         Athlete athlete1 = new Athlete("Antonio", "Delgado");
         Athlete athlete2 = new Athlete("María", "Rodríguez");
@@ -56,6 +58,8 @@ public class InitializerDataService {
 
         this.organizerRepository.save(organizer2);
         this.raceRepository.save(race2);
+        this.raceRepository.save(race3);
+        this.raceRepository.save(race4);
 
         this.athleteRepository.save(athlete1);
         this.athleteRepository.save(athlete2);
@@ -80,16 +84,41 @@ public class InitializerDataService {
     }
 
     private Race getRace2(Organizer organizer2) {
-        Race race2 = new Race ("101 kilómetros de Ronda",
+        Race race2 = new Race ("101 kilómetros de Ronda - Marcha Individual",
                 "Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados por el Club Deportivo La Legión 101 Km.",
                 LocalDateTime.of(2023, Month.MAY,13, 10,0),
                 "Ronda, Málaga, Spain",
                 101,
-                "Marcha individual, marcha por equipos y MTB",
+                "Running",
                 new ApplicationPeriod(LocalDateTime.of(2022, Month.NOVEMBER,1,0,0), LocalDateTime.of(2022, Month.DECEMBER,31,23,59)),
                 organizer2
         );
         return race2;
+    }
+    private Race getRace3(Organizer organizer2) {
+        Race race3 = new Race ("101 kilómetros de Ronda MTB",
+                "Marcha MTB de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados por el Club Deportivo La Legión 101 Km.",
+                LocalDateTime.of(2023, Month.MAY,13, 10,0),
+                "Ronda, Málaga, Spain",
+                101,
+                "MTB",
+                new ApplicationPeriod(LocalDateTime.of(2022, Month.NOVEMBER,1,0,0), LocalDateTime.of(2022, Month.DECEMBER,31,23,59)),
+                organizer2
+        );
+        return race3;
+    }
+
+    private Race getRace4(Organizer organizer2) {
+        Race race4 = new Race ("101 kilómetros de Ronda Por Equipos",
+                "Marcha por equipos de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados por el Club Deportivo La Legión 101 Km.",
+                LocalDateTime.of(2023, Month.MAY,13, 10,0),
+                "Ronda, Málaga, Spain",
+                101,
+                "Team",
+                new ApplicationPeriod(LocalDateTime.of(2022, Month.NOVEMBER,1,0,0), LocalDateTime.of(2022, Month.DECEMBER,31,23,59)),
+                organizer2
+        );
+        return race4;
     }
 
 }
