@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Redirect output to stderr.
+exec 1>&2
+# Run test before each commit.
+exec mvn test -Dtest=es.codeurjc.mastercloudapps.your_race.**
+
