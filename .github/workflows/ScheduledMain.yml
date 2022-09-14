@@ -17,5 +17,4 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-      - run: cd your-race
-      - run: mvn test -Dtest=es.codeurjc.mastercloudapps.your_race.**
+      - run: mvn test -f your-race/ -Dtest=es.codeurjc.mastercloudapps.your_race.**
