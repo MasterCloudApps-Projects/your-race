@@ -1,9 +1,12 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.CascadeType;
-
 
 
 @Entity
@@ -47,13 +49,26 @@ public class Race {
     private String location;
 
     @Column
-    private double distance;
+    private Double distance;
 
     @Column
     private String type;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private RegistrationType registrationType;
+
+    @Column
+    private LocalDateTime registrationDate;
+
+    @Column
+    private Double registrationCost;
+
+    @Column
+    private Integer athleteCapacity;
+
     @OneToMany(mappedBy = "race")
-    private Set<Registration> raceRegistrations;
+    private Set<Track> raceTracks;
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "application_period_id")
@@ -65,6 +80,7 @@ public class Race {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
+
 
     public Race(String name, String description, LocalDateTime date, String location, double distance, String type, ApplicationPeriod applicationPeriod, Organizer organizer) {
         this.name = name;
@@ -79,7 +95,6 @@ public class Race {
 
     public Race() {
     }
-
     public Long getId() {
         return id;
     }
@@ -120,11 +135,11 @@ public class Race {
         this.location = location;
     }
 
-    public double getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(final double distance) {
+    public void setDistance(final Double distance) {
         this.distance = distance;
     }
 
@@ -136,12 +151,44 @@ public class Race {
         this.type = type;
     }
 
-    public Set<Registration> getRaceRegistrations() {
-        return raceRegistrations;
+    public RegistrationType getRegistrationType() {
+        return registrationType;
     }
 
-    public void setRaceRegistrations(final Set<Registration> raceRegistrations) {
-        this.raceRegistrations = raceRegistrations;
+    public void setRegistrationType(final RegistrationType registrationType) {
+        this.registrationType = registrationType;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(final LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Double getRegistrationCost() {
+        return registrationCost;
+    }
+
+    public void setRegistrationCost(final Double registrationCost) {
+        this.registrationCost = registrationCost;
+    }
+
+    public Integer getAthleteCapacity() {
+        return athleteCapacity;
+    }
+
+    public void setAthleteCapacity(final Integer athleteCapacity) {
+        this.athleteCapacity = athleteCapacity;
+    }
+
+    public Set<Track> getRaceTracks() {
+        return raceTracks;
+    }
+
+    public void setRaceTracks(final Set<Track> raceTracks) {
+        this.raceTracks = raceTracks;
     }
 
     public ApplicationPeriod getApplicationPeriod() {

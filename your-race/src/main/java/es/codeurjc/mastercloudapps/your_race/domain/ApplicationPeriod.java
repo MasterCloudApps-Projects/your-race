@@ -47,7 +47,6 @@ public class ApplicationPeriod {
 
     public ApplicationPeriod() {
     }
-
     public Long getId() {
         return id;
     }

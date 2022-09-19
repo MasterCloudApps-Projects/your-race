@@ -39,16 +39,6 @@ public class Athlete {
     @Column
     private String surname;
 
-    @Column(columnDefinition = "jsonb")
-    @Type(type = "jsonb")
-    private TrackRecord trackRecord;
-
-    @OneToMany(mappedBy = "athleteRegistration")
-    private Set<Registration> athleteRegistrationRegistrations;
-
-    @OneToMany(mappedBy = "applicationAthlete")
-    private Set<Application> applicationAthleteApplications;
-
     public Athlete(String name, String surname) {
         this.name = name;
         this.surname = surname;
@@ -56,6 +46,16 @@ public class Athlete {
 
     public Athlete() {
     }
+
+    @Column(columnDefinition = "jsonb")
+    @Type(type = "jsonb")
+    private TrackRecord trackRecord;
+
+    @OneToMany(mappedBy = "athlete")
+    private Set<Track> athleteTracks;
+
+    @OneToMany(mappedBy = "applicationAthlete")
+    private Set<Application> applicationAthleteApplications;
 
     public Long getId() {
         return id;
@@ -89,13 +89,12 @@ public class Athlete {
         this.trackRecord = trackRecord;
     }
 
-    public Set<Registration> getAthleteRegistrationRegistrations() {
-        return athleteRegistrationRegistrations;
+    public Set<Track> getAthleteTracks() {
+        return athleteTracks;
     }
 
-    public void setAthleteRegistrationRegistrations(
-            final Set<Registration> athleteRegistrationRegistrations) {
-        this.athleteRegistrationRegistrations = athleteRegistrationRegistrations;
+    public void setAthleteTracks(final Set<Track> athleteTracks) {
+        this.athleteTracks = athleteTracks;
     }
 
     public Set<Application> getApplicationAthleteApplications() {

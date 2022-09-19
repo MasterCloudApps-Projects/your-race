@@ -22,10 +22,18 @@ public class RaceDTO {
     @Size(max = 255)
     private String location;
 
-    private double distance;
+    private Double distance;
 
     @Size(max = 255)
     private String type;
+
+    private RegistrationType registrationType;
+
+    private LocalDateTime registrationDate;
+
+    private Double registrationCost;
+
+    private Integer athleteCapacity;
 
     private Long applicationPeriod;
 
@@ -72,11 +80,11 @@ public class RaceDTO {
         this.location = location;
     }
 
-    public double getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(final double distance) {
+    public void setDistance(final Double distance) {
         this.distance = distance;
     }
 
@@ -86,6 +94,38 @@ public class RaceDTO {
 
     public void setType(final String type) {
         this.type = type;
+    }
+
+    public RegistrationType getRegistrationType() {
+        return registrationType;
+    }
+
+    public void setRegistrationType(final RegistrationType registrationType) {
+        this.registrationType = registrationType;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(final LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Double getRegistrationCost() {
+        return registrationCost;
+    }
+
+    public void setRegistrationCost(final Double registrationCost) {
+        this.registrationCost = registrationCost;
+    }
+
+    public Integer getAthleteCapacity() {
+        return athleteCapacity;
+    }
+
+    public void setAthleteCapacity(final Integer athleteCapacity) {
+        this.athleteCapacity = athleteCapacity;
     }
 
     public Long getApplicationPeriod() {

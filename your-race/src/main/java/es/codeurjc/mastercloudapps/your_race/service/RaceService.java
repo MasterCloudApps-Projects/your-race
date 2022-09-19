@@ -68,6 +68,10 @@ public class RaceService {
         raceDTO.setLocation(race.getLocation());
         raceDTO.setDistance(race.getDistance());
         raceDTO.setType(race.getType());
+        raceDTO.setRegistrationType(race.getRegistrationType());
+        raceDTO.setRegistrationDate(race.getRegistrationDate());
+        raceDTO.setRegistrationCost(race.getRegistrationCost());
+        raceDTO.setAthleteCapacity(race.getAthleteCapacity());
         raceDTO.setApplicationPeriod(race.getApplicationPeriod() == null ? null : race.getApplicationPeriod().getId());
         raceDTO.setOrganizer(race.getOrganizer() == null ? null : race.getOrganizer().getId());
         return raceDTO;
@@ -80,6 +84,10 @@ public class RaceService {
         race.setLocation(raceDTO.getLocation());
         race.setDistance(raceDTO.getDistance());
         race.setType(raceDTO.getType());
+        race.setRegistrationType(raceDTO.getRegistrationType());
+        race.setRegistrationDate(raceDTO.getRegistrationDate());
+        race.setRegistrationCost(raceDTO.getRegistrationCost());
+        race.setAthleteCapacity(raceDTO.getAthleteCapacity());
         final ApplicationPeriod applicationPeriod = raceDTO.getApplicationPeriod() == null ? null : applicationPeriodRepository.findById(raceDTO.getApplicationPeriod())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "applicationPeriod not found"));
         race.setApplicationPeriod(applicationPeriod);
