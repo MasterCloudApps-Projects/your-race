@@ -5,7 +5,7 @@ class YourRace
 class Athlete
 class Organizer
 class Race
-class Registration
+class Track
 class Distance
 class Date
 class Location
@@ -18,6 +18,7 @@ class Dorsal
 class ApplicationPeriod
 class TrackRecord
 class Suscription
+class RegistrationInfo
 
 YourRace *--> Athlete
 YourRace *--> Organizer
@@ -28,7 +29,7 @@ Athlete ..> Apply
 Athlete --> Consult
 Athlete *--> TrackRecord
 
-Athlete *--> ApplicationCode
+Apply *--> ApplicationCode
 
 Apply ..> Race
 
@@ -38,18 +39,26 @@ Manage --> Race
 
 
 Race *--> Distance
+Race *--> AthleteCapacity
 Race *--> Date
 Race *--> Location
 Race *--> Score
 Race *--> Type
 Race *--> ApplicationPeriod
+Race *--> RegistrationInfo
 
 
-Registration <-left- Race 
-Registration *--> PaymentInfo
-Registration *--> Dorsal
-Registration *--> RegistrationType
-Registration *--> RegistrationDate
+
+Track -right-> Race 
+Track -right-> Athlete 
+Track *--> RegistrationDate_
+Track *--> Dorsal
+Track *--> PaymentInfo
+Track *--> Score_
+
+RegistrationInfo *--> RegistrationType
+RegistrationInfo *--> RegistrationDate
+RegistrationInfo *--> RegistrationCost
 
 RegistrationType <|-- ByDrawing
 RegistrationType <|-- ByOrder
