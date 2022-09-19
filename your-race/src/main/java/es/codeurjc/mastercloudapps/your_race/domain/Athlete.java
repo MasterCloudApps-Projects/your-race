@@ -39,14 +39,6 @@ public class Athlete {
     @Column
     private String surname;
 
-    public Athlete(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
-
-    public Athlete() {
-    }
-
     @Column(columnDefinition = "jsonb")
     @Type(type = "jsonb")
     private TrackRecord trackRecord;
@@ -57,6 +49,13 @@ public class Athlete {
     @OneToMany(mappedBy = "applicationAthlete")
     private Set<Application> applicationAthleteApplications;
 
+    public Athlete(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Athlete() {
+    }
     public Long getId() {
         return id;
     }
