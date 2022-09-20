@@ -58,16 +58,6 @@ public class Race {
     private String type;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private RegistrationType registrationType;
-
-    @Column
-    private LocalDateTime registrationDate;
-
-    @Column
-    private Double registrationCost;
-
-    @Column
     private Integer athleteCapacity;
 
     @Column(columnDefinition = "jsonb")
@@ -159,30 +149,6 @@ public class Race {
 
     public void setType(final String type) {
         this.type = type;
-    }
-
-    public RegistrationType getRegistrationType() {
-        return registrationType;
-    }
-
-    public void setRegistrationType(final RegistrationType registrationType) {
-        this.registrationType = registrationType;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(final LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public Double getRegistrationCost() {
-        return registrationCost;
-    }
-
-    public void setRegistrationCost(final Double registrationCost) {
-        this.registrationCost = registrationCost;
     }
 
     public Integer getAthleteCapacity() {
