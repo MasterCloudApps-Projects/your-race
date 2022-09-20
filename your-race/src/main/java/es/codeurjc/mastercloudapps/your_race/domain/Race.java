@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
+import es.codeurjc.mastercloudapps.your_race.model.RaceScore;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -66,6 +67,10 @@ public class Race {
 
     @Column
     private Integer athleteCapacity;
+
+    @Column(columnDefinition = "jsonb")
+    @Type(type = "jsonb")
+    private RaceScore raceScore;
 
     @OneToMany(mappedBy = "race")
     private Set<Track> raceTracks;
@@ -192,6 +197,14 @@ public class Race {
 
     public void setRaceTracks(final Set<Track> raceTracks) {
         this.raceTracks = raceTracks;
+    }
+
+    public RaceScore getRaceScore() {
+        return raceScore;
+    }
+
+    public void setRaceScore(final RaceScore raceScore) {
+        this.raceScore = raceScore;
     }
 
     public ApplicationPeriod getApplicationPeriod() {
