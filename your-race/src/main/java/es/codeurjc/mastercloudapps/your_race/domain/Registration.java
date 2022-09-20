@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 
+
+
 @Entity
 public class Registration {
 
@@ -46,6 +48,15 @@ public class Registration {
             fetch = FetchType.LAZY
     )
     private Race raceRegistration;
+
+    public Registration() {
+    }
+
+    public Registration(RegistrationType registrationType, LocalDateTime registrationDate, Double registrationCost) {
+        this.registrationType = registrationType;
+        this.registrationDate = registrationDate;
+        this.registrationCost = registrationCost;
+    }
 
     public Long getId() {
         return id;
