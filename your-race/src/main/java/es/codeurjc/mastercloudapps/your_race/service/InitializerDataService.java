@@ -1,5 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
@@ -48,6 +51,17 @@ public class InitializerDataService {
         Race race2 = getRace2(organizer2);
         Race race3 = getRace3(organizer2);
         Race race4 = getRace4(organizer2);
+
+        race1.setRaceRegistration(new Registration(RegistrationType.BYDRAWING,
+                LocalDateTime.of(2022, Month.OCTOBER,31, 9,0),500.00 ));
+
+        race2.setRaceRegistration(new Registration(RegistrationType.BYORDER,
+                LocalDateTime.of(2023, Month.JANUARY,15, 9,0),150.00 ));
+
+        race3.setRaceRegistration(new Registration(RegistrationType.BYORDER,
+                LocalDateTime.of(2023, Month.JANUARY,16, 9,0),150.00 ));
+        race4.setRaceRegistration(new Registration(RegistrationType.BYORDER,
+                LocalDateTime.of(2023, Month.JANUARY,17, 9,0),150.00 ));
 
         Athlete athlete1 = new Athlete("Antonio", "Delgado");
         Athlete athlete2 = new Athlete("María", "Rodríguez");
