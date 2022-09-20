@@ -81,6 +81,9 @@ public class Race {
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "race_registration_id")
+    private Registration raceRegistration;
 
     public Race(String name, String description, LocalDateTime date, String location, double distance, String type, ApplicationPeriod applicationPeriod, Organizer organizer) {
         this.name = name;
@@ -213,6 +216,14 @@ public class Race {
 
     public void setOrganizer(final Organizer organizer) {
         this.organizer = organizer;
+    }
+
+    public Registration getRaceRegistration() {
+        return raceRegistration;
+    }
+
+    public void setRaceRegistration(final Registration raceRegistration) {
+        this.raceRegistration = raceRegistration;
     }
 
 }
