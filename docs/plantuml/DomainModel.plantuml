@@ -18,7 +18,7 @@ class Dorsal
 class ApplicationPeriod
 class TrackRecord
 class Suscription
-class RegistrationInfo
+class Registration
 
 YourRace *--> Athlete
 YourRace *--> Organizer
@@ -42,23 +42,23 @@ Race *--> Distance
 Race *--> AthleteCapacity
 Race *--> Date
 Race *--> Location
-Race *--> Score
+Race *--> GlobalScore
 Race *--> Type
 Race *--> ApplicationPeriod
-Race *--> RegistrationInfo
+Race *--> Registration
 
 
 
 Track -right-> Race 
 Track -right-> Athlete 
-Track *--> RegistrationDate_
+Track *--> AthleteRegistrationDate
 Track *--> Dorsal
 Track *--> PaymentInfo
-Track *--> Score_
+Track *--> Score
 
-RegistrationInfo *--> RegistrationType
-RegistrationInfo *--> RegistrationDate
-RegistrationInfo *--> RegistrationCost
+Registration *--> RegistrationType
+Registration *--> RegistrationDate
+Registration *--> RegistrationCost
 
 RegistrationType <|-- ByDrawing
 RegistrationType <|-- ByOrder
