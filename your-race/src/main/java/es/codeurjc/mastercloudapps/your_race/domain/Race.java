@@ -2,6 +2,8 @@ package es.codeurjc.mastercloudapps.your_race.domain;
 
 import es.codeurjc.mastercloudapps.your_race.model.RaceScore;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
+import org.hibernate.annotations.Type;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Column;
