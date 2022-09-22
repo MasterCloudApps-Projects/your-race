@@ -6,7 +6,7 @@ services:
   mydb:                                 # Creamos el servicios mydb para identificar la imagen
     image: postgres:14.5                # Usamos la imagen postgresql en la versión 12
     volumes:
-      - postgresdb:/var/lib/postgresql  # Crearemos un volumen para almacenar los datos de la db
+      - ${PWD}/postgresdb:/var/lib/postgresql  # Crearemos un volumen para almacenar los datos de la db
     ports:                               
       - "5555:5432"                     # Habilitamos el puerto 5432 para acceder a la db
     environment:                        # Creamos las variables del usuario contraseña y base de datos 
