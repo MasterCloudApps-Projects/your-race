@@ -42,7 +42,6 @@ Race *--> Distance
 Race *--> AthleteCapacity
 Race *--> Date
 Race *--> Location
-Race *--> GlobalScore
 Race *--> Type
 Race *--> ApplicationPeriod
 Race *--> Registration
@@ -65,6 +64,7 @@ RegistrationType <|-- ByOrder
 
 
 Organizer --> Suscription
+Suscription *--> ConcurrentRequestsThreshold
 
 
 @enduml
