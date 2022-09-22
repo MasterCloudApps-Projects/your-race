@@ -58,13 +58,14 @@ Track *--> Score
 Registration *--> RegistrationType
 Registration *--> RegistrationDate
 Registration *--> RegistrationCost
+Registration *--> ConcurrentRequestsThreshold
 
 RegistrationType <|-- ByDrawing
 RegistrationType <|-- ByOrder
 
 
 Organizer --> Suscription
-Suscription *--> ConcurrentRequestsThreshold
+
 
 
 @enduml
