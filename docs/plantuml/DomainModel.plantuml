@@ -58,7 +58,7 @@ Track *--> Score
 Registration *--> RegistrationType
 Registration *--> RegistrationDate
 Registration *--> RegistrationCost
-Registration *--> ConcurrentRequestsThreshold
+Registration *--> ConcurrentRequestThreshold
 
 RegistrationType <|-- ByDrawing
 RegistrationType <|-- ByOrder
