@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+
+import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -19,6 +21,12 @@ import org.hibernate.annotations.TypeDefs;
 
 @Entity
 @TypeDefs(@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class Track {
 
     @Id
@@ -58,69 +66,5 @@ public class Track {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "athlete_id")
     private Athlete athlete;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(final LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    public Score getScore() {
-        return score;
-    }
-
-    public void setScore(final Score score) {
-        this.score = score;
-    }
-
-    public Integer getDorsal() {
-        return dorsal;
-    }
-
-    public void setDorsal(final Integer dorsal) {
-        this.dorsal = dorsal;
-    }
-
-    public String getPaymentInfo() {
-        return paymentInfo;
-    }
-
-    public void setPaymentInfo(final String paymentInfo) {
-        this.paymentInfo = paymentInfo;
-    }
-
-    public Race getRace() {
-        return race;
-    }
-
-    public void setRace(final Race race) {
-        this.race = race;
-    }
-
-    public Athlete getAthlete() {
-        return athlete;
-    }
-
-    public void setAthlete(final Athlete athlete) {
-        this.athlete = athlete;
-    }
 
 }

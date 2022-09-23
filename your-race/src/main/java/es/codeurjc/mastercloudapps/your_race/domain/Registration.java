@@ -13,10 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-
+import lombok.*;
 
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class Registration {
 
     @Id
@@ -43,59 +49,7 @@ public class Registration {
     @Column
     private Double registrationCost;
 
-    @OneToOne(
-            mappedBy = "raceRegistration",
-            fetch = FetchType.LAZY
-    )
-    private Race raceRegistration;
-
-    public Registration() {
-    }
-
-    public Registration(RegistrationType registrationType, LocalDateTime registrationDate, Double registrationCost) {
-        this.registrationType = registrationType;
-        this.registrationDate = registrationDate;
-        this.registrationCost = registrationCost;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public RegistrationType getRegistrationType() {
-        return registrationType;
-    }
-
-    public void setRegistrationType(final RegistrationType registrationType) {
-        this.registrationType = registrationType;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(final LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public Double getRegistrationCost() {
-        return registrationCost;
-    }
-
-    public void setRegistrationCost(final Double registrationCost) {
-        this.registrationCost = registrationCost;
-    }
-
-    public Race getRaceRegistration() {
-        return raceRegistration;
-    }
-
-    public void setRaceRegistration(final Race raceRegistration) {
-        this.raceRegistration = raceRegistration;
-    }
+    @Column
+    private Integer concurrentRequestThreshold;
 
 }

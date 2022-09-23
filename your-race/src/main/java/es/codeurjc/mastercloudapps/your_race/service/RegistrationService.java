@@ -56,6 +56,7 @@ public class RegistrationService {
         registrationDTO.setRegistrationType(registration.getRegistrationType());
         registrationDTO.setRegistrationDate(registration.getRegistrationDate());
         registrationDTO.setRegistrationCost(registration.getRegistrationCost());
+        registrationDTO.setConcurrentRequestThreshold(registration.getConcurrentRequestThreshold());
         return registrationDTO;
     }
 
@@ -64,6 +65,7 @@ public class RegistrationService {
         registration.setRegistrationType(registrationDTO.getRegistrationType());
         registration.setRegistrationDate(registrationDTO.getRegistrationDate());
         registration.setRegistrationCost(registrationDTO.getRegistrationCost());
+        registration.setConcurrentRequestThreshold(registrationDTO.getConcurrentRequestThreshold());
         return registration;
     }
 

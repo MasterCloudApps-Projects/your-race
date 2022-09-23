@@ -10,8 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import lombok.*;
+
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class ApplicationPeriod {
 
     @Id
@@ -39,44 +47,5 @@ public class ApplicationPeriod {
             fetch = FetchType.LAZY
     )
     private Race applicationPeriod;
-
-    public ApplicationPeriod(LocalDateTime initialDate, LocalDateTime lastDate) {
-        this.initialDate = initialDate;
-        this.lastDate = lastDate;
-    }
-
-    public ApplicationPeriod() {
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getInitialDate() {
-        return initialDate;
-    }
-
-    public void setInitialDate(final LocalDateTime initialDate) {
-        this.initialDate = initialDate;
-    }
-
-    public LocalDateTime getLastDate() {
-        return lastDate;
-    }
-
-    public void setLastDate(final LocalDateTime lastDate) {
-        this.lastDate = lastDate;
-    }
-
-    public Race getApplicationPeriod() {
-        return applicationPeriod;
-    }
-
-    public void setApplicationPeriod(final Race applicationPeriod) {
-        this.applicationPeriod = applicationPeriod;
-    }
 
 }
