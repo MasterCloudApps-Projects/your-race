@@ -39,7 +39,7 @@ public class RaceService {
         return raceRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(race -> mapToDTO(race, new RaceDTO()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public RaceDTO get(final Long id) {

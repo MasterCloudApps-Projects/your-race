@@ -46,6 +46,6 @@ public class ApplicationPeriod {
             mappedBy = "applicationPeriod",
             fetch = FetchType.LAZY
     )
-    private Race applicationPeriod;
+    private Race race;
 
 }

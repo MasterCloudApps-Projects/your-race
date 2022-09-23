@@ -24,7 +24,7 @@ public class AthleteService {
         return athleteRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(athlete -> mapToDTO(athlete, new AthleteDTO()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public AthleteDTO get(final Long id) {

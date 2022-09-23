@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AthleteResourceTest {
+class AthleteResourceTest {
 
     @Autowired
     private MockMvc mvc;
@@ -33,7 +33,7 @@ public class AthleteResourceTest {
     private AthleteService athleteService;
 
     @Test
-    public void getAthletesTest() throws Exception {
+    void getAthletesTest() throws Exception {
 
         List<AthleteDTO> athletes = Arrays.asList(AthleteDTO.builder().name("Pepe").build(),AthleteDTO.builder().name("Manolo").build());
 

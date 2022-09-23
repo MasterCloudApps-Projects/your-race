@@ -24,7 +24,7 @@ public class RegistrationService {
         return registrationRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(registration -> mapToDTO(registration, new RegistrationDTO()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public RegistrationDTO get(final Long id) {

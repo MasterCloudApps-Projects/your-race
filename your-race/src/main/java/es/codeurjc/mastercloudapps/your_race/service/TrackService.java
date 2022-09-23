@@ -33,7 +33,7 @@ public class TrackService {
         return trackRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(track -> mapToDTO(track, new TrackDTO()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public TrackDTO get(final Long id) {

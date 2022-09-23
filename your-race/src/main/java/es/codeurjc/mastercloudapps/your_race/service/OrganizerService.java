@@ -24,7 +24,7 @@ public class OrganizerService {
         return organizerRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(organizer -> mapToDTO(organizer, new OrganizerDTO()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public OrganizerDTO get(final Long id) {
