@@ -53,15 +53,11 @@ public class OrganizerService {
     private OrganizerDTO mapToDTO(final Organizer organizer, final OrganizerDTO organizerDTO) {
         organizerDTO.setId(organizer.getId());
         organizerDTO.setName(organizer.getName());
-        organizerDTO.setSuscription(organizer.getSuscription());
-        organizerDTO.setSuscriptionStatus(organizer.getSuscriptionStatus());
         return organizerDTO;
     }
 
     private Organizer mapToEntity(final OrganizerDTO organizerDTO, final Organizer organizer) {
         organizer.setName(organizerDTO.getName());
-        organizer.setSuscription(organizerDTO.getSuscription());
-        organizer.setSuscriptionStatus(organizerDTO.getSuscriptionStatus());
         return organizer;
     }
 
