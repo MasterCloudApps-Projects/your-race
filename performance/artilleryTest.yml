@@ -1,0 +1,47 @@
+config:
+  target: "http://localhost:8080"
+#  payload:
+#      # path relativo a la localización del script de test
+#      path: "users.csv"
+#      fields:
+#        - "username"
+#        - "password"
+  phases:
+    - duration: 10
+      arrivalRate: 5000
+#  environments:
+#    production:
+#      target: "http://wontresolve.prod:44321"
+#      phases:
+#        - duration: 120
+#          arrivalRate: 10
+#    staging:
+#      target: "http://127.0.0.1:3003"
+#      phases:
+#        - duration: 1200
+#          arrivalRate: 20
+#          rampTo: 50
+scenarios:
+  - flow:
+      - get:
+          url: "/api/athletes"
+#        - log: "Realizamos el login"
+#        - post:
+#            url: "/auth"
+#            json:
+#              username: "{{ username }}"
+#              password: "{{ password }}"
+#        - post:
+#            url: "/search"
+#            body: "kw={{ keywords }}"
+#            capture:
+#              json: "$.results[0].id"
+#              as: "id"
+#        - get:
+#            url: "/details/{{ id }}"
+#            headers:
+#              X-My-Header: "123"
+#        - post:
+#            url: "/cart"
+#            json:
+#              productId: "{{ id }}"
