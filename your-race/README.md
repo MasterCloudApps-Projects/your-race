@@ -8,6 +8,8 @@ During development it is recommended to use the profile `local`. In IntelliJ, `-
 
 Update your local database connection in `application.properties` or create your own `application-local.properties` file to override settings for development.
 
+Lombok must be supported by your IDE. For this, in IntelliJ install the Lombok plugin and enable annotation processing - [learn more](https://bootify.io/intellij/spring-boot-with-lombok.html).
+
 After starting the application it is accessible under `localhost:8080`.
 
 ## Build
@@ -29,5 +31,3 @@ java -Dspring.profiles.active=production -jar ./target/your-race-0.0.1-SNAPSHOT.
 * [Maven docs](https://maven.apache.org/guides/index.html)  
 * [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
 * [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)  
-
-prueba cambio usuario

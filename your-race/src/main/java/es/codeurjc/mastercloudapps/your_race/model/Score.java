@@ -4,7 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 import javax.validation.constraints.Digits;
 
+import lombok.*;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class Score {
 
     @Digits(integer = 10, fraction = 2)
@@ -12,21 +20,5 @@ public class Score {
     private BigDecimal time;
 
     private Integer position;
-
-    public BigDecimal getTime() {
-        return time;
-    }
-
-    public void setTime(final BigDecimal time) {
-        this.time = time;
-    }
-
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(final Integer position) {
-        this.position = position;
-    }
 
 }

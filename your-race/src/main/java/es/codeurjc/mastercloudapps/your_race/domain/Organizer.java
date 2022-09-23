@@ -9,8 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import lombok.*;
+
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class Organizer {
 
     @Id
@@ -30,63 +38,7 @@ public class Organizer {
     @Column
     private String name;
 
-    @Column
-    private String suscription;
-
-    @Column
-    private String suscriptionStatus;
-
     @OneToMany(mappedBy = "organizer")
     private Set<Race> organizerRaces;
-
-    public Organizer(String name, String suscription, String suscriptionStatus) {
-        this.name = name;
-        this.suscription = suscription;
-        this.suscriptionStatus = suscriptionStatus;
-    }
-
-    public Organizer() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public String getSuscription() {
-        return suscription;
-    }
-
-    public void setSuscription(final String suscription) {
-        this.suscription = suscription;
-    }
-
-    public String getSuscriptionStatus() {
-        return suscriptionStatus;
-    }
-
-    public void setSuscriptionStatus(final String suscriptionStatus) {
-        this.suscriptionStatus = suscriptionStatus;
-    }
-
-    public Set<Race> getOrganizerRaces() {
-        return organizerRaces;
-    }
-
-    public void setOrganizerRaces(final Set<Race> organizerRaces) {
-        this.organizerRaces = organizerRaces;
-    }
 
 }

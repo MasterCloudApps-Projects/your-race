@@ -10,8 +10,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import lombok.*;
+
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class Application {
 
     @Id
@@ -38,37 +46,5 @@ public class Application {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_athlete_id")
     private Athlete applicationAthlete;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getApplicationCode() {
-        return applicationCode;
-    }
-
-    public void setApplicationCode(final String applicationCode) {
-        this.applicationCode = applicationCode;
-    }
-
-    public Race getApplicationRace() {
-        return applicationRace;
-    }
-
-    public void setApplicationRace(final Race applicationRace) {
-        this.applicationRace = applicationRace;
-    }
-
-    public Athlete getApplicationAthlete() {
-        return applicationAthlete;
-    }
-
-    public void setApplicationAthlete(final Athlete applicationAthlete) {
-        this.applicationAthlete = applicationAthlete;
-    }
 
 }

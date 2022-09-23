@@ -1,29 +1,33 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import es.codeurjc.mastercloudapps.your_race.model.Score;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 
 @Entity
+@TypeDefs(@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class))
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class Registration {
+public class Track {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -40,16 +44,27 @@ public class Registration {
     private Long id;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private RegistrationType registrationType;
-
-    @Column
     private LocalDateTime registrationDate;
 
     @Column
-    private Double registrationCost;
+    private String status;
+
+    @Column(columnDefinition = "jsonb")
+    @Type(type = "jsonb")
+    private Score score;
 
     @Column
-    private Integer concurrentRequestThreshold;
+    private Integer dorsal;
+
+    @Column
+    private String paymentInfo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "race_id")
+    private Race race;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "athlete_id")
+    private Athlete athlete;
 
 }
