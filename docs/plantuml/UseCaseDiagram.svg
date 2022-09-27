@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="352px" preserveAspectRatio="none" style="width:1274px;height:352px;background:#FFFFFF;" version="1.1" viewBox="0 0 1274 352" width="1274px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="26.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="153" x="553.75" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="143" x="558.75" y="22.9951">Use Case Diagram</text><!--MD5=[585b962675771cf7d6aded088b9190a1]
+entity Organizer--><g id="elem_Organizer"><ellipse cx="360" cy="51.2969" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M360,59.2969 L360,86.2969 M347,67.2969 L373,67.2969 M360,86.2969 L347,101.2969 M360,86.2969 L373,101.2969 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="326.5" y="115.792">Organizer</text></g><!--MD5=[6ca023b457232f961332e1f78469143f]
+entity Athlete--><g id="elem_Athlete"><ellipse cx="1022" cy="51.2969" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M1022,59.2969 L1022,86.2969 M1009,67.2969 L1035,67.2969 M1022,86.2969 L1009,101.2969 M1022,86.2969 L1035,101.2969 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="997.5" y="115.792">Athlete</text></g><g id="elem_Manage Race Results"><ellipse cx="161.1693" cy="200.9307" fill="#F1F1F1" rx="93.6693" ry="21.1339" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="150" x="86.1693" y="203.7774">Manage Race Results</text></g><g id="elem_Manage Race"><ellipse cx="359.9333" cy="200.7835" fill="#F1F1F1" rx="70.4333" ry="16.4867" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="309.9333" y="204.5311">Manage Race</text></g><g id="elem_Manage Application Period"><ellipse cx="114.209" cy="322.8387" fill="#F1F1F1" rx="108.209" ry="24.0418" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="23.209" y="325.6853">Manage Application Period</text></g><g id="elem_Manage Registration Info"><ellipse cx="360.1608" cy="322.829" fill="#F1F1F1" rx="103.1608" ry="23.0322" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171" x="274.6608" y="325.6757">Manage Registration Info</text></g><g id="elem_Athlete Registration"><ellipse cx="564.9744" cy="200.6918" fill="#F1F1F1" rx="87.4744" ry="19.8949" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="496.9744" y="203.5384">Athlete Registration</text></g><g id="elem_GMN9"><path d="M498.5,310.2969 L498.5,335.4297 A0,0 0 0 0 498.5,335.4297 L657.5,335.4297 A0,0 0 0 0 657.5,335.4297 L657.5,320.2969 L647.5,310.2969 L580.74,310.2969 L567.06,220.8069 L572.74,310.2969 L498.5,310.2969 A0,0 0 0 0 498.5,310.2969 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M647.5,310.2969 L647.5,320.2969 L657.5,320.2969 L647.5,310.2969 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="138" x="504.5" y="327.3638">"ByDraw Registration"</text></g><g id="elem_Get Race Track"><ellipse cx="762.9948" cy="200.6958" fill="#F1F1F1" rx="74.9948" ry="17.399" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="706.9948" y="204.4434">Get Race Track</text></g><g id="elem_Get Races"><ellipse cx="935.2349" cy="200.7438" fill="#F1F1F1" rx="62.7349" ry="14.947" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="896.2349" y="204.4914">Get Races</text></g><g id="elem_Race Application"><ellipse cx="969.1551" cy="322.8279" fill="#F1F1F1" rx="78.1551" ry="18.031" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="909.7659" y="326.4134">Race Application</text></g><g id="elem_Race Registration"><ellipse cx="1185.9455" cy="200.986" fill="#F1F1F1" rx="81.4455" ry="18.6891" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="1123.8109" y="204.2058">Race Registration</text></g><g id="elem_GMN16"><path d="M1104.5,310.2969 L1104.5,335.4297 A0,0 0 0 0 1104.5,335.4297 L1267.5,335.4297 A0,0 0 0 0 1267.5,335.4297 L1267.5,320.2969 L1257.5,310.2969 L1190,310.2969 L1186,219.5069 L1182,310.2969 L1104.5,310.2969 A0,0 0 0 0 1104.5,310.2969 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M1257.5,310.2969 L1257.5,320.2969 L1267.5,320.2969 L1257.5,310.2969 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="142" x="1110.5" y="327.3638">"ByOrder Registration"</text></g><!--MD5=[4edb10ec3b5ca01269b32711ad139204]
+link Organizer to Manage Race--><g id="link_Organizer_Manage Race"><path d="M360,118.8069 C360,138.6069 360,162.2569 360,178.8669 " fill="none" id="Organizer-to-Manage Race" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="360,184.2169,364,175.2169,360,179.2169,356,175.2169,360,184.2169" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[18c1f0965d899f78688f763a69536ad6]
+link Manage Race to Manage Application Period--><g id="link_Manage Race_Manage Application Period"><path d="M330.81,216.0369 C289.14,236.3669 212.09,273.9469 161.96,298.3969 " fill="none" id="Manage Race-to-Manage Application Period" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="157.2,300.7269,167.0423,300.3675,161.6919,298.5308,163.5286,293.1804,157.2,300.7269" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="253" y="264.8638">«include»</text></g><!--MD5=[0ada568b92ed175d42e6b221196c328b]
+link Manage Race to Manage Registration Info--><g id="link_Manage Race_Manage Registration Info"><path d="M360,217.4869 C360,236.9769 360,270.5669 360,294.3569 " fill="none" id="Manage Race-to-Manage Registration Info" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="360,299.5769,364,290.5769,360,294.5769,356,290.5769,360,299.5769" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="361" y="264.8638">«include»</text></g><!--MD5=[8f65c91c6c45ad285a6b73fe82848afc]
+link Organizer to Athlete Registration--><g id="link_Organizer_Athlete Registration"><path d="M393.85,101.2869 C431.33,122.8569 491.48,157.4769 529.58,179.4069 " fill="none" id="Organizer-to-Athlete Registration" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="534.12,182.0169,528.3157,174.0601,529.7867,179.5224,524.3245,180.9934,534.12,182.0169" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f7e1436f850b8b02c831052960c571eb]
+link Organizer to Manage Race Results--><g id="link_Organizer_Manage Race Results"><path d="M326.24,101.8169 C290.44,123.0469 234.08,156.4669 197.33,178.2569 " fill="none" id="Organizer-to-Manage Race Results" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="192.95,180.8569,202.73,179.6947,197.2475,178.3012,198.641,172.8187,192.95,180.8569" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c342608f2fec09be42f233c1e09f1656]
+link Athlete to Get Races--><g id="link_Athlete_Get Races"><path d="M997.3,115.2969 C981.46,136.7769 961.51,163.8469 948.51,181.4769 " fill="none" id="Athlete-to-Get Races" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="945.36,185.7469,953.9214,180.8783,948.3279,181.723,947.4832,176.1296,945.36,185.7469" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b0e4531e04d9139faae60c1d343ac546]
+link Athlete to Race Application--><g id="link_Athlete_Race Application"><path d="M1032.8,119.1469 C1042.03,158.2969 1050.7,220.6669 1029,268.7969 C1022.89,282.3369 1011.43,293.8069 1000.14,302.5769 " fill="none" id="Athlete-to-Race Application" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="996,305.6869,1005.6,303.4869,1000,302.6869,1000.8,297.0869,996,305.6869" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0e11e9fa81ab94a60cfef9dda2288332]
+link Athlete to Race Registration--><g id="link_Athlete_Race Registration"><path d="M1046.55,99.4669 C1076.57,121.0569 1127.22,157.5069 1158.52,180.0169 " fill="none" id="Athlete-to-Race Registration" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1162.61,182.9669,1157.6339,174.4675,1158.5491,180.0499,1152.9667,180.965,1162.61,182.9669" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[735fa85bf3fc4e98fd1997182b11c993]
+link Athlete to Get Race Track--><g id="link_Athlete_Get Race Track"><path d="M997.17,93.1069 C951.57,113.8869 854.26,158.2169 800.55,182.6869 " fill="none" id="Athlete-to-Get Race Track" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="795.81,184.8469,805.6584,184.7525,800.3594,182.7725,802.3394,177.4734,795.81,184.8469" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[40a7e1e310e87d0fc9c9a96881fb0cae]
+link Get Races to Race Application--><g id="link_Get Races_Race Application"><path d="M939.03,216.0369 C944.88,236.6669 955.76,275.0769 962.68,299.4969 " fill="none" id="Get Races-to-Race Application" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="964.09,304.4769,965.4905,294.7281,962.7296,299.6655,957.7922,296.9047,964.09,304.4769" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="67" x="955" y="264.8638">«extends»</text></g><!--MD5=[ed2613ccda5aadee7948a7272ecd207f]
+@startuml
+title Use Case Diagram
+
+
+actor Organizer
+actor Athlete
+
+usecase (Manage Race Results)
+usecase (Manage Race)
+usecase (Manage Application Period)
+usecase (Manage Registration Info)
+
+usecase (Athlete Registration)
+note bottom of (Athlete Registration) : "ByDraw Registration"
+
+usecase (Get Race Track)
+usecase (Get Races)
+usecase (Race Application)
+usecase (Race Registration)
+note bottom of (Race Registration) : "ByOrder Registration"
+
+
+Organizer - -> (Manage Race)
+(Manage Race) ..> (Manage Application Period) :<<include>>
+(Manage Race) ..> (Manage Registration Info) :<<include>>
+
+Organizer - -> (Athlete Registration)
+
+
+Organizer - -> (Manage Race Results)
+
+Athlete ..> (Get Races)
+Athlete - -> (Race Application)
+Athlete - -> (Race Registration)
+Athlete ..> (Get Race Track)
+
+(Get Races) ..> (Race Application) :<<extends>>
+
+
+
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

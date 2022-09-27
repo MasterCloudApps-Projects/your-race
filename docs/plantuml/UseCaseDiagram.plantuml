@@ -1,0 +1,42 @@
+@startuml
+title Use Case Diagram
+
+
+actor Organizer
+actor Athlete
+
+usecase (Manage Race Results)
+usecase (Manage Race)
+usecase (Manage Application Period)
+usecase (Manage Registration Info)
+
+usecase (Athlete Registration)
+note bottom of (Athlete Registration) : "ByDraw Registration"
+
+usecase (Get Race Track)
+usecase (Get Races)
+usecase (Race Application)
+usecase (Race Registration)
+note bottom of (Race Registration) : "ByOrder Registration"
+
+
+Organizer --> (Manage Race)
+(Manage Race) ..> (Manage Application Period) :<<include>>
+(Manage Race) ..> (Manage Registration Info) :<<include>>
+
+Organizer --> (Athlete Registration)
+
+
+Organizer --> (Manage Race Results)
+
+Athlete ..> (Get Races)
+Athlete --> (Race Application)
+Athlete --> (Race Registration)
+Athlete ..> (Get Race Track)
+
+(Get Races) ..> (Race Application) :<<extends>>
+
+
+
+
+@enduml
