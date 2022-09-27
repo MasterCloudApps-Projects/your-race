@@ -36,6 +36,15 @@ services:
       - grafana-data:/var/lib/grafana
     ports:
       - "3000:3000"
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter
+    ports:
+      - 9187:9187
+    environment:
+      DATA_SOURCE_NAME: "postgresql://admin:admin@pgdb:5432/racedb?sslmode=disable"
+    links:
+      - pgdb
+      - prometheus
 
 volumes:
   grafana-data:                         # Creamos y asignamos el volumen de docker

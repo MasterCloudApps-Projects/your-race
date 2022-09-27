@@ -9,7 +9,18 @@ Your Race is a scalable platform for managing entry assignment in highly demande
 
 
 
+### Artillery
 
+```sh
+cd performance
+artillery run artilleryTest.yml
+```
+
+### Prometheus
+
+### Grafana
+
+Importar Dashboard 9628 para Postgres
 
 
 

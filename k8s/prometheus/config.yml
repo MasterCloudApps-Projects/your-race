@@ -24,3 +24,7 @@ scrape_configs:
     #localhost sino se usa DOCKER
     static_configs:
       - targets: ['your-race:8080']
+
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: [ "postgres-exporter:9187" ]
