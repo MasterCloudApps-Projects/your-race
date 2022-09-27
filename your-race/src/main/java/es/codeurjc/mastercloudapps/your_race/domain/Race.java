@@ -70,8 +70,8 @@ public class Race {
     private Registration raceRegistration;
 
     public Race(String name,String location){
-        this.name="";
-        this.location="";
+        this.name=name;
+        this.location=location;
     }
 
 
