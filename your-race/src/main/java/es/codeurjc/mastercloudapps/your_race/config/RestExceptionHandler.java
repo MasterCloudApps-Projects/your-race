@@ -50,7 +50,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ErrorResponse> handleThrowable(final Throwable exception) {
-        exception.printStackTrace();
+        //exception.printStackTrace();
         final ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         errorResponse.setException(exception.getClass().getSimpleName());

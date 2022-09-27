@@ -14,8 +14,8 @@ class AthleteRepositoryTest extends AbstractDatabaseTest {
     private AthleteRepository athleteRepository;
 
     @Test
-    public void test() throws InterruptedException {
+    void test() throws InterruptedException {
         List<Athlete> athletas = athleteRepository.findAll();
-        assertEquals(athletas.size(), 3);
+        assertEquals(3, athletas.size());
     }
 }
