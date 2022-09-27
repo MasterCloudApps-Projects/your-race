@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.service.AthleteService;
 import org.junit.jupiter.api.Test;
@@ -17,14 +18,13 @@ import java.util.Arrays;
 import java.util.List;
 
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AthleteResourceTest {
+class AthleteResourceTest extends AbstractDatabaseTest {
 
     @Autowired
     private MockMvc mvc;
