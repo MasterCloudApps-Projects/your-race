@@ -3,17 +3,41 @@ version: '3'
 
 # Creamos los servicios
 services:
-  mydb:                                 # Creamos el servicios mydb para identificar la imagen
-    image: postgres:14.5                # Usamos la imagen postgresql en la versión 12
+  pgdb:                                 # Creamos el servicios pgdb para identificar la imagen
+    image: postgres:14.5                # Usamos la imagen postgresql en la versión 14.5
     volumes:
       - ${PWD}/postgresdb:/var/lib/postgresql  # Crearemos un volumen para almacenar los datos de la db
     ports:                               
-      - "5555:5432"                     # Habilitamos el puerto 5432 para acceder a la db
+      - "5555:5432"                     # Habilitamos el puerto 5555 para acceder a la db
     environment:                        # Creamos las variables del usuario contraseña y base de datos 
       POSTGRES_USER: admin              #   que se crea cuando inicia docker
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: racedb
+  your-race:
+    image: rafarex70/your-race
+    ports:
+      - "8080:8080"
+    environment:
+      JDBC_DATABASE_URL: jdbc:postgresql://pgdb:5432/racedb
+      JDBC_DATABASE_USERNAME: admin
+      JDBC_DATABASE_PASSWORD: admin
+    depends_on:
+      - pgdb
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ${PWD}/prometheus/config.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - $PWD/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
 
-volumes:                                # Creamos y asignamos el volumen de docker
+volumes:
+  grafana-data:                         # Creamos y asignamos el volumen de docker
   postgresdb:
     driver: local
