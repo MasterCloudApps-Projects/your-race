@@ -69,4 +69,10 @@ public class Race {
     @JoinColumn(name = "race_registration_id")
     private Registration raceRegistration;
 
+    public Race(String name,String location){
+        this.name="";
+        this.location="";
+    }
+
+
 }
