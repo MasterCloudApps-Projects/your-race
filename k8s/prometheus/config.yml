@@ -1,0 +1,30 @@
+global:
+  scrape_interval:     15s # El intervalo en el que se traerá las métricas
+  evaluation_interval: 15s # Evaluará las reglas cada 15 segundos, por defecto es cada minuto
+# Se cargarán las reglas una vez y cada tiempo establecido en evaluation-interval serán analizadas
+rule_files:
+# - "rule_A.yml"
+# - "rule_B.yml"
+# Una configuración para poder capturar(scrape) las métricas tiene un endpoint:
+scrape_configs:
+  # El nombre del job se añade como como una etiqueta.
+  - job_name: 'prometheus'
+    # Sobreescribimos el scrape global por defecto cada 5 segundos.
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['127.0.0.1:9090']
+      # Detalles para conectar Prometheus con Spring Boot Actuator y poder capturar las métricas
+
+  - job_name: 'spring-actuator'
+    # Endpoint de actuator.
+    metrics_path: '/actuator/prometheus'
+    #Con que frecuencia se hará scrape
+    scrape_interval: 5s
+    #el endpoint final, en nuestro caso usamos docker, pero sino usas docker será localhost por ejemplo, o el HOST en el que lo tengas configurado
+    #localhost sino se usa DOCKER
+    static_configs:
+      - targets: ['your-race:8080']
+
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: [ "postgres-exporter:9187" ]
