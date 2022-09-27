@@ -36,14 +36,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -f your-race/ -Dsonar.projectKey=es.codeurjc.mastercloudapps:your-race
-
-#  test_main:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v3
-#        with:
-#          distribution: 'adopt'
-#          java-version: '17'
-#      - run: mvn test -f your-race/ -Dtest=es.codeurjc.mastercloudapps.your_race.**
