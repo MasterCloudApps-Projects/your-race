@@ -31,21 +31,31 @@ class RaceTest extends AbstractDatabaseTest {
 
     @Test
     @DisplayName("A race has at least the following data: name, description, date, location, distance, type, athleteCapacity, ApplicationPeriod, Registration")
-    void checkRaceData()
+    void checkRaceHasData()
     {
         String name = "Test Race";
         String description = "A Test Race for testing";
         LocalDateTime date = LocalDateTime.of(2023, Month.MAY,13, 10,0);
         String location = "Santiago de Compostela";
-        double distance = 21.0975;
+        Double distance = 21.0975;
         String type = "Test";
-        int athleteCapacity = 10000;
+        Integer athleteCapacity = 10000;
 
         ApplicationPeriod applicationPeriod = new ApplicationPeriod();
         Registration registration = new Registration( );
 
 
-        Race race = new Race();
+        Race race = Race.builder()
+                .name(name)
+                .description(description)
+                .date(date)
+                .location(location)
+                .distance(distance)
+                .type(type)
+                .athleteCapacity(athleteCapacity)
+                .applicationPeriod(applicationPeriod)
+                .raceRegistration(registration)
+                .build();
 
         Assertions.assertSame(race.getName(), name);
         Assertions.assertSame(race.getDescription(), description);
