@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-public class RaceTest {
+class RaceTest {
 
     @Test
     @DisplayName("Can create Race with name and location")
