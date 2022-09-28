@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.unit;
 
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-class RaceTest {
+class RaceTest extends AbstractDatabaseTest {
 
     @Test
     @DisplayName("Can create Race with name and location")
