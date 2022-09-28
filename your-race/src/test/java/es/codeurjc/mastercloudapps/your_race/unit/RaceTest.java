@@ -40,9 +40,22 @@ class RaceTest extends AbstractDatabaseTest {
         Double distance = 21.0975;
         String type = "Test";
         Integer athleteCapacity = 10000;
+        LocalDateTime initialDay = LocalDateTime.of(2023, Month.JANUARY,1, 10,0);
+        LocalDateTime lastDay = LocalDateTime.of(2023, Month.MARCH,1, 23,59);
 
-        ApplicationPeriod applicationPeriod = new ApplicationPeriod();
-        Registration registration = new Registration( );
+        RegistrationType registrationType = RegistrationType.BYORDER;
+        LocalDateTime registrationDate = LocalDateTime.of(2023, Month.MARCH,15, 10,0);
+        Double registrationCost = 50.00;
+
+        ApplicationPeriod applicationPeriod = ApplicationPeriod.builder()
+                .initialDate(initialDay)
+                .lastDate(lastDay)
+                .build();
+        Registration registration = Registration.builder()
+                .registrationType(registrationType)
+                .registrationDate(registrationDate)
+                .registrationCost(registrationCost)
+                .build();
 
 
         Race race = Race.builder()
