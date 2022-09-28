@@ -4,7 +4,7 @@ This app was created with Bootify.io - more documentation [can be found here](ht
 
 ## Development
 
-During development it is recommended to use the profile `local`. In IntelliJ, `-Dspring.profiles.active=local` can be added in the VM options of the Run Configuration after enabling this property in "Modify options".
+During development, it is recommended to use the profile `local`. In IntelliJ, `-Dspring.profiles.active=local` can be added in the VM options of the Run Configuration after enabling this property in "Modify options".
 
 Update your local database connection in `application.properties` or create your own `application-local.properties` file to override settings for development.
 
