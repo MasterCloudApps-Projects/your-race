@@ -17,4 +17,15 @@ public class RaceTest {
         Assertions.assertFalse(race.getName().isEmpty());
         Assertions.assertFalse(race.getLocation().isEmpty());
     }
+
+    @Test
+    @DisplayName("Race and location are properly saved when new Race is created with name and location")
+    void checkProperlySavedWhenCreatedWithNameAndLocation(){
+        String name = "Test Race";
+        String location = "Santiago de Compostela";
+        Race race = new Race(name,location);
+        Assertions.assertSame(race.getName(), name);
+        Assertions.assertSame(race.getLocation(),location);
+
+    }
 }
