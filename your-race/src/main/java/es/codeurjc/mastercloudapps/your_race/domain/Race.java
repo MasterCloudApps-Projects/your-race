@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -71,6 +72,10 @@ public class Race {
 
 
     public boolean isValid() {
-        return false;
+
+        if(Optional.ofNullable(this.name).isEmpty())
+            return false;
+
+        return true;
     }
 }
