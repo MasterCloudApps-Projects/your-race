@@ -89,6 +89,7 @@ class RaceTest extends AbstractDatabaseTest {
     void checkRaceIsValid(){
         Race race = new Race();
 
+        race.setName("Test Race");
         Assertions.assertTrue(race.isValid());
     }
 
