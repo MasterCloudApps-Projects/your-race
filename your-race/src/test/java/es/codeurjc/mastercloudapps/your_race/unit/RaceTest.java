@@ -87,10 +87,11 @@ class RaceTest extends AbstractDatabaseTest {
     @DisplayName("Test a race is valid")
     @Test
     void checkRaceIsValid(){
-        Race race = new Race();
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
 
-        race.setName("Test Race");
-        race.setLocation("Santiago de Compostela");
         Assertions.assertTrue(race.isValid());
     }
 

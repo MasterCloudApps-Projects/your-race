@@ -73,11 +73,7 @@ public class Race {
 
     public boolean isValid() {
 
-        if(Optional.ofNullable(this.name).isEmpty())
-            return false;
-        if(Optional.ofNullable(this.location).isEmpty())
-            return false;
-
-        return true;
+        return  Optional.ofNullable(this.name).isPresent()
+                && Optional.ofNullable(this.location).isPresent();
     }
 }
