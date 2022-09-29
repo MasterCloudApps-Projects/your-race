@@ -90,6 +90,7 @@ class RaceTest extends AbstractDatabaseTest {
         Race race = new Race();
 
         race.setName("Test Race");
+        race.setLocation("Santiago de Compostela");
         Assertions.assertTrue(race.isValid());
     }
 
