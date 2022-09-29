@@ -75,6 +75,8 @@ public class Race {
 
         if(Optional.ofNullable(this.name).isEmpty())
             return false;
+        if(Optional.ofNullable(this.location).isEmpty())
+            return false;
 
         return true;
     }
