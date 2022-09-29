@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -69,4 +70,10 @@ public class Race {
     @JoinColumn(name = "race_registration_id")
     private Registration raceRegistration;
 
+
+    public boolean isValid() {
+
+        return  Optional.ofNullable(this.name).isPresent()
+                && Optional.ofNullable(this.location).isPresent();
+    }
 }
