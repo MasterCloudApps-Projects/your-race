@@ -23,7 +23,10 @@ class RaceTest extends AbstractDatabaseTest {
     void createRaceWithNameAndLocation(){
         String name = "Test Race";
         String location = "Santiago de Compostela";
-        Race race = new Race(name,location);
+        Race race = Race.builder()
+                .name(name)
+                .location(location)
+                .build();
         Assertions.assertSame(race.getName(), name);
         Assertions.assertSame(race.getLocation(),location);
 
@@ -79,7 +82,14 @@ class RaceTest extends AbstractDatabaseTest {
         Assertions.assertSame(race.getAthleteCapacity(), athleteCapacity);
         Assertions.assertSame(race.getApplicationPeriod(), applicationPeriod);
         Assertions.assertSame(race.getRaceRegistration(), registration);
+    }
 
+    @DisplayName("Test a race is valid")
+    @Test
+    void checkRaceIsValid(){
+        Race race = new Race();
+
+        Assertions.assertTrue(race.isValid());
     }
 
 
