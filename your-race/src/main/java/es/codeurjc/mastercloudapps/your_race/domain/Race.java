@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
 
@@ -74,6 +75,9 @@ public class Race {
     public boolean isValid() {
 
         return  Optional.ofNullable(this.name).isPresent()
-                && Optional.ofNullable(this.location).isPresent();
+                && Optional.ofNullable(this.location).isPresent()
+             &&  (Optional.ofNullable(this.raceRegistration).isEmpty() ||
+                (!this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER)
+                && !this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING)));
     }
 }

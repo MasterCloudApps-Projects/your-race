@@ -92,6 +92,10 @@ class RaceTest extends AbstractDatabaseTest {
                 .location("Santiago de Compostela")
                 .build();
 
+        Registration registration = new Registration();
+        registration.setRegistrationType(RegistrationType.BYORDER);
+        race.setRaceRegistration(registration);
+
         Assertions.assertTrue(race.isValid());
     }
 
