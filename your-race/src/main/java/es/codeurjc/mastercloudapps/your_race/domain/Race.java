@@ -87,9 +87,14 @@ public class Race {
 
 
     }
+    private boolean athleteCapacityIsValid(){
+       // return athleteCapacity.compareTo(0) <= 0;
+        return false;
+    }
     public boolean isValid() {
         return  nameIsPresent()
                 && locationIsPresent()
-                && raceRegistrationIsValid();
+                && raceRegistrationIsValid()
+                && athleteCapacityIsValid();
     }
 }

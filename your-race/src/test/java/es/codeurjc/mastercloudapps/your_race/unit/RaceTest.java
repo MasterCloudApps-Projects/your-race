@@ -100,6 +100,10 @@ class RaceTest extends AbstractDatabaseTest {
 
         registration.setRegistrationType(RegistrationType.BYDRAWING);
         Assertions.assertTrue(race.isValid());
+
+        race.setAthleteCapacity(1000);
+        Assertions.assertTrue(race.isValid());
+
     }
 
 
