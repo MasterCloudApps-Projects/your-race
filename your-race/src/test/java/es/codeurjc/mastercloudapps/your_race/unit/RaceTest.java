@@ -223,6 +223,9 @@ class RaceTest extends AbstractDatabaseTest {
         ApplicationPeriod applicationPeriod = new ApplicationPeriod();
         race.setApplicationPeriod(applicationPeriod);
 
+        applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
+
         Assertions.assertTrue(race.isValid());
 
 
