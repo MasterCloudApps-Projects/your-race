@@ -96,6 +96,8 @@ public class Race {
     private boolean distanceIsValid(){
         if (Optional.ofNullable(this.distance).isEmpty())
                 return true;
+        if (this.distance > 0)
+            return true;
         return false;
 
 
