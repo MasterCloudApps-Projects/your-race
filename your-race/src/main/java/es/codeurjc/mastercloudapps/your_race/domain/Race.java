@@ -133,21 +133,12 @@ public class Race {
             return true;
         if (Optional.ofNullable(this.applicationPeriod).isEmpty())
             return true;
-       if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty()
-        && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
+       if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+            return true;
+        if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isPresent()  && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
-                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
-            return true;
-
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty()
-                && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
-                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent())
-            return true;
-        return Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isPresent()
-                && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
-                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent();
+        return this.raceRegistration.getRegistrationDate().isAfter(this.applicationPeriod.getLastDate());
     }
     public boolean isValid() {
         return  nameIsPresent()
