@@ -120,6 +120,8 @@ public class Race {
                 return true;
         if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
             return true;
+        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isPresent())
+            return true;
         return false;
     }
     public boolean isValid() {
