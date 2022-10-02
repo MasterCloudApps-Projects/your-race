@@ -144,6 +144,9 @@ public class Race {
         && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
+        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isPresent()  && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
+                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
+            return true;
 
         return false;
     }
