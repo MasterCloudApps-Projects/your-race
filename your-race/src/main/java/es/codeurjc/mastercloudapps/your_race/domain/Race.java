@@ -77,7 +77,7 @@ public class Race {
         return  Optional.ofNullable(this.name).isPresent()
                 && Optional.ofNullable(this.location).isPresent()
              &&  (Optional.ofNullable(this.raceRegistration).isEmpty() ||
-                (this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER)));
-               // && !this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING)));
+                this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER)
+                || this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING));
     }
 }
