@@ -96,10 +96,7 @@ public class Race {
     private boolean distanceIsValid(){
         if (Optional.ofNullable(this.distance).isEmpty())
                 return true;
-        if (this.distance > 0)
-            return true;
-        return false;
-
+        return this.distance > 0;
 
 
     }
@@ -109,9 +106,7 @@ public class Race {
             return true;
         if (Optional.ofNullable(this.raceRegistration.getConcurrentRequestThreshold()).isEmpty())
             return true;
-        if (this.raceRegistration.getConcurrentRequestThreshold()>1)
-            return true;
-        return false;
+        return this.raceRegistration.getConcurrentRequestThreshold() > 1;
     }
 
     private boolean registrationDateIsValid(){
@@ -119,9 +114,7 @@ public class Race {
                 return true;
         if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
             return true;
-        if (this.raceRegistration.getRegistrationDate().isAfter(LocalDateTime.now()))
-            return true;
-        return false;
+        return this.raceRegistration.getRegistrationDate().isAfter(LocalDateTime.now());
     }
 
     private boolean applicationPeriodIsValid(){
@@ -130,17 +123,17 @@ public class Race {
         if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
         && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
-        if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
+        return Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent()
-           && this.applicationPeriod.getInitialDate().isBefore(this.applicationPeriod.getLastDate()))
-            return true;
-        return false;
+                && this.applicationPeriod.getInitialDate().isBefore(this.applicationPeriod.getLastDate());
     }
     private boolean datesAreValid(){
-        if (Optional.ofNullable(this.raceRegistration).isEmpty()
-                && Optional.ofNullable(this.applicationPeriod).isEmpty())
+
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty()
+        if (Optional.ofNullable(this.applicationPeriod).isEmpty())
+            return true;
+       if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty()
         && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
@@ -152,12 +145,9 @@ public class Race {
                 && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isPresent()
+        return Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isPresent()
                 && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
-                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent())
-            return true;
-
-        return false;
+                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent();
     }
     public boolean isValid() {
         return  nameIsPresent()
