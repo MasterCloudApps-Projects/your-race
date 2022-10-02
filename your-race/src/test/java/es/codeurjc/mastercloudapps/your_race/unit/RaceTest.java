@@ -202,6 +202,8 @@ class RaceTest extends AbstractDatabaseTest {
         Registration registration = new Registration();
         race.setRaceRegistration(registration);
 
+        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+
         Assertions.assertTrue(race.isValid());
 
     }
