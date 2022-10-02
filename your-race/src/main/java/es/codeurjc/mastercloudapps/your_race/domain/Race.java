@@ -136,6 +136,9 @@ public class Race {
             return true;
         return false;
     }
+    private boolean datesAreValid(){
+        return false;
+    }
     public boolean isValid() {
         return  nameIsPresent()
                 && locationIsPresent()
@@ -144,6 +147,7 @@ public class Race {
                 && distanceIsValid()
                 && concurrentThresholdIsValid()
                 && registrationDateIsValid()
-                && applicationPeriodIsValid();
+                && applicationPeriodIsValid()
+                && datesAreValid();
     }
 }
