@@ -166,4 +166,16 @@ class RaceTest extends AbstractDatabaseTest {
         Assertions.assertFalse(race.isValid());
     }
 
+    @DisplayName("Test a race is valid - ConcurrentRequestThreshold")
+    @Test
+    void checkRaceIsValidConcurrentRequestThreshold(){
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+        Assertions.assertTrue(race.isValid());
+    }
+
+
+
 }

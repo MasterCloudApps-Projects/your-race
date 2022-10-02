@@ -103,11 +103,16 @@ public class Race {
 
 
     }
+    private boolean concurrentThresholdIsValid()
+    {
+        return false;
+    }
     public boolean isValid() {
         return  nameIsPresent()
                 && locationIsPresent()
                 && raceRegistrationIsValid()
                 && athleteCapacityIsValid()
-                && distanceIsValid();
+                && distanceIsValid()
+                && concurrentThresholdIsValid();
     }
 }
