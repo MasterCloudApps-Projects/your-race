@@ -81,6 +81,8 @@ public class Race {
     private boolean raceRegistrationIsValid(){
         if (Optional.ofNullable(this.raceRegistration).isEmpty())
             return true;
+        if (Optional.ofNullable(this.raceRegistration.getRegistrationType()).isEmpty())
+            return true;
         if (this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER))
             return true;
         return this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING);
@@ -92,7 +94,7 @@ public class Race {
                 || athleteCapacity.compareTo(0) > 0;
     }
     private boolean distanceIsValid(){
-        return false;
+        return Optional.ofNullable(this.distance).isEmpty();
 
     }
     public boolean isValid() {
