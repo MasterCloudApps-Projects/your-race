@@ -115,8 +115,7 @@ public class Race {
     }
 
     private boolean registrationDateIsValid(){
-        if (Optional.ofNullable(this.raceRegistration).isEmpty()
-            && (Optional.ofNullable(this.applicationPeriod).isEmpty()))
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
                 return true;
         if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
             return true;
@@ -126,6 +125,8 @@ public class Race {
     }
 
     private boolean applicationPeriodIsValid(){
+        if (Optional.ofNullable(this.applicationPeriod).isEmpty())
+            return true;
         return false;
     }
     public boolean isValid() {
