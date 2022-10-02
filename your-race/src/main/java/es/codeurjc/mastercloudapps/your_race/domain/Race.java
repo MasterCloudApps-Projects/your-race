@@ -127,6 +127,9 @@ public class Race {
     private boolean applicationPeriodIsValid(){
         if (Optional.ofNullable(this.applicationPeriod).isEmpty())
             return true;
+        if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
+        && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
+            return true;
         return false;
     }
     public boolean isValid() {
