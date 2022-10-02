@@ -93,9 +93,12 @@ class RaceTest extends AbstractDatabaseTest {
                 .build();
 
         Registration registration = new Registration();
-        registration.setRegistrationType(RegistrationType.BYORDER);
         race.setRaceRegistration(registration);
 
+        registration.setRegistrationType(RegistrationType.BYORDER);
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationType(RegistrationType.BYDRAWING);
         Assertions.assertTrue(race.isValid());
     }
 
