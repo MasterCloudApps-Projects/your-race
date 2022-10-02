@@ -253,7 +253,12 @@ class RaceTest extends AbstractDatabaseTest {
                 .build();
 
 
-       
+        ApplicationPeriod applicationPeriod = new ApplicationPeriod();
+        race.setApplicationPeriod(applicationPeriod);
+
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
+
         Assertions.assertTrue(race.isValid());
 
     }
