@@ -189,9 +189,9 @@ class RaceTest extends AbstractDatabaseTest {
 
     }
 
-    @DisplayName("Test a race is valid - Check Valid Dates")
+    @DisplayName("Test a race is valid - Registration Date")
     @Test
-    void checkRaceIsValidCheckDates() {
+    void checkRaceIsValidRegistrationDate() {
         Race race = Race.builder()
                 .name("Test Race")
                 .location("Santiago de Compostela")
