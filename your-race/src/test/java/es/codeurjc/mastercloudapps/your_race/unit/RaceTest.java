@@ -155,6 +155,9 @@ class RaceTest extends AbstractDatabaseTest {
                 .location("Santiago de Compostela")
                 .build();
         Assertions.assertTrue(race.isValid());
+
+        race.setDistance(40.0);
+        Assertions.assertTrue(race.isValid());
     }
 
 }

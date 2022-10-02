@@ -94,7 +94,11 @@ public class Race {
                 || athleteCapacity.compareTo(0) > 0;
     }
     private boolean distanceIsValid(){
-        return Optional.ofNullable(this.distance).isEmpty();
+        if (Optional.ofNullable(this.distance).isEmpty())
+                return true;
+        return false;
+
+
 
     }
     public boolean isValid() {
