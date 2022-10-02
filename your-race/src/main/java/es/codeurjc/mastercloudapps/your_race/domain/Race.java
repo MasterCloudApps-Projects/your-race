@@ -88,8 +88,8 @@ public class Race {
 
     }
     private boolean athleteCapacityIsValid(){
-       // return athleteCapacity.compareTo(0) <= 0;
-        return false;
+        return Optional.ofNullable(this.athleteCapacity).isEmpty()
+                || athleteCapacity.compareTo(0) > 0;
     }
     public boolean isValid() {
         return  nameIsPresent()
