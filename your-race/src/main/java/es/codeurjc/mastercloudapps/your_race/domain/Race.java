@@ -109,6 +109,8 @@ public class Race {
             return true;
         if (Optional.ofNullable(this.raceRegistration.getConcurrentRequestThreshold()).isEmpty())
             return true;
+        if (this.raceRegistration.getConcurrentRequestThreshold()>1)
+            return true;
         return false;
     }
     public boolean isValid() {
