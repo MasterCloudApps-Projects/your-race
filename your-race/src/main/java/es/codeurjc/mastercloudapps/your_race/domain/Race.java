@@ -131,7 +131,7 @@ public class Race {
         && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
         if(this.applicationPeriod.getInitialDate().isBefore(this.applicationPeriod.getLastDate()))
-            return false;
+            return true;
         return false;
     }
     public boolean isValid() {
