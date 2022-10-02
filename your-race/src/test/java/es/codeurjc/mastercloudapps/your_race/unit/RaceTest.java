@@ -220,6 +220,11 @@ class RaceTest extends AbstractDatabaseTest {
                 .location("Santiago de Compostela")
                 .build();
 
+        ApplicationPeriod applicationPeriod = new ApplicationPeriod();
+        race.setApplicationPeriod(applicationPeriod);
+
         Assertions.assertTrue(race.isValid());
+
+
     }
 }
