@@ -180,6 +180,12 @@ class RaceTest extends AbstractDatabaseTest {
         registration.setConcurrentRequestThreshold(5000);
         Assertions.assertTrue(race.isValid());
 
+        registration.setConcurrentRequestThreshold(2);
+        Assertions.assertTrue(race.isValid());
+
+        registration.setConcurrentRequestThreshold(1);
+        Assertions.assertFalse(race.isValid());
+
 
     }
 
