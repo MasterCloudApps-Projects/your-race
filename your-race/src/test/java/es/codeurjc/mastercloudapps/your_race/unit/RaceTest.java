@@ -158,6 +158,12 @@ class RaceTest extends AbstractDatabaseTest {
 
         race.setDistance(40.0);
         Assertions.assertTrue(race.isValid());
+
+        race.setDistance(0.0);
+        Assertions.assertFalse(race.isValid());
+
+        race.setDistance(-1.0);
+        Assertions.assertFalse(race.isValid());
     }
 
 }
