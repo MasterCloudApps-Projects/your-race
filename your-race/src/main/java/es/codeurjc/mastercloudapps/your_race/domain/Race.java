@@ -148,6 +148,12 @@ public class Race {
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
 
+        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty()
+                && Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
+                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent())
+            return true;
+
+
         return false;
     }
     public boolean isValid() {
