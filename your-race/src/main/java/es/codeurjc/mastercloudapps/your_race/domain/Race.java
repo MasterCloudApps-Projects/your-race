@@ -72,12 +72,24 @@ public class Race {
     private Registration raceRegistration;
 
 
-    public boolean isValid() {
+    private boolean nameIsPresent(){
+        return Optional.ofNullable(this.name).isPresent();
+    }
+    private boolean locationIsPresent(){
+        return Optional.ofNullable(this.location).isPresent();
+    }
+    private boolean raceRegistrationIsValid(){
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+            return true;
+        if (this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER))
+            return true;
+        return this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING);
 
-        return  Optional.ofNullable(this.name).isPresent()
-                && Optional.ofNullable(this.location).isPresent()
-             &&  (Optional.ofNullable(this.raceRegistration).isEmpty() ||
-                this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER)
-                || this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING));
+
+    }
+    public boolean isValid() {
+        return  nameIsPresent()
+                && locationIsPresent()
+                && raceRegistrationIsValid();
     }
 }
