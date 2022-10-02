@@ -114,7 +114,7 @@ public class Race {
         return false;
     }
 
-    private boolean datesAreValid(){
+    private boolean registrationDateIsValid(){
         if (Optional.ofNullable(this.raceRegistration).isEmpty()
             && (Optional.ofNullable(this.applicationPeriod).isEmpty()))
                 return true;
@@ -131,6 +131,6 @@ public class Race {
                 && athleteCapacityIsValid()
                 && distanceIsValid()
                 && concurrentThresholdIsValid()
-                && datesAreValid();
+                && registrationDateIsValid();
     }
 }
