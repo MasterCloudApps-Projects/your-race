@@ -121,7 +121,7 @@ public class Race {
         if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
             return true;
         if (this.raceRegistration.getRegistrationDate().isAfter(LocalDateTime.now()))
-            return false;
+            return true;
         return false;
     }
     public boolean isValid() {
