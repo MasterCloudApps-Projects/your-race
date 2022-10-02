@@ -173,7 +173,14 @@ class RaceTest extends AbstractDatabaseTest {
                 .name("Test Race")
                 .location("Santiago de Compostela")
                 .build();
+
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
+
+        registration.setConcurrentRequestThreshold(5000);
         Assertions.assertTrue(race.isValid());
+
+
     }
 
 
