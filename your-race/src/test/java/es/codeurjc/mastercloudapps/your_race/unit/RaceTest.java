@@ -199,7 +199,10 @@ class RaceTest extends AbstractDatabaseTest {
 
         Assertions.assertTrue(race.isValid());
 
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
 
+        Assertions.assertTrue(race.isValid());
 
     }
 }
