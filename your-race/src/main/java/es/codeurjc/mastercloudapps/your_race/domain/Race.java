@@ -113,12 +113,17 @@ public class Race {
             return true;
         return false;
     }
+
+    private boolean datesAreValid(){
+        return false;
+    }
     public boolean isValid() {
         return  nameIsPresent()
                 && locationIsPresent()
                 && raceRegistrationIsValid()
                 && athleteCapacityIsValid()
                 && distanceIsValid()
-                && concurrentThresholdIsValid();
+                && concurrentThresholdIsValid()
+                && datesAreValid();
     }
 }
