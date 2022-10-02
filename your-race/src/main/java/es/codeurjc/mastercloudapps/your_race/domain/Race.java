@@ -137,6 +137,9 @@ public class Race {
         return false;
     }
     private boolean datesAreValid(){
+        if (Optional.ofNullable(this.raceRegistration).isEmpty()
+                && Optional.ofNullable(this.applicationPeriod).isEmpty())
+            return true;
         return false;
     }
     public boolean isValid() {
