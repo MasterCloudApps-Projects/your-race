@@ -91,10 +91,15 @@ public class Race {
         return Optional.ofNullable(this.athleteCapacity).isEmpty()
                 || athleteCapacity.compareTo(0) > 0;
     }
+    private boolean distanceIsValid(){
+        return false;
+
+    }
     public boolean isValid() {
         return  nameIsPresent()
                 && locationIsPresent()
                 && raceRegistrationIsValid()
-                && athleteCapacityIsValid();
+                && athleteCapacityIsValid()
+                && distanceIsValid();
     }
 }

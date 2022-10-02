@@ -147,5 +147,14 @@ class RaceTest extends AbstractDatabaseTest {
 
     }
 
+    @DisplayName("Test a race is valid - Distance")
+    @Test
+    void checkRaceIsValidDistance(){
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+        Assertions.assertTrue(race.isValid());
+    }
 
 }
