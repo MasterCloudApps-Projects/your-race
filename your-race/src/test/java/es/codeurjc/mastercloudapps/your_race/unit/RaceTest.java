@@ -84,9 +84,24 @@ class RaceTest extends AbstractDatabaseTest {
         Assertions.assertSame(race.getRaceRegistration(), registration);
     }
 
-    @DisplayName("Test a race is valid")
+    @DisplayName("Test a race is valid - Name and location are not empty")
     @Test
-    void checkRaceIsValid(){
+    void checkRaceIsValidNameAndLocation() {
+        Race race1 = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+        Assertions.assertTrue(race1.isValid());
+
+        Race race2 = Race.builder()
+                .build();
+        Assertions.assertFalse(race2.isValid());
+    }
+
+    @DisplayName("Test a race is valid - Registration Type")
+    @Test
+    void checkRaceIsValidRegistrationType() {
         Race race = Race.builder()
                 .name("Test Race")
                 .location("Santiago de Compostela")
@@ -95,14 +110,40 @@ class RaceTest extends AbstractDatabaseTest {
         Registration registration = new Registration();
         race.setRaceRegistration(registration);
 
+        Assertions.assertTrue(race.isValid());
+
         registration.setRegistrationType(RegistrationType.BYORDER);
         Assertions.assertTrue(race.isValid());
 
         registration.setRegistrationType(RegistrationType.BYDRAWING);
         Assertions.assertTrue(race.isValid());
 
+    }
+
+
+
+
+    @DisplayName("Test a race is valid - Athlete Capacity")
+    @Test
+    void checkRaceIsValidAthleteCapacity(){
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+
         race.setAthleteCapacity(1000);
         Assertions.assertTrue(race.isValid());
+
+        race.setAthleteCapacity(1);
+        Assertions.assertTrue(race.isValid());
+
+        race.setAthleteCapacity(0);
+        Assertions.assertFalse(race.isValid());
+
+        race.setAthleteCapacity(-1);
+        Assertions.assertFalse(race.isValid());
+
 
     }
 
