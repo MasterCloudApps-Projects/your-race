@@ -1,11 +1,13 @@
 package es.codeurjc.mastercloudapps.your_race.unit;
 
+import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Registration;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +19,12 @@ import java.time.Month;
 
 @SpringBootTest
 class RaceTest extends AbstractDatabaseTest {
+    Faker faker;
+    @BeforeEach
+    public void initEach(){
+        faker = new Faker();
+    }
+
 
     @Test
     @DisplayName("Can create Race with name and location")
@@ -193,8 +201,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidRegistrationDate() {
         Race race = Race.builder()
-                .name("Test Race")
-                .location("Santiago de Compostela")
+                .name(faker.name().name())
+                .location(faker.address().fullAddress())
                 .build();
 
         Assertions.assertTrue(race.isValid());
