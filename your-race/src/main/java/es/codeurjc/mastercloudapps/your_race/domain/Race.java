@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
 
@@ -71,9 +72,83 @@ public class Race {
     private Registration raceRegistration;
 
 
-    public boolean isValid() {
+    private boolean nameIsPresent(){
+        return Optional.ofNullable(this.name).isPresent();
+    }
+    private boolean locationIsPresent(){
+        return Optional.ofNullable(this.location).isPresent();
+    }
+    private boolean raceRegistrationIsValid(){
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+            return true;
+        if (Optional.ofNullable(this.raceRegistration.getRegistrationType()).isEmpty())
+            return true;
+        if (this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER))
+            return true;
+        return this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING);
 
-        return  Optional.ofNullable(this.name).isPresent()
-                && Optional.ofNullable(this.location).isPresent();
+
+    }
+    private boolean athleteCapacityIsValid(){
+        return Optional.ofNullable(this.athleteCapacity).isEmpty()
+                || athleteCapacity.compareTo(0) > 0;
+    }
+    private boolean distanceIsValid(){
+        if (Optional.ofNullable(this.distance).isEmpty())
+                return true;
+        return this.distance > 0;
+
+
+    }
+    private boolean concurrentThresholdIsValid()
+    {
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+            return true;
+        if (Optional.ofNullable(this.raceRegistration.getConcurrentRequestThreshold()).isEmpty())
+            return true;
+        return this.raceRegistration.getConcurrentRequestThreshold() > 1;
+    }
+
+    private boolean registrationDateIsValid(){
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+                return true;
+        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+            return true;
+        return this.raceRegistration.getRegistrationDate().isAfter(LocalDateTime.now());
+    }
+
+    private boolean applicationPeriodIsValid(){
+        if (Optional.ofNullable(this.applicationPeriod).isEmpty())
+            return true;
+        if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
+        && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
+            return true;
+        return Optional.ofNullable(this.applicationPeriod.getInitialDate()).isPresent()
+                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isPresent()
+                && this.applicationPeriod.getInitialDate().isBefore(this.applicationPeriod.getLastDate());
+    }
+    private boolean datesAreValid(){
+
+        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+            return true;
+        if (Optional.ofNullable(this.applicationPeriod).isEmpty())
+            return true;
+       if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+            return true;
+        if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
+                && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
+            return true;
+        return this.raceRegistration.getRegistrationDate().isAfter(this.applicationPeriod.getLastDate());
+    }
+    public boolean isValid() {
+        return  nameIsPresent()
+                && locationIsPresent()
+                && raceRegistrationIsValid()
+                && athleteCapacityIsValid()
+                && distanceIsValid()
+                && concurrentThresholdIsValid()
+                && registrationDateIsValid()
+                && applicationPeriodIsValid()
+                && datesAreValid();
     }
 }
