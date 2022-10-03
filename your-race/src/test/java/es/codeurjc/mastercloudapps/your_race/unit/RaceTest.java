@@ -84,16 +84,203 @@ class RaceTest extends AbstractDatabaseTest {
         Assertions.assertSame(race.getRaceRegistration(), registration);
     }
 
-    @DisplayName("Test a race is valid")
+    @DisplayName("Test a race is valid - Name and location are not empty")
     @Test
-    void checkRaceIsValid(){
+    void checkRaceIsValidNameAndLocation() {
+        Race race1 = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+        Assertions.assertTrue(race1.isValid());
+
+        Race race2 = Race.builder()
+                .build();
+        Assertions.assertFalse(race2.isValid());
+    }
+
+    @DisplayName("Test a race is valid - Registration Type")
+    @Test
+    void checkRaceIsValidRegistrationType() {
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
+
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationType(RegistrationType.BYORDER);
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationType(RegistrationType.BYDRAWING);
+        Assertions.assertTrue(race.isValid());
+
+    }
+
+
+
+
+    @DisplayName("Test a race is valid - Athlete Capacity")
+    @Test
+    void checkRaceIsValidAthleteCapacity(){
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+
+        race.setAthleteCapacity(1000);
+        Assertions.assertTrue(race.isValid());
+
+        race.setAthleteCapacity(1);
+        Assertions.assertTrue(race.isValid());
+
+        race.setAthleteCapacity(0);
+        Assertions.assertFalse(race.isValid());
+
+        race.setAthleteCapacity(-1);
+        Assertions.assertFalse(race.isValid());
+
+
+    }
+
+    @DisplayName("Test a race is valid - Distance")
+    @Test
+    void checkRaceIsValidDistance(){
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+        Assertions.assertTrue(race.isValid());
+
+        race.setDistance(40.0);
+        Assertions.assertTrue(race.isValid());
+
+        race.setDistance(0.0);
+        Assertions.assertFalse(race.isValid());
+
+        race.setDistance(-1.0);
+        Assertions.assertFalse(race.isValid());
+    }
+
+    @DisplayName("Test a race is valid - ConcurrentRequestThreshold")
+    @Test
+    void checkRaceIsValidConcurrentRequestThreshold(){
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
+
+        registration.setConcurrentRequestThreshold(5000);
+        Assertions.assertTrue(race.isValid());
+
+        registration.setConcurrentRequestThreshold(2);
+        Assertions.assertTrue(race.isValid());
+
+        registration.setConcurrentRequestThreshold(1);
+        Assertions.assertFalse(race.isValid());
+
+
+    }
+
+    @DisplayName("Test a race is valid - Registration Date")
+    @Test
+    void checkRaceIsValidRegistrationDate() {
         Race race = Race.builder()
                 .name("Test Race")
                 .location("Santiago de Compostela")
                 .build();
 
         Assertions.assertTrue(race.isValid());
+
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
+
+        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+        Assertions.assertTrue(race.isValid());
+
+
+        registration.setRegistrationDate(LocalDateTime.of(2022,Month.JANUARY,1,9,0,0));
+        Assertions.assertFalse(race.isValid());
+
+
     }
 
+    @DisplayName("Test a race is valid - Application Date")
+    @Test
+    void checkRaceIsValidApplicationDate() {
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
 
+        ApplicationPeriod applicationPeriod = new ApplicationPeriod();
+        race.setApplicationPeriod(applicationPeriod);
+
+        applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
+
+        Assertions.assertTrue(race.isValid());
+
+        applicationPeriod.setInitialDate(LocalDateTime.of(2023,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
+        Assertions.assertFalse(race.isValid());
+
+        applicationPeriod.setInitialDate(null);
+        Assertions.assertFalse(race.isValid());
+
+        applicationPeriod.setInitialDate(LocalDateTime.of(2023,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(null);
+        Assertions.assertFalse(race.isValid());
+
+
+
+    }
+
+    @DisplayName("Test a race is valid - Dates are valid")
+    @Test
+    void checkRaceIsValidDatesAreValid(){
+
+        Race race = Race.builder()
+                .name("Test Race")
+                .location("Santiago de Compostela")
+                .build();
+
+
+        ApplicationPeriod applicationPeriod = new ApplicationPeriod();
+        race.setApplicationPeriod(applicationPeriod);
+
+        Registration registration = new Registration();
+        race.setRaceRegistration(registration);
+
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationDate(null);
+        applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
+
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+        applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
+
+        Assertions.assertTrue(race.isValid());
+
+        registration.setRegistrationDate(LocalDateTime.of(2022,Month.JANUARY,1,9,0,0));
+        applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
+        applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
+
+        Assertions.assertFalse(race.isValid());
+
+    }
 }
