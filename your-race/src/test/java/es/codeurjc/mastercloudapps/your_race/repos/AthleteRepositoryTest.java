@@ -5,9 +5,10 @@ import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
 
 class AthleteRepositoryTest extends AbstractDatabaseTest {
     @Autowired
@@ -15,7 +16,8 @@ class AthleteRepositoryTest extends AbstractDatabaseTest {
 
     @Test
     void test() throws InterruptedException {
-        List<Athlete> athletas = athleteRepository.findAll();
-        assertEquals(3, athletas.size());
+        Athlete createAthlete = athleteRepository.save(Athlete.builder().name("Perico").build());
+        Optional<Athlete> findAthlete = athleteRepository.findById(createAthlete.getId());
+        assertEquals("Perico",findAthlete.get().getName());
     }
 }
