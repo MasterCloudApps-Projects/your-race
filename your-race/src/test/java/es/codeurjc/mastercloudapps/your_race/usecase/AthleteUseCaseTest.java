@@ -97,13 +97,15 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     }
     void setDateInFuture(Race race){
 
-        race.setDate(LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth().plus(4),1,9,0));
+        LocalDateTime date = LocalDateTime.now().plusMonths(4L);
+        race.setDate(LocalDateTime.of(date.getYear(), date.getMonth(),1,9,0));
 
     }
 
     void setDateInPast(Race race){
 
-        race.setDate(LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth().minus(1),1,9,0));
+        LocalDateTime date = LocalDateTime.now().minusMonths(1L);
+        race.setDate(LocalDateTime.of(date.getYear(), date.getMonth(),1,9,0));
 
     }
 
