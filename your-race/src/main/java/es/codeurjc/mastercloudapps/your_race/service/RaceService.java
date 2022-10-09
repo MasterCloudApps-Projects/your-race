@@ -42,6 +42,13 @@ public class RaceService {
                 .toList();
     }
 
+    public List<RaceDTO> findPlanned() {
+        return raceRepository.findAll(Sort.by("id"))
+                .stream()
+                .map(race -> mapToDTO(race, new RaceDTO()))
+                .toList();
+    }
+
     public RaceDTO get(final Long id) {
         return raceRepository.findById(id)
                 .map(race -> mapToDTO(race, new RaceDTO()))
