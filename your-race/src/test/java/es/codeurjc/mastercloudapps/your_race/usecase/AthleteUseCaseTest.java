@@ -80,7 +80,7 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
         mvc.perform(get("/api/races/planned")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)));
+                .andExpect(jsonPath("$", hasSize(2)));
         //     .andExpect(jsonPath("$[0].date", MAYOR QUE HOY));
 
 
