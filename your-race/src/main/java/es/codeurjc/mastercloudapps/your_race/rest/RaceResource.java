@@ -3,6 +3,8 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+import java.util.Collections;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,11 @@ public class RaceResource {
     @GetMapping
     public ResponseEntity<List<RaceDTO>> getAllRaces() {
         return ResponseEntity.ok(raceService.findAll());
+    }
+
+    @GetMapping("/planned")
+    public ResponseEntity<List<RaceDTO>> getPlannedRaces() {
+        return ResponseEntity.ok(Collections.emptyList());
     }
 
     @GetMapping("/{id}")
