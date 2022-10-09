@@ -37,7 +37,7 @@ public class RaceResource {
 
     @GetMapping("/planned")
     public ResponseEntity<List<RaceDTO>> getPlannedRaces() {
-        return ResponseEntity.ok(Collections.emptyList());
+        return ResponseEntity.ok(raceService.findAll());
     }
 
     @GetMapping("/{id}")
