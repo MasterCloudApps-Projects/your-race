@@ -1,7 +1,13 @@
-package es.codeurjc.mastercloudapps.your_race.domain;
+
+
+
+package es.codeurjc.mastercloudapps.your_race.unit;
 
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
+import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.Registration;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -26,8 +32,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     @DisplayName("Can create Race with name and location")
     void createRaceWithNameAndLocation(){
-        String name = faker.esports().event();
-        String location = faker.address().fullAddress();
+        String name = "Test Race";
+        String location = "Santiago de Compostela";
         Race race = Race.builder()
                 .name(name)
                 .location(location)
@@ -41,10 +47,10 @@ class RaceTest extends AbstractDatabaseTest {
     @DisplayName("A race has at least the following data: name, description, date, location, distance, type, athleteCapacity, ApplicationPeriod, Registration")
     void checkRaceHasData()
     {
-        String name = faker.esports().event();
+        String name = "Test Race";
         String description = "A Test Race for testing";
         LocalDateTime date = LocalDateTime.of(2023, Month.MAY,13, 10,0);
-        String location = faker.address().fullAddress();
+        String location = "Santiago de Compostela";
         Double distance = 21.0975;
         String type = "Test";
         Integer athleteCapacity = 10000;
@@ -93,8 +99,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidNameAndLocation() {
         Race race1 = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
 
         Assertions.assertTrue(race1.isValid());
@@ -108,8 +114,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidRegistrationType() {
         Race race = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
 
         Registration registration = new Registration();
@@ -132,8 +138,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidAthleteCapacity(){
         Race race = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
 
 
@@ -156,8 +162,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidDistance(){
         Race race = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
         Assertions.assertTrue(race.isValid());
 
@@ -175,8 +181,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidConcurrentRequestThreshold(){
         Race race = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
 
         Registration registration = new Registration();
@@ -221,8 +227,8 @@ class RaceTest extends AbstractDatabaseTest {
     @Test
     void checkRaceIsValidApplicationDate() {
         Race race = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
 
         ApplicationPeriod applicationPeriod = new ApplicationPeriod();
@@ -253,8 +259,8 @@ class RaceTest extends AbstractDatabaseTest {
     void checkRaceIsValidDatesAreValid(){
 
         Race race = Race.builder()
-                .name(faker.esports().event())
-                .location(faker.address().fullAddress())
+                .name("Test Race")
+                .location("Santiago de Compostela")
                 .build();
 
 
