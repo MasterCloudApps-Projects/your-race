@@ -45,19 +45,19 @@ public class RaceService {
                 .toList();
     }
 
-    public List<RaceDTO> findPlannedRaces() {
+    public List<RaceDTO> findOpenRaces() {
 
-        List<RaceDTO> plannedRacesDTO = new ArrayList<RaceDTO>();
+        List<RaceDTO> openRacesDTO = new ArrayList<RaceDTO>();
         List<RaceDTO> allRacesDTO =  raceRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(race -> mapToDTO(race, new RaceDTO()))
                 .toList();
         for (RaceDTO raceDTO : allRacesDTO) {
            if (LocalDateTime.now().isBefore(raceDTO.getDate()))
-                plannedRacesDTO.add(raceDTO);
+                openRacesDTO.add(raceDTO);
         }
 
-        return plannedRacesDTO;
+        return openRacesDTO;
     }
 
     public RaceDTO get(final Long id) {

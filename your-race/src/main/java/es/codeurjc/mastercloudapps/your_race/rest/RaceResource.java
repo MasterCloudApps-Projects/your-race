@@ -28,16 +28,10 @@ public class RaceResource {
     public ResponseEntity<List<RaceDTO>> getAllRaces(@RequestParam boolean open) {
 
         if (open)
-            return ResponseEntity.ok(raceService.findPlannedRaces());
+            return ResponseEntity.ok(raceService.findOpenRaces());
         else
             return ResponseEntity.ok(raceService.findAll());
     }
-/*
-   @GetMapping("/planned")
-    public ResponseEntity<List<RaceDTO>> getPlannedRaces() {
-        return ResponseEntity.ok(raceService.findPlannedRaces());
-    }
-*/
     @GetMapping("/{id}")
     public ResponseEntity<RaceDTO> getRace(@PathVariable final Long id) {
         return ResponseEntity.ok(raceService.get(id));
