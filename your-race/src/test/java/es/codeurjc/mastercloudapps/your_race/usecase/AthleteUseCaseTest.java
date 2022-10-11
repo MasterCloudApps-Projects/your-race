@@ -69,20 +69,14 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
         raceRepository.save(plannedRace1);
         raceRepository.save(plannedRace2);
 
-       /* List<RaceDTO> races = Arrays.asList(
-                modelMapper.map(race,RaceDTO.class),
-                modelMapper.map(plannedRace1,RaceDTO.class),
-                modelMapper.map(plannedRace2,RaceDTO.class));
 
-*/
-        //  when(raceService.findAll()).thenReturn(races);
 
         mvc.perform(get("/api/races")
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
-        //     .andExpect(jsonPath("$[0].date", MAYOR QUE HOY));
+
 
 
     }
