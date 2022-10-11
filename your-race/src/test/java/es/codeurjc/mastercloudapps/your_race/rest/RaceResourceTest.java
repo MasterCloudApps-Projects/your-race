@@ -47,7 +47,8 @@ class RaceResourceTest extends AbstractDatabaseTest {
         when(raceService.findAll()).thenReturn(races);
 
         mvc.perform(get("/api/races")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", equalTo("Ronda")));
