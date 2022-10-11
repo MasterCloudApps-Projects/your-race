@@ -77,8 +77,9 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 */
         //  when(raceService.findAll()).thenReturn(races);
 
-        mvc.perform(get("/api/races/planned")
-                        .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/races")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
         //     .andExpect(jsonPath("$[0].date", MAYOR QUE HOY));
