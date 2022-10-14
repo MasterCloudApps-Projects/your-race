@@ -52,6 +52,9 @@ public class InitializerDataService {
         Race race3 = getRace3(organizer2);
         Race race4 = getRace4(organizer2);
 
+        Race raceClosed1 = getRaceClosed1(organizer1);
+        Race raceClosed2 = getRaceClosed2(organizer2);
+
         race1.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYDRAWING)
                 .registrationDate(LocalDateTime.of(2022, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
@@ -69,6 +72,15 @@ public class InitializerDataService {
                 .registrationCost(150.00).build());
 
 
+        raceClosed1.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYDRAWING)
+                .registrationDate(LocalDateTime.of(2021, Month.OCTOBER,31, 9,0))
+                .registrationCost(500.00).build());
+
+        raceClosed2.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYORDER)
+                .registrationDate(LocalDateTime.of(2022, Month.JANUARY,15, 9,0))
+                .registrationCost(150.00).build());
+
+
         Athlete athlete1 = Athlete.builder().name("Antonio").surname("Delgado").build();
         Athlete athlete2 = Athlete.builder().name("María").surname("Rodríguez").build();
         Athlete athlete3 = Athlete.builder().name("Clara").surname("Smith").build();
@@ -80,6 +92,9 @@ public class InitializerDataService {
         this.raceRepository.save(race2);
         this.raceRepository.save(race3);
         this.raceRepository.save(race4);
+
+        this.raceRepository.save(raceClosed1);
+        this.raceRepository.save(raceClosed2);
 
         this.athleteRepository.save(athlete1);
         this.athleteRepository.save(athlete2);
@@ -167,6 +182,46 @@ public class InitializerDataService {
                 .build();
 
         return race4;
+    }
+
+    private Race getRaceClosed1(Organizer organizer1) {
+        Race race = Race.builder()
+                .name("New York City Marathon - Edition of 2021")
+                .description("""
+                        The New York City Marathon is an annual marathon that courses through the five boroughs of New York City.
+                        It is the largest marathon in the world, with 53,627 finishers in 2019 and 98,247 applicants for the 2017 race
+                        """)
+                .date(LocalDateTime.of(2021, Month.NOVEMBER,6, 9,0))
+                .location("New York, NY, USA")
+                .distance(42.195)
+                .type("Running")
+                .applicationPeriod(ApplicationPeriod.builder()
+                        .initialDate(LocalDateTime.of(2021, Month.JANUARY,1,0,0))
+                        .lastDate(LocalDateTime.of(2021, Month.OCTOBER,31,23,59))
+                        .build())
+                .organizer(organizer1)
+                .build();
+        return race;
+    }
+
+    private Race getRaceClosed2(Organizer organizer2) {
+        Race race = Race.builder()
+                .name("101 kilómetros de Ronda - Marcha Individual - Edition of 2022")
+                .description("""
+                        Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados 
+                        por el Club Deportivo La Legión 101 Km.
+                        """)
+                .date(LocalDateTime.of(2022, Month.MAY,13, 10,0))
+                .location("Ronda, Málaga, Spain")
+                .distance(101.0)
+                .type("Running")
+                .applicationPeriod(ApplicationPeriod.builder()
+                        .initialDate(LocalDateTime.of(2021, Month.NOVEMBER,1,0,0))
+                        .lastDate(LocalDateTime.of(2021, Month.DECEMBER,31,23,59))
+                        .build())
+                .organizer(organizer2)
+                .build();
+        return race;
     }
 
 }

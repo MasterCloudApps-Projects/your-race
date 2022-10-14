@@ -9,6 +9,9 @@ import es.codeurjc.mastercloudapps.your_race.repos.ApplicationPeriodRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RegistrationRepository;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
@@ -40,6 +43,21 @@ public class RaceService {
                 .stream()
                 .map(race -> mapToDTO(race, new RaceDTO()))
                 .toList();
+    }
+
+    public List<RaceDTO> findOpenRaces() {
+
+        List<RaceDTO> openRacesDTO = new ArrayList<RaceDTO>();
+        List<RaceDTO> allRacesDTO =  raceRepository.findAll(Sort.by("id"))
+                .stream()
+                .map(race -> mapToDTO(race, new RaceDTO()))
+                .toList();
+        for (RaceDTO raceDTO : allRacesDTO) {
+           if (LocalDateTime.now().isBefore(raceDTO.getDate()))
+                openRacesDTO.add(raceDTO);
+        }
+
+        return openRacesDTO;
     }
 
     public RaceDTO get(final Long id) {
