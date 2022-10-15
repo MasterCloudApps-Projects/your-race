@@ -11,8 +11,11 @@ import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RegistrationRepository;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -36,6 +39,8 @@ public class RaceService {
         this.applicationPeriodRepository = applicationPeriodRepository;
         this.organizerRepository = organizerRepository;
         this.registrationRepository = registrationRepository;
+
+
     }
 
     public List<RaceDTO> findAll() {
@@ -92,7 +97,9 @@ public class RaceService {
         raceDTO.setDistance(race.getDistance());
         raceDTO.setType(race.getType());
         raceDTO.setAthleteCapacity(race.getAthleteCapacity());
-        raceDTO.setApplicationPeriod(race.getApplicationPeriod() == null ? null : race.getApplicationPeriod().getId());
+      //  raceDTO.setApplicationPeriod(race.getApplicationPeriod() == null ? null : race.getApplicationPeriod().getId());
+        raceDTO.setApplicationInitialDate(race.getApplicationPeriod()==null ? null : race.getApplicationPeriod().getInitialDate());
+        raceDTO.setApplicationLastDate(race.getApplicationPeriod()==null ? null : race.getApplicationPeriod().getLastDate());
         raceDTO.setOrganizer(race.getOrganizer() == null ? null : race.getOrganizer().getId());
         raceDTO.setRaceRegistration(race.getRaceRegistration() == null ? null : race.getRaceRegistration().getId());
         return raceDTO;
@@ -106,8 +113,12 @@ public class RaceService {
         race.setDistance(raceDTO.getDistance());
         race.setType(raceDTO.getType());
         race.setAthleteCapacity(raceDTO.getAthleteCapacity());
-        final ApplicationPeriod applicationPeriod = raceDTO.getApplicationPeriod() == null ? null : applicationPeriodRepository.findById(raceDTO.getApplicationPeriod())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "applicationPeriod not found"));
+
+        final ApplicationPeriod applicationPeriod = raceDTO.getApplicationInitialDate()== null ? null :
+                findApplicationPeriod(raceDTO.getApplicationInitialDate(),raceDTO.getApplicationLastDate())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "applicationPeriod not found"));
+
+
         race.setApplicationPeriod(applicationPeriod);
         final Organizer organizer = raceDTO.getOrganizer() == null ? null : organizerRepository.findById(raceDTO.getOrganizer())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "organizer not found"));
@@ -116,6 +127,17 @@ public class RaceService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raceRegistration not found"));
         race.setRaceRegistration(raceRegistration);
         return race;
+    }
+
+    private Optional<ApplicationPeriod> findApplicationPeriod(LocalDateTime initialPeriod, LocalDateTime finalPeriod){
+        List<ApplicationPeriod> applicationPeriods = applicationPeriodRepository.findAll();
+        for(ApplicationPeriod applicationPeriod : applicationPeriods)
+        {
+            if (applicationPeriod.getInitialDate().equals(initialPeriod) &&
+                applicationPeriod.getLastDate().equals(finalPeriod))
+                    return Optional.of(applicationPeriod);
+        }
+        return Optional.empty();
     }
 
 }

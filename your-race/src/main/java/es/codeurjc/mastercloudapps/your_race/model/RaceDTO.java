@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,7 +37,9 @@ public class RaceDTO {
 
     private Integer athleteCapacity;
 
-    private Long applicationPeriod;
+    //private Long applicationPeriod;
+    private LocalDateTime applicationInitialDate;
+    private LocalDateTime applicationLastDate;
 
     @NotNull
     private Long organizer;
