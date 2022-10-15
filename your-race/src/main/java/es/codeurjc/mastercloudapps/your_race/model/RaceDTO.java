@@ -37,13 +37,13 @@ public class RaceDTO {
 
     private Integer athleteCapacity;
 
-    //private Long applicationPeriod;
     private LocalDateTime applicationInitialDate;
     private LocalDateTime applicationLastDate;
 
-    //@NotNull
+
     private String organizerName;
 
-    private Long raceRegistration;
+    private LocalDateTime raceRegistrationDate;
+
 
 }

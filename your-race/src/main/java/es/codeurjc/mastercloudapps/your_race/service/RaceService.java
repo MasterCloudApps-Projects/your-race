@@ -102,7 +102,7 @@ public class RaceService {
 
         raceDTO.setOrganizerName(race.getOrganizer() == null ? null : race.getOrganizer().getName());
 
-        raceDTO.setRaceRegistration(race.getRaceRegistration() == null ? null : race.getRaceRegistration().getId());
+        raceDTO.setRaceRegistrationDate (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationDate());
         return raceDTO;
     }
 
@@ -128,7 +128,8 @@ public class RaceService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "organizer not found"));
         race.setOrganizer(organizer);
 
-        final Registration raceRegistration = raceDTO.getRaceRegistration() == null ? null : registrationRepository.findById(raceDTO.getRaceRegistration())
+        final Registration raceRegistration = raceDTO.getRaceRegistrationDate() == null ? null :
+                findRegistration(raceDTO.getRaceRegistrationDate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raceRegistration not found"));
         race.setRaceRegistration(raceRegistration);
         return race;
@@ -152,6 +153,16 @@ public class RaceService {
         {
             if(organizer.getName().equals(name))
                 return Optional.of(organizer);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Registration> findRegistration(LocalDateTime registrationDate){
+        List<Registration> registrations = registrationRepository.findAll();
+        for(Registration registration : registrations)
+        {
+            if(registration.getRegistrationDate().equals(registrationDate))
+                return Optional.of(registration);
         }
         return Optional.empty();
     }
