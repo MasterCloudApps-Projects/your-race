@@ -5,7 +5,6 @@ import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Registration;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationPeriodRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
