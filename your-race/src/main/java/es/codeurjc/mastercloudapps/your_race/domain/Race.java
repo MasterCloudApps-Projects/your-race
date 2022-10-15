@@ -63,7 +63,7 @@ public class Race {
     @OneToMany(mappedBy = "applicationRace")
     private Set<Application> applicationRaceApplications;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
