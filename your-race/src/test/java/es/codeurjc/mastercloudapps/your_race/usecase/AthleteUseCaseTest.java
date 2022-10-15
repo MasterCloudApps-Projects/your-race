@@ -2,8 +2,10 @@ package es.codeurjc.mastercloudapps.your_race.usecase;
 
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
@@ -37,6 +39,9 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     @Autowired
     private RaceRepository raceRepository;
+
+    @Autowired
+    private AthleteRepository athleteRepository;
 
     private Faker faker;
     Organizer organizer;
@@ -101,6 +106,21 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
         LocalDateTime date = LocalDateTime.now().minusMonths(1L);
         race.setDate(LocalDateTime.of(date.getYear(), date.getMonth(),1,9,0));
+
+    }
+
+    @DisplayName("Races that an athlete has applied to")
+    @Test
+    void shouldGetAthleteRacesList() throws Exception{
+
+        Athlete athlete = Athlete.builder().name("Raquel").surname("Toscano").build();
+        athleteRepository.save(athlete);
+
+        mvc.perform(get("/api/athletes/" + athlete.getId()+"/races")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
 
     }
 
