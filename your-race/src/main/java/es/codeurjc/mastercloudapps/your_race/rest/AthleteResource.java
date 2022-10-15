@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.AthleteService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
@@ -36,6 +37,12 @@ public class AthleteResource {
     @GetMapping("/{id}")
     public ResponseEntity<AthleteDTO> getAthlete(@PathVariable final Long id) {
         return ResponseEntity.ok(athleteService.get(id));
+    }
+
+
+    @GetMapping("/{id}/races")
+    public ResponseEntity<List<RaceDTO>> getAthleteRaces(@PathVariable final Long id){
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping
