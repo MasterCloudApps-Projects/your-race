@@ -58,7 +58,9 @@ class RaceResourceTest extends AbstractDatabaseTest {
     @Test
     void createRaceTest() throws Exception {
 
-        RaceDTO race = RaceDTO.builder().name("Ronda").location("Ficticia").organizer(1L).build();
+       // RaceDTO race = RaceDTO.builder().name("Ronda").location("Ficticia").organizerName("La Legión").build();
+
+        RaceDTO race = RaceDTO.builder().name("Ronda").location("Ficticia").build();
 
         when(raceService.create(any(RaceDTO.class))).thenReturn(1L);
 

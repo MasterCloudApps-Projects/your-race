@@ -41,8 +41,8 @@ public class RaceDTO {
     private LocalDateTime applicationInitialDate;
     private LocalDateTime applicationLastDate;
 
-    @NotNull
-    private Long organizer;
+    //@NotNull
+    private String organizerName;
 
     private Long raceRegistration;
 

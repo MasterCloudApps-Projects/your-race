@@ -97,10 +97,11 @@ public class RaceService {
         raceDTO.setDistance(race.getDistance());
         raceDTO.setType(race.getType());
         raceDTO.setAthleteCapacity(race.getAthleteCapacity());
-      //  raceDTO.setApplicationPeriod(race.getApplicationPeriod() == null ? null : race.getApplicationPeriod().getId());
         raceDTO.setApplicationInitialDate(race.getApplicationPeriod()==null ? null : race.getApplicationPeriod().getInitialDate());
         raceDTO.setApplicationLastDate(race.getApplicationPeriod()==null ? null : race.getApplicationPeriod().getLastDate());
-        raceDTO.setOrganizer(race.getOrganizer() == null ? null : race.getOrganizer().getId());
+
+        raceDTO.setOrganizerName(race.getOrganizer() == null ? null : race.getOrganizer().getName());
+
         raceDTO.setRaceRegistration(race.getRaceRegistration() == null ? null : race.getRaceRegistration().getId());
         return raceDTO;
     }
@@ -120,9 +121,13 @@ public class RaceService {
 
 
         race.setApplicationPeriod(applicationPeriod);
-        final Organizer organizer = raceDTO.getOrganizer() == null ? null : organizerRepository.findById(raceDTO.getOrganizer())
+
+
+        final Organizer organizer = raceDTO.getOrganizerName() == null ? null :
+                findOrganizer(raceDTO.getOrganizerName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "organizer not found"));
         race.setOrganizer(organizer);
+
         final Registration raceRegistration = raceDTO.getRaceRegistration() == null ? null : registrationRepository.findById(raceDTO.getRaceRegistration())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raceRegistration not found"));
         race.setRaceRegistration(raceRegistration);
@@ -136,6 +141,17 @@ public class RaceService {
             if (applicationPeriod.getInitialDate().equals(initialPeriod) &&
                 applicationPeriod.getLastDate().equals(finalPeriod))
                     return Optional.of(applicationPeriod);
+        }
+        return Optional.empty();
+    }
+
+
+    private Optional<Organizer> findOrganizer(String name){
+        List<Organizer> organizers = organizerRepository.findAll();
+        for(Organizer organizer : organizers)
+        {
+            if(organizer.getName().equals(name))
+                return Optional.of(organizer);
         }
         return Optional.empty();
     }
