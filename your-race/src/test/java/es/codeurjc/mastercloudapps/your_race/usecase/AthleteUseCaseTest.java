@@ -49,9 +49,9 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     }
 
-    @DisplayName("Get list of planned races (not celebrated yet)")
+    @DisplayName("Get list of open races (not celebrated yet)")
     @Test
-    void shouldGetListPlannedRaces() throws Exception{
+    void shouldGetListOpenRaces() throws Exception{
 
         Organizer organizer = Organizer.builder().name("Test Organizer").build();
         organizerRepository.save(organizer);
