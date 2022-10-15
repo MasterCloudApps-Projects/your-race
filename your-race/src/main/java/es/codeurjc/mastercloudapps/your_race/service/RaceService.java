@@ -119,35 +119,25 @@ public class RaceService {
         race.setType(raceDTO.getType());
         race.setAthleteCapacity(raceDTO.getAthleteCapacity());
 
-        final ApplicationPeriod applicationPeriod = raceDTO.getApplicationInitialDate()== null ? null :
-                findApplicationPeriod(raceDTO.getApplicationInitialDate(),raceDTO.getApplicationLastDate())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "applicationPeriod not found"));
-
+        final ApplicationPeriod applicationPeriod =  raceDTO.getApplicationInitialDate()== null ? null :
+                ApplicationPeriod.builder().initialDate(raceDTO.getApplicationInitialDate())
+                                .lastDate(raceDTO.getApplicationLastDate()).build();
 
         race.setApplicationPeriod(applicationPeriod);
 
 
         final Organizer organizer = raceDTO.getOrganizerName() == null ? null :
                 findOrganizer(raceDTO.getOrganizerName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "organizer not found"));
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "organizer not found"));
         race.setOrganizer(organizer);
 
         final Registration raceRegistration = raceDTO.getRaceRegistrationDate() == null ? null :
-                findRegistration(raceDTO.getRaceRegistrationDate(), raceDTO.getRegistrationType(),raceDTO.getRegistrationCost())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raceRegistration not found"));
+                Registration.builder().registrationDate(raceDTO.getRaceRegistrationDate())
+                                .registrationType(raceDTO.getRegistrationType())
+                                .registrationCost(raceDTO.getRegistrationCost())
+                                        .build();
         race.setRaceRegistration(raceRegistration);
         return race;
-    }
-
-    private Optional<ApplicationPeriod> findApplicationPeriod(LocalDateTime initialPeriod, LocalDateTime finalPeriod){
-        List<ApplicationPeriod> applicationPeriods = applicationPeriodRepository.findAll();
-        for(ApplicationPeriod applicationPeriod : applicationPeriods)
-        {
-            if (applicationPeriod.getInitialDate().equals(initialPeriod) &&
-                applicationPeriod.getLastDate().equals(finalPeriod))
-                    return Optional.of(applicationPeriod);
-        }
-        return Optional.empty();
     }
 
 
@@ -161,17 +151,8 @@ public class RaceService {
         return Optional.empty();
     }
 
-    private Optional<Registration> findRegistration(LocalDateTime registrationDate,RegistrationType registrationType,
-                                                    Double registrationCost){
-        List<Registration> registrations = registrationRepository.findAll();
-        for(Registration registration : registrations)
-        {
-            if(registration.getRegistrationDate().equals(registrationDate)
-                && registration.getRegistrationType().equals(registrationType)
-                && registration.getRegistrationCost().equals(registrationCost))
-                return Optional.of(registration);
-        }
-        return Optional.empty();
-    }
+
+
+
 
 }
