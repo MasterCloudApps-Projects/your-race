@@ -51,6 +51,12 @@ public class AthleteResource {
         return new ResponseEntity<>(athleteService.create(athleteDTO), HttpStatus.CREATED);
     }
 
+    @PostMapping("/{id}/application/{idRace}")
+    public ResponseEntity<Void> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
+        return ResponseEntity.ok().build();
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateAthlete(@PathVariable final Long id,
             @RequestBody @Valid final AthleteDTO athleteDTO) {
