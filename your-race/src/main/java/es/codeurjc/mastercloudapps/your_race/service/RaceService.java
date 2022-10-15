@@ -5,6 +5,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Registration;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationPeriodRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
@@ -102,7 +103,10 @@ public class RaceService {
 
         raceDTO.setOrganizerName(race.getOrganizer() == null ? null : race.getOrganizer().getName());
 
+
         raceDTO.setRaceRegistrationDate (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationDate());
+        raceDTO.setRegistrationType (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationType());
+        raceDTO.setRegistrationCost (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationCost());
         return raceDTO;
     }
 
@@ -129,7 +133,7 @@ public class RaceService {
         race.setOrganizer(organizer);
 
         final Registration raceRegistration = raceDTO.getRaceRegistrationDate() == null ? null :
-                findRegistration(raceDTO.getRaceRegistrationDate())
+                findRegistration(raceDTO.getRaceRegistrationDate(), raceDTO.getRegistrationType(),raceDTO.getRegistrationCost())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raceRegistration not found"));
         race.setRaceRegistration(raceRegistration);
         return race;
@@ -157,11 +161,14 @@ public class RaceService {
         return Optional.empty();
     }
 
-    private Optional<Registration> findRegistration(LocalDateTime registrationDate){
+    private Optional<Registration> findRegistration(LocalDateTime registrationDate,RegistrationType registrationType,
+                                                    Double registrationCost){
         List<Registration> registrations = registrationRepository.findAll();
         for(Registration registration : registrations)
         {
-            if(registration.getRegistrationDate().equals(registrationDate))
+            if(registration.getRegistrationDate().equals(registrationDate)
+                && registration.getRegistrationType().equals(registrationType)
+                && registration.getRegistrationCost().equals(registrationCost))
                 return Optional.of(registration);
         }
         return Optional.empty();

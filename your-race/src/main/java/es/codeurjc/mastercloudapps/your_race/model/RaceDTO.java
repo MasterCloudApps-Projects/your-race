@@ -44,6 +44,11 @@ public class RaceDTO {
     private String organizerName;
 
     private LocalDateTime raceRegistrationDate;
+    private RegistrationType registrationType;
+    private Double registrationCost;
+
+
+
 
 
 }
