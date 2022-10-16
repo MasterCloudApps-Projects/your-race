@@ -3,18 +3,15 @@ package es.codeurjc.mastercloudapps.your_race.service;
 import es.codeurjc.mastercloudapps.your_race.domain.Registration;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 
+import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 
-import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 
-import es.codeurjc.mastercloudapps.your_race.repos.ApplicationPeriodRepository;
 import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
 
-import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 
 import java.time.LocalDateTime;
@@ -37,12 +34,17 @@ public class InitializerDataService {
     @Autowired
     private AthleteRepository athleteRepository;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
     @PostConstruct
     public  void init(){
 
+        this.applicationRepository.deleteAll();
         this.raceRepository.deleteAll();
         this.organizerRepository.deleteAll();
         this.athleteRepository.deleteAll();
+
 
         Organizer organizer1 = Organizer.builder().name("New York Road Runners").build();
         Organizer organizer2 = Organizer.builder().name("La Legión").build();
