@@ -5,11 +5,14 @@ import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,9 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @Autowired
     private AthleteRepository athleteRepository;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
     private Faker faker;
     Organizer organizer;
 
@@ -55,6 +61,7 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @BeforeEach
     public void initEach(){
         faker = new Faker();
+        applicationRepository.deleteAll();
         raceRepository.deleteAll();
 
     }
@@ -98,6 +105,10 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
                 .location(faker.address().cityName())
                 .distance(faker.number().randomDouble(2,0,1000))
                 .organizer(organizer)
+                .raceRegistration(Registration.builder()
+                        .registrationDate( LocalDateTime.now().plusMonths(4L))
+                        .build())
+                .date(LocalDateTime.now().plusMonths(6L))
                 .build();
     }
     void setDateInFuture(Race race){
@@ -127,18 +138,12 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
         Race race = buildTestRace(organizer);
         raceRepository.save(race);
 
-        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race.getId())
+       mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
 
-/*
-        mvc.perform(get("/api/athletes/" + athlete.getId()+"/races")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
-*/
 
     }
 

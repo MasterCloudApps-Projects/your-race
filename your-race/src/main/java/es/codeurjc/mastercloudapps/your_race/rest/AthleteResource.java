@@ -1,10 +1,13 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
+import es.codeurjc.mastercloudapps.your_race.domain.Application;
+import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.AthleteService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,9 +54,15 @@ public class AthleteResource {
         return new ResponseEntity<>(athleteService.create(athleteDTO), HttpStatus.CREATED);
     }
 
+    //Cambiar a ApplicationDTO
     @PostMapping("/{id}/application/{idRace}")
-    public ResponseEntity<Void> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
+        Optional<ApplicationDTO> application = athleteService.raceApplication(id,idRace);
+        if (application.isPresent())
+         return ResponseEntity.ok(application);
+        else
+         return ResponseEntity.ok(Optional.empty()); //Mirar qué valor debería devolver aquí.
+
     }
 
 

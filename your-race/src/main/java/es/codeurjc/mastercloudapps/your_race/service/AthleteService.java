@@ -1,24 +1,40 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
+import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
+import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 
+@Transactional
 @Service
 public class AthleteService {
 
     private final AthleteRepository athleteRepository;
+    private final ApplicationRepository applicationRepository;
+    private final RaceRepository raceRepository;
 
-    public AthleteService(final AthleteRepository athleteRepository) {
+    public AthleteService(final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository
+                        ,RaceRepository raceRepository) {
         this.athleteRepository = athleteRepository;
+        this.applicationRepository = applicationRepository;
+        this.raceRepository = raceRepository;
     }
 
     public List<AthleteDTO> findAll() {
@@ -38,6 +54,30 @@ public class AthleteService {
         final Athlete athlete = new Athlete();
         mapToEntity(athleteDTO, athlete);
         return athleteRepository.save(athlete).getId();
+    }
+    // cambiar a devolver ApplicationDTO
+  //  public Optional<Application> raceApplication( final Long idAthlete, final Long idRace){
+    public Optional<ApplicationDTO> raceApplication( final Long idAthlete, final Long idRace){
+        // _ENcontar el atleta y la race y usarlos en el builder de application.
+         //asignar el application code de forma aleatoria aqui.
+        Optional<Athlete> athlete = athleteRepository.findById(idAthlete);
+        Optional<Race> race = raceRepository.findById(idRace);
+
+
+        if (athlete.isPresent() && race.isPresent()) {
+            Application application = Application.builder().applicationAthlete(athlete.get())
+                    .applicationRace(race.get())
+                    .applicationCode("RANDOM")
+                    .build();
+
+            applicationRepository.save(application);
+            return Optional.of(mapToDTO(application, new ApplicationDTO()));
+
+        }
+        else
+            return Optional.empty();
+
+
     }
 
     public void update(final Long id, final AthleteDTO athleteDTO) {
@@ -65,5 +105,27 @@ public class AthleteService {
         athlete.setTrackRecord(athleteDTO.getTrackRecord());
         return athlete;
     }
+
+    private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
+
+        applicationDTO.setApplicationCode(application.getApplicationCode());
+        applicationDTO.setName(application.getApplicationAthlete().getName());
+        applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
+        applicationDTO.setRaceName(application.getApplicationRace().getName());
+        applicationDTO.setDate(application.getApplicationRace().getDate());
+        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistration().getRegistrationDate());
+
+
+        return applicationDTO;
+    }
+
+ /* De momento no lo he necesitado:
+    private Application mapToEntity(final AthleteDTO athleteDTO, final Application application) {
+
+        athlete.setName(athleteDTO.getName());
+        athlete.setSurname(athleteDTO.getSurname());
+        athlete.setTrackRecord(athleteDTO.getTrackRecord());
+        return application;
+    }*/
 
 }

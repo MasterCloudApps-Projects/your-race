@@ -53,20 +53,25 @@ public class Race {
     @Column
     private Integer athleteCapacity;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "race")
     private Set<Track> raceTracks;
 
+    @ToString.Exclude
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "application_period_id")
     private ApplicationPeriod applicationPeriod;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "applicationRace")
     private Set<Application> applicationRaceApplications;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
+    @ToString.Exclude
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "race_registration_id")
     private Registration raceRegistration;
