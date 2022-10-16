@@ -11,9 +11,11 @@ import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -65,7 +67,7 @@ public class AthleteService {
         if (athlete.isPresent() && race.isPresent()) {
             Application application = Application.builder().applicationAthlete(athlete.get())
                     .applicationRace(race.get())
-                    .applicationCode("RANDOM")
+                    .applicationCode(RandomStringUtils.random(10,true,true))
                     .build();
 
             applicationRepository.save(application);
