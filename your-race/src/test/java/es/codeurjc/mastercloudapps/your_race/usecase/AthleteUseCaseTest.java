@@ -125,9 +125,9 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     }
 
-    @DisplayName("Athlete should apply to race")
+    @DisplayName("Existing athlete should apply to existing race")
     @Test
-    void athleteShouldApplyToRace() throws Exception{
+    void athleteShouldApplyToExistingRace() throws Exception{
 
         Athlete athlete = Athlete.builder().name("Raquel").surname("Toscano").build();
         athleteRepository.save(athlete);
@@ -147,7 +147,32 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
+    }
 
+    @DisplayName("Application to non-existing Athlete and/or race should not be possible")
+    @Test
+    void applicationToNonExistingAthleteRaceShouldNotBePossible() throws Exception{
+
+        Athlete athlete = Athlete.builder().name("Raquel").surname("Toscano").build();
+        athleteRepository.save(athlete);
+
+        Organizer organizer = Organizer.builder().name("Test Organizer").build();
+        organizerRepository.save(organizer);
+
+        Race race = buildTestRace(organizer);
+        raceRepository.save(race);
+
+        mvc.perform(post("/api/athletes/" + "0000" + "/application/"+race.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+
+        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/" + "0000")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+
+        mvc.perform(post("/api/athletes/" + "0000" +"/application/"+ "0000")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 
     @DisplayName("Races that an athlete has applied to")
