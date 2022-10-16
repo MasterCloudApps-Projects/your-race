@@ -175,32 +175,6 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("Races that an athlete has applied to")
-    @Test
-    void shouldGetAthleteRacesList() throws Exception{
 
-      /*  Athlete athlete = Athlete.builder().name("Raquel").surname("Toscano").build();
-        athleteRepository.save(athlete);
-
-        Organizer organizer = Organizer.builder().name("Test Organizer").build();
-        organizerRepository.save(organizer);
-
-        Race race = buildTestRace(organizer);
-        raceRepository.save(race);
-
-        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race.getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
-*/
-
-/*
-        mvc.perform(get("/api/athletes/" + athlete.getId()+"/races")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
-*/
-
-    }
 
  }
