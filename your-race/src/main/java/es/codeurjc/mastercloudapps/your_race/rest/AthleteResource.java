@@ -54,7 +54,7 @@ public class AthleteResource {
         return new ResponseEntity<>(athleteService.create(athleteDTO), HttpStatus.CREATED);
     }
 
-    //Cambiar a ApplicationDTO
+
     @PostMapping("/{id}/application/{idRace}")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
@@ -63,7 +63,6 @@ public class AthleteResource {
          //return ResponseEntity.ok(application);
             return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
         else
-          //return ResponseEntity.ok(Optional.empty()); //Mirar qué valor debería devolver aquí.
             return ResponseEntity.badRequest().body(Optional.empty()) ;
     }
 

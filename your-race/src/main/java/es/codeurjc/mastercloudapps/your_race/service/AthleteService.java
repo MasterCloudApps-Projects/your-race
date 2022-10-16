@@ -55,11 +55,9 @@ public class AthleteService {
         mapToEntity(athleteDTO, athlete);
         return athleteRepository.save(athlete).getId();
     }
-    // cambiar a devolver ApplicationDTO
-  //  public Optional<Application> raceApplication( final Long idAthlete, final Long idRace){
+
     public Optional<ApplicationDTO> raceApplication( final Long idAthlete, final Long idRace){
-        // _ENcontar el atleta y la race y usarlos en el builder de application.
-         //asignar el application code de forma aleatoria aqui.
+
         Optional<Athlete> athlete = athleteRepository.findById(idAthlete);
         Optional<Race> race = raceRepository.findById(idRace);
 
@@ -119,13 +117,5 @@ public class AthleteService {
         return applicationDTO;
     }
 
- /* De momento no lo he necesitado:
-    private Application mapToEntity(final AthleteDTO athleteDTO, final Application application) {
-
-        athlete.setName(athleteDTO.getName());
-        athlete.setSurname(athleteDTO.getSurname());
-        athlete.setTrackRecord(athleteDTO.getTrackRecord());
-        return application;
-    }*/
 
 }
