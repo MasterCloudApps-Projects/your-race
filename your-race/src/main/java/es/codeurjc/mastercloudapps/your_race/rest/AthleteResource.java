@@ -63,9 +63,8 @@ public class AthleteResource {
          //return ResponseEntity.ok(application);
             return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
         else
-          return ResponseEntity.ok(Optional.empty()); //Mirar qué valor debería devolver aquí.
-
-
+          //return ResponseEntity.ok(Optional.empty()); //Mirar qué valor debería devolver aquí.
+            return ResponseEntity.badRequest().body(Optional.empty()) ;
     }
 
 
