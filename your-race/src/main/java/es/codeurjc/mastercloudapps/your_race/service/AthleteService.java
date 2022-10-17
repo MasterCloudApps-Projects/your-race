@@ -84,7 +84,7 @@ public class AthleteService {
     }
 
 
-    public List<ApplicationDTO> findAllApplications(Long id){
+    public List<ApplicationDTO> findAllApplication(Long id){
 
         return  applicationRepository.findAll()
                 .stream()
@@ -93,16 +93,15 @@ public class AthleteService {
                 .toList();
     }
 
-    public List<ApplicationDTO> findAllApplicationsOpenRaces(Long id){
+    public List<ApplicationDTO> findAllApplicationOpenRace(Long id){
 
-        List<ApplicationDTO> applicationDTOs = applicationRepository.findAll()
+        return applicationRepository.findAll()
                 .stream()
                 .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
                 .filter(application -> LocalDateTime.now().isBefore(application.getApplicationRace().getDate()))
                 .map(application -> mapToDTO(application, new ApplicationDTO()))
                 .toList();
 
-        return applicationDTOs;
     }
 
 
