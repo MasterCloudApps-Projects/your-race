@@ -236,19 +236,16 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
         organizerRepository.save(organizer);
 
         Race race1 = buildTestRace(organizer);
-        raceRepository.save(race1);
-
         Race race2 = buildTestRace(organizer);
-        raceRepository.save(race2);
-
         Race race3 = buildTestRace(organizer);
-        raceRepository.save(race3);
-
 
         this.setDateInPast(race1);
         this.setDateInFuture(race2);
         this.setDateInFuture(race3);
 
+        raceRepository.save(race1);
+        raceRepository.save(race2);
+        raceRepository.save(race3);
 
         mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race1.getId())
                         .contentType(MediaType.APPLICATION_JSON))

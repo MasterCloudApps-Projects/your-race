@@ -42,8 +42,10 @@ public class AthleteResource {
     @GetMapping("/{id}/applications")
     public ResponseEntity<List<ApplicationDTO>> getAthleteApplicationRaces(@PathVariable final Long id, @RequestParam boolean open){
 
-
-        return ResponseEntity.ok(athleteService.findAllApplications(id,open));
+        if (open)
+            return ResponseEntity.ok(athleteService.findAllApplicationsOpenRaces(id));
+        else
+          return ResponseEntity.ok(athleteService.findAllApplications(id));
     }
 
     @PostMapping

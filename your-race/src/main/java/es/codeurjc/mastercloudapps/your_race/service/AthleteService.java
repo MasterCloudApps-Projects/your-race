@@ -84,13 +84,25 @@ public class AthleteService {
     }
 
 
-    public List<ApplicationDTO> findAllApplications(Long id, boolean open){
+    public List<ApplicationDTO> findAllApplications(Long id){
 
         return  applicationRepository.findAll()
                 .stream()
                 .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
                 .map(application -> mapToDTO(application, new ApplicationDTO()))
                 .toList();
+    }
+
+    public List<ApplicationDTO> findAllApplicationsOpenRaces(Long id){
+
+        List<ApplicationDTO> applicationDTOs = applicationRepository.findAll()
+                .stream()
+                .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
+                .filter(application -> LocalDateTime.now().isBefore(application.getApplicationRace().getDate()))
+                .map(application -> mapToDTO(application, new ApplicationDTO()))
+                .toList();
+
+        return applicationDTOs;
     }
 
 
