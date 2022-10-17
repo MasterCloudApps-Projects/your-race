@@ -271,6 +271,12 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
+        mvc.perform(get("/api/athletes/" + athlete.getId()+"/applications")
+                        .param("open","false")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+
     }
 
  }
