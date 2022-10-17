@@ -223,4 +223,56 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     }
 
+
+    @DisplayName("Races that an athlete has applied to and are open")
+    @Test
+    void shouldGetAthleteApplicationOpenRacesList() throws Exception {
+
+        Athlete athlete = Athlete.builder().name("Raquel").surname("Toscano").build();
+        athleteRepository.save(athlete);
+
+
+        Organizer organizer = Organizer.builder().name("Test Organizer").build();
+        organizerRepository.save(organizer);
+
+        Race race1 = buildTestRace(organizer);
+        raceRepository.save(race1);
+
+        Race race2 = buildTestRace(organizer);
+        raceRepository.save(race2);
+
+        Race race3 = buildTestRace(organizer);
+        raceRepository.save(race3);
+
+
+        this.setDateInPast(race1);
+        this.setDateInFuture(race2);
+        this.setDateInFuture(race3);
+
+
+        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race1.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+
+        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race2.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+
+
+        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race3.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+
+
+        mvc.perform(get("/api/athletes/" + athlete.getId()+"/applications")
+                        .param("open","true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+    }
+
  }

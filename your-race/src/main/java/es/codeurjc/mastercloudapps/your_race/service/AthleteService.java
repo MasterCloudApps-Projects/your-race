@@ -84,7 +84,7 @@ public class AthleteService {
     }
 
 
-    public List<ApplicationDTO> findAllApplications(Long id){
+    public List<ApplicationDTO> findAllApplications(Long id, boolean open){
 
         return  applicationRepository.findAll()
                 .stream()
