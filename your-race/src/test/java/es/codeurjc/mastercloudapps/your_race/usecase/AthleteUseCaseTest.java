@@ -156,12 +156,12 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @Test
     void athleteShouldApplyToExistingRace() throws Exception{
 
-       mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/"+raceList.get(0).getId())
+       mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
-        mvc.perform(post("/api/athletes/" + "0000" +"/application/"+ "0000")
+        mvc.perform(post("/api/athletes/" + "0000" +"/applications/"+ "0000")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
@@ -172,15 +172,15 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @Test
     void applicationToNonExistingAthleteRaceShouldNotBePossible() throws Exception{
 
-        mvc.perform(post("/api/athletes/" + "0000" + "/application/"+raceList.get(0).getId())
+        mvc.perform(post("/api/athletes/" + "0000" + "/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/" + "0000")
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/" + "0000")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
-        mvc.perform(post("/api/athletes/" + "0000" +"/application/"+ "0000")
+        mvc.perform(post("/api/athletes/" + "0000" +"/applications/"+ "0000")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
@@ -189,18 +189,18 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @Test
     void shouldGetAthleteApplicationRacesList() throws Exception {
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/"+raceList.get(0).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/"+raceList.get(1).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(1).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(1).getId() +"/application/"+raceList.get(1).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(1).getId() +"/applications/"+raceList.get(1).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
@@ -227,18 +227,18 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
         raceRepository.saveAll(raceList);
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/"+raceList.get(0).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/"+raceList.get(1).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(1).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/application/"+raceList.get(2).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(2).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
@@ -258,6 +258,7 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     }
 
+   
 
 
  }

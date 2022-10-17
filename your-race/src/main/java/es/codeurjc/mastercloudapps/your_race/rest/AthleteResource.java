@@ -55,7 +55,7 @@ public class AthleteResource {
     }
 
 
-    @PostMapping("/{id}/application/{idRace}")
+    @PostMapping("/{id}/applications/{idRace}")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
         Optional<ApplicationDTO> applicationDTO = athleteService.raceApplication(id,idRace);
