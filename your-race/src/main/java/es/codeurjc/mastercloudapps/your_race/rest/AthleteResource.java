@@ -1,11 +1,14 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 import es.codeurjc.mastercloudapps.your_race.domain.Application;
+import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.AthleteService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -43,9 +46,10 @@ public class AthleteResource {
     }
 
 
-    @GetMapping("/{id}/races")
-    public ResponseEntity<List<RaceDTO>> getAthleteRaces(@PathVariable final Long id){
-        return ResponseEntity.ok(null);
+    @GetMapping("/{id}/applications")
+    public ResponseEntity<List<ApplicationDTO>> getAthleteApplicationRaces(@PathVariable final Long id){
+
+        return ResponseEntity.ok(athleteService.findAllApplications(id));
     }
 
     @PostMapping
@@ -60,7 +64,6 @@ public class AthleteResource {
     public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
         Optional<ApplicationDTO> applicationDTO = athleteService.raceApplication(id,idRace);
         if (applicationDTO.isPresent())
-         //return ResponseEntity.ok(application);
             return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
         else
             return ResponseEntity.badRequest().body(Optional.empty()) ;

@@ -5,11 +5,14 @@ import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
@@ -79,6 +82,17 @@ public class AthleteService {
 
 
     }
+
+
+    public List<ApplicationDTO> findAllApplications(Long id){
+
+        return  applicationRepository.findAll()
+                .stream()
+                .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
+                .map(application -> mapToDTO(application, new ApplicationDTO()))
+                .toList();
+    }
+
 
     public void update(final Long id, final AthleteDTO athleteDTO) {
         final Athlete athlete = athleteRepository.findById(id)

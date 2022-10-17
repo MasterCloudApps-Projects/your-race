@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -177,27 +178,48 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     @DisplayName("Races that an athlete has applied to")
     @Test
-    void shouldGetAthleteRacesList() throws Exception {
+    void shouldGetAthleteApplicationRacesList() throws Exception {
 
         Athlete athlete = Athlete.builder().name("Raquel").surname("Toscano").build();
         athleteRepository.save(athlete);
 
+        Athlete athlete2 = Athlete.builder().name("Rafael").surname("Gómez").build();
+        athleteRepository.save(athlete2);
+
         Organizer organizer = Organizer.builder().name("Test Organizer").build();
         organizerRepository.save(organizer);
 
-        Race race = buildTestRace(organizer);
-        raceRepository.save(race);
+        Race race1 = buildTestRace(organizer);
+        raceRepository.save(race1);
 
-        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race.getId())
+        Race race2 = buildTestRace(organizer);
+        raceRepository.save(race2);
+
+        Race race3 = buildTestRace(organizer);
+        raceRepository.save(race3);
+
+        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race1.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+
+        mvc.perform(post("/api/athletes/" + athlete.getId()+"/application/"+race2.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
 
-        mvc.perform(get("/api/athletes/" + athlete.getId()+"/races")
+        mvc.perform(post("/api/athletes/" + athlete2.getId()+"/application/"+race1.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+
+
+        mvc.perform(get("/api/athletes/" + athlete.getId()+"/applications")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].raceName", is(race1.getName())));
 
     }
 
