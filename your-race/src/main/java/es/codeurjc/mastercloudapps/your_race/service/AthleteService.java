@@ -73,7 +73,8 @@ public class AthleteService {
         Optional<Race> race = raceRepository.findById(idRace);
 
 
-        if (athlete.isPresent() && race.isPresent()) {
+        if (athlete.isPresent() && race.isPresent()
+                && race.get().getApplicationPeriod().isOpen()) {
             Application application = Application.builder().applicationAthlete(athlete.get())
                     .applicationRace(race.get())
                     .applicationCode(RandomStringUtils.random(10,true,true))

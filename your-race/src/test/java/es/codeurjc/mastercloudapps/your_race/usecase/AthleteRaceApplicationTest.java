@@ -259,7 +259,7 @@ public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
         mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.applicationCode").isEmpty());
+                .andExpect(jsonPath("$.applicationCode").doesNotExist());
 
     }
 }
