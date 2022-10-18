@@ -1,7 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.usecase;
 
 import com.github.javafaker.Faker;
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
@@ -11,13 +10,18 @@ import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -26,13 +30,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AthleteUseCaseTest extends AbstractDatabaseTest {
+public class AthleteRaceApplicationTest {
+
+
     @Autowired
     private MockMvc mvc;
     @Autowired
@@ -126,29 +129,6 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
 
     }
 
-    @DisplayName("Get list of open races (not celebrated yet)")
-    @Test
-    void shouldGetListOpenRaces() throws Exception{
-
-        initializerData.setDateInPast(raceList.get(0));
-        initializerData.setDateInFuture(raceList.get(1));
-        initializerData.setDateInFuture(raceList.get(2));
-
-        raceRepository.saveAll(raceList);
-
-        mvc.perform(get("/api/races")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("open","true"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)));
-
-        mvc.perform(get("/api/races")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("open","false"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)));
-
-    }
 
 
 
@@ -156,7 +136,7 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @Test
     void athleteShouldApplyToExistingRace() throws Exception{
 
-       mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
@@ -220,7 +200,6 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
     @Test
     void shouldGetAthleteApplicationOpenRacesList() throws Exception {
 
-
         initializerData.setDateInPast(raceList.get(0));
         initializerData.setDateInFuture(raceList.get(1));
         initializerData.setDateInFuture(raceList.get(2));
@@ -257,8 +236,4 @@ public class AthleteUseCaseTest extends AbstractDatabaseTest {
                 .andExpect(jsonPath("$", hasSize(3)));
 
     }
-
-   
-
-
- }
+}
