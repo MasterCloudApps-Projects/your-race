@@ -5,6 +5,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.service.AthleteService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
@@ -46,6 +47,11 @@ public class AthleteResource {
             return ResponseEntity.ok(athleteService.findAllApplicationOpenRace(id));
         else
           return ResponseEntity.ok(athleteService.findAllApplication(id));
+    }
+
+    @GetMapping("/{id}/tracks")
+    public ResponseEntity<List<TrackDTO>> getAthleteTrackRaces(@PathVariable final Long id){
+        return ResponseEntity.ok(new ArrayList<TrackDTO>());
     }
 
     @PostMapping

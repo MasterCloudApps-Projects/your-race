@@ -128,8 +128,6 @@ public class AhtleteGetRaceTrackTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-
-
     }
 }
 
