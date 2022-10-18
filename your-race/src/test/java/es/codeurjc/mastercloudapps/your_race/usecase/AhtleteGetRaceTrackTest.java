@@ -138,6 +138,7 @@ public class AhtleteGetRaceTrackTest {
 
     }
 
+
     @DisplayName("An athlete should get the races that has been registered to")
     @Test
     void shouldGetAthleteRegisteredRace() throws Exception{

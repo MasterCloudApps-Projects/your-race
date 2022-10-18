@@ -6,6 +6,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 
@@ -18,6 +19,7 @@ import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -31,15 +33,19 @@ import javax.transaction.Transactional;
 @Service
 public class AthleteService {
 
+    //Revisar estas inyecciones, deberían ser SErvice en lugar de repository?
     private final AthleteRepository athleteRepository;
     private final ApplicationRepository applicationRepository;
     private final RaceRepository raceRepository;
+    private final TrackService trackService;
 
     public AthleteService(final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository
-                        ,RaceRepository raceRepository) {
+                        ,RaceRepository raceRepository
+                         ,TrackService trackService   ) {
         this.athleteRepository = athleteRepository;
         this.applicationRepository = applicationRepository;
         this.raceRepository = raceRepository;
+        this.trackService = trackService;
     }
 
     public List<AthleteDTO> findAll() {
@@ -115,6 +121,11 @@ public class AthleteService {
     public void delete(final Long id) {
         athleteRepository.deleteById(id);
     }
+
+    public  List<TrackDTO> findAllTrack(Long id){
+        return trackService.findAllByAthlete(id);
+    }
+
 
     private AthleteDTO mapToDTO(final Athlete athlete, final AthleteDTO athleteDTO) {
         athleteDTO.setId(athlete.getId());

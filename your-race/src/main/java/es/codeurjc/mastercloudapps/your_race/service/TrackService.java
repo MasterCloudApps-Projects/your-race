@@ -22,6 +22,7 @@ public class TrackService {
     private final RaceRepository raceRepository;
     private final AthleteRepository athleteRepository;
 
+
     public TrackService(final TrackRepository trackRepository, final RaceRepository raceRepository,
             final AthleteRepository athleteRepository) {
         this.trackRepository = trackRepository;
@@ -59,6 +60,16 @@ public class TrackService {
         trackRepository.deleteById(id);
     }
 
+
+    public List<TrackDTO> findAllByAthlete(Long id){
+
+        return  trackRepository.findAll()
+                .stream()
+                .filter(track -> track.getAthlete().getId().equals(id))
+                .map(track -> mapToDTO(track,new TrackDTO()))
+                .toList();
+
+    }
     private TrackDTO mapToDTO(final Track track, final TrackDTO trackDTO) {
         trackDTO.setId(track.getId());
         trackDTO.setRegistrationDate(track.getRegistrationDate());

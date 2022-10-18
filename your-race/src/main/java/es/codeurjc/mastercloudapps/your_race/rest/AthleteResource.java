@@ -51,7 +51,7 @@ public class AthleteResource {
 
     @GetMapping("/{id}/tracks")
     public ResponseEntity<List<TrackDTO>> getAthleteTrackRaces(@PathVariable final Long id){
-        return ResponseEntity.ok(new ArrayList<TrackDTO>());
+        return ResponseEntity.ok(athleteService.findAllTrack(id));
     }
 
     @PostMapping
