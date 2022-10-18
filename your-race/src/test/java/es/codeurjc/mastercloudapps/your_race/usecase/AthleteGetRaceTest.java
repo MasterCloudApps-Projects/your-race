@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Disabled
 @AutoConfigureMockMvc
 @SpringBootTest
 public class AthleteGetRaceTest extends AbstractDatabaseTest {

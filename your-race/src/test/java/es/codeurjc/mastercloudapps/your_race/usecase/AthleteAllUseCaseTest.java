@@ -2,14 +2,10 @@ package es.codeurjc.mastercloudapps.your_race.usecase;
 
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
-import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
-import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
-import es.codeurjc.mastercloudapps.your_race.service.RaceService;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +25,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
+
+
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
-
-
+public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     @Autowired
     private MockMvc mvc;
-
 
     @Autowired
     private OrganizerRepository organizerRepository;
@@ -48,13 +42,17 @@ public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
     @Autowired
     private AthleteRepository athleteRepository;
 
+
+    @Autowired
+    private TrackRepository trackRepository;
+
     @Autowired
     private ApplicationRepository applicationRepository;
-
 
     Organizer organizer;
     List<Race> raceList;
     List<Athlete> athleteList;
+    List<Track> tracksList;
 
     private static class initializerData {
         private static Faker faker;
@@ -97,19 +95,34 @@ public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
         static Organizer buildTestOrganizer(){
             return Organizer.builder().name("Test Organizer").build();
         }
+
+        static Track buildTrack(Athlete athlete, Race race){
+            return Track.builder()
+                    .athlete(athlete)
+                    .race(race)
+                    .status(faker.options().option("REGISTERED","PARTICIPATED"))
+                    .registrationDate(race.getRaceRegistration().getRegistrationDate())
+                    .dorsal(RandomUtils.nextInt())
+                    .build();
+        }
+
+
     }
 
     @BeforeEach
     public void initEach(){
 
         initializerData.init();
+        trackRepository.deleteAll();
         applicationRepository.deleteAll();
         raceRepository.deleteAll();
         organizerRepository.deleteAll();
 
 
+
         raceList = new ArrayList<Race>();
         athleteList = new ArrayList<Athlete>();
+        tracksList = new ArrayList<Track>();
 
         organizer = initializerData.buildTestOrganizer();
 
@@ -117,15 +130,39 @@ public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
             raceList.add(initializerData.buildTestRace(organizer));
 
 
-        for (int i=0; i<2;i++)
+        for (int i=0; i<3;i++)
             athleteList.add(initializerData.buildTestAthlete());
 
         organizerRepository.save(organizer);
         raceRepository.saveAll(raceList);
         athleteRepository.saveAll(athleteList);
 
+
     }
 
+    @DisplayName("Get list of open races (not celebrated yet)")
+    @Test
+    void shouldGetListOpenRaces() throws Exception{
+
+        initializerData.setDateInPast(raceList.get(0));
+        initializerData.setDateInFuture(raceList.get(1));
+        initializerData.setDateInFuture(raceList.get(2));
+
+        raceRepository.saveAll(raceList);
+
+        mvc.perform(get("/api/races")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+        mvc.perform(get("/api/races")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+
+    }
 
 
 
@@ -231,6 +268,67 @@ public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
+
+    }
+
+    @DisplayName("An athlete should get the races that has been registered to")
+    @Test
+    void shouldGetAthleteRegisteredRace() throws Exception{
+
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(0)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
+
+        tracksList.add(initializerData.buildTrack(athleteList.get(1),raceList.get(1)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(1),raceList.get(2)));
+
+        trackRepository.saveAll(tracksList);
+
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(1).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(2).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
+
+    }
+
+    @DisplayName("An athlete should get the open races that has been registered to")
+    @Test
+    void shouldGetAthleteRegisteredOpenRace() throws Exception{
+
+        initializerData.setDateInPast(raceList.get(0));
+        initializerData.setDateInFuture(raceList.get(1));
+        initializerData.setDateInFuture(raceList.get(2));
+
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(0)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
+
+
+        raceRepository.saveAll(raceList);
+        trackRepository.saveAll(tracksList);
+
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+
 
     }
 }

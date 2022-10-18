@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.usecase;
 
 import com.github.javafaker.Faker;
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -9,10 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -24,9 +27,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Disabled
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AhtleteGetRaceTrackTest {
+public class AhtleteGetRaceTrackTest extends AbstractDatabaseTest {
 
     @Autowired
     MockMvc mvc;
@@ -40,8 +45,6 @@ public class AhtleteGetRaceTrackTest {
     @Autowired
     private AthleteRepository athleteRepository;
 
-    @Autowired
-    private ApplicationRepository applicationRepository;
 
     @Autowired
     private TrackRepository trackRepository;
@@ -111,7 +114,6 @@ public class AhtleteGetRaceTrackTest {
 
         initializerData.init();
         trackRepository.deleteAll();
-        applicationRepository.deleteAll();
         raceRepository.deleteAll();
         organizerRepository.deleteAll();
 
