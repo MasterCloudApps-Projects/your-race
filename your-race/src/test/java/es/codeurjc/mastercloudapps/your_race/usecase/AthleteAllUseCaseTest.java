@@ -71,6 +71,10 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
                     .raceRegistration(Registration.builder()
                             .registrationDate(LocalDateTime.now().plusMonths(4L))
                             .build())
+                    .applicationPeriod(ApplicationPeriod.builder()
+                            .initialDate(LocalDateTime.now().minusMonths(1L))
+                            .lastDate(LocalDateTime.now().plusMonths(1L))
+                            .build())
                     .date(LocalDateTime.now().plusMonths(6L))
                     .build();
         }
@@ -105,7 +109,15 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
                     .dorsal(RandomUtils.nextInt())
                     .build();
         }
+        static void setApplicationPeriodOpen(Race race){
+            race.getApplicationPeriod().setInitialDate(LocalDateTime.now().minusMonths(1L));
+            race.getApplicationPeriod().setLastDate(LocalDateTime.now().plusMonths(2));
+        }
 
+        static void setApplicationPeriodClosed(Race race){
+            race.getApplicationPeriod().setInitialDate(LocalDateTime.now().minusMonths(3L));
+            race.getApplicationPeriod().setLastDate(LocalDateTime.now().minusMonths(2));
+        }
 
     }
 
@@ -268,6 +280,32 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
+
+    }
+
+    @DisplayName("Athlete should apply to a race only if ApplicationPeriod is open")
+    @Test
+    void athleteShouldApplyIfAppliactionPeriodIsOpen() throws Exception{
+
+
+        initializerData.setDateInFuture(raceList.get(0));
+        initializerData.setApplicationPeriodClosed(raceList.get(0));
+
+
+        raceRepository.saveAll(raceList);
+
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").doesNotExist());
+
+        initializerData.setApplicationPeriodOpen(raceList.get(0));
+        raceRepository.saveAll(raceList);
+
+        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
     }
 
