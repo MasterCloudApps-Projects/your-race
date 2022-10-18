@@ -38,8 +38,7 @@ public class AthleteRaceApplicationTest {
 
     @Autowired
     private MockMvc mvc;
-    @Autowired
-    private RaceService raceService;
+
 
     @Autowired
     private OrganizerRepository organizerRepository;
@@ -55,7 +54,6 @@ public class AthleteRaceApplicationTest {
 
 
     Organizer organizer;
-
     List<Race> raceList;
     List<Athlete> athleteList;
 

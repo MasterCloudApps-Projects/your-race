@@ -28,7 +28,7 @@ import java.util.List;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AthleteGetRacesTest extends AbstractDatabaseTest {
+public class AthleteGetRaceTest extends AbstractDatabaseTest {
     @Autowired
     private MockMvc mvc;
 
