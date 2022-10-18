@@ -127,7 +127,7 @@ public class AhtleteGetRaceTrackTest {
             raceList.add(initializerData.buildTestRace(organizer));
 
 
-        for (int i=0; i<2;i++)
+        for (int i=0; i<3;i++)
             athleteList.add(initializerData.buildTestAthlete());
 
         organizerRepository.save(organizer);
@@ -147,6 +147,9 @@ public class AhtleteGetRaceTrackTest {
        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
 
+       tracksList.add(initializerData.buildTrack(athleteList.get(1),raceList.get(1)));
+       tracksList.add(initializerData.buildTrack(athleteList.get(1),raceList.get(2)));
+
        trackRepository.saveAll(tracksList);
 
 
@@ -154,6 +157,16 @@ public class AhtleteGetRaceTrackTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(1).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(2).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
 
     }
 }
