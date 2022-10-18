@@ -37,9 +37,16 @@ public class InitializerDataService {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+
+    @Autowired
+    private TrackRepository trackRepository;
+
+
+
     @PostConstruct
     public  void init(){
 
+        this.trackRepository.deleteAll();
         this.applicationRepository.deleteAll();
         this.raceRepository.deleteAll();
         this.organizerRepository.deleteAll();
