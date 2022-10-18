@@ -1,14 +1,10 @@
 package es.codeurjc.mastercloudapps.your_race.usecase;
 
 import com.github.javafaker.Faker;
-import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
-import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
-import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import es.codeurjc.mastercloudapps.your_race.domain.*;
+import es.codeurjc.mastercloudapps.your_race.repos.*;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.hasSize;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,9 +43,13 @@ public class AhtleteGetRaceTrackTest {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private TrackRepository trackRepository;
+
     Organizer organizer;
     List<Race> raceList;
     List<Athlete> athleteList;
+    List<Track> tracksList;
 
     private static class initializerData {
         private static Faker faker;
@@ -91,19 +92,34 @@ public class AhtleteGetRaceTrackTest {
         static Organizer buildTestOrganizer(){
             return Organizer.builder().name("Test Organizer").build();
         }
+
+        static Track buildTrack(Athlete athlete, Race race){
+            return Track.builder()
+                    .athlete(athlete)
+                    .race(race)
+                    .status(faker.options().option("REGISTERED","PARTICIPATED"))
+                    .registrationDate(race.getRaceRegistration().getRegistrationDate())
+                    .dorsal(RandomUtils.nextInt())
+                    .build();
+        }
+
+
     }
 
     @BeforeEach
     public void initEach(){
 
         initializerData.init();
+        trackRepository.deleteAll();
         applicationRepository.deleteAll();
         raceRepository.deleteAll();
         organizerRepository.deleteAll();
 
 
+
         raceList = new ArrayList<Race>();
         athleteList = new ArrayList<Athlete>();
+        tracksList = new ArrayList<Track>();
 
         organizer = initializerData.buildTestOrganizer();
 
@@ -118,15 +134,25 @@ public class AhtleteGetRaceTrackTest {
         raceRepository.saveAll(raceList);
         athleteRepository.saveAll(athleteList);
 
+
+
     }
 
     @DisplayName("An athlete should get the races that has been registered to")
     @Test
     void shouldGetAthleteRegisteredRace() throws Exception{
 
+       tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(0)));
+       tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
+       tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
+
+       trackRepository.saveAll(tracksList);
+
+
         mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
 
     }
 }
