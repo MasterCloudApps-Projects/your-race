@@ -154,17 +154,20 @@ public class AhtleteGetRaceTrackTest {
 
 
         mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
 
         mvc.perform(get("/api/athletes/" + athleteList.get(1).getId()+"/tracks")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
         mvc.perform(get("/api/athletes/" + athleteList.get(2).getId()+"/tracks")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
 

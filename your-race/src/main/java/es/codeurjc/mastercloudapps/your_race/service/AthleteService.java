@@ -126,6 +126,10 @@ public class AthleteService {
         return trackService.findAllByAthlete(id);
     }
 
+    public  List<TrackDTO> findAllOpenTrack(Long id){
+        return trackService.findAllOpenByAthlete(id);
+    }
+
 
     private AthleteDTO mapToDTO(final Athlete athlete, final AthleteDTO athleteDTO) {
         athleteDTO.setId(athlete.getId());

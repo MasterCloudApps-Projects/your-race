@@ -76,6 +76,20 @@ public class TrackService {
                 .toList();
 
     }
+
+    public List<TrackDTO> findAllOpenByAthlete(Long id){
+
+        return  trackRepository.findAll()
+                .stream()
+                .filter(track -> track.getAthlete().getId().equals(id))
+                .filter(track -> track.getRace().isOpen())
+                .map(track -> mapToDTO(track,new TrackDTO()))
+                .toList();
+
+    }
+
+
+
     private TrackDTO mapToDTO(final Track track, final TrackDTO trackDTO) {
         trackDTO.setId(track.getId());
         trackDTO.setAthleteId(track.getAthlete() == null ? null : track.getAthlete().getId());
