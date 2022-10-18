@@ -169,5 +169,32 @@ public class AhtleteGetRaceTrackTest {
                 .andExpect(jsonPath("$", hasSize(0)));
 
     }
+
+    @DisplayName("An athlete should get the open races that has been registered to")
+    @Test
+    void shouldGetAthleteRegisteredOpenRace() throws Exception{
+
+        initializerData.setDateInPast(raceList.get(0));
+        initializerData.setDateInFuture(raceList.get(1));
+        initializerData.setDateInFuture(raceList.get(2));
+
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(0)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
+        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
+
+
+        raceRepository.saveAll(raceList);
+        trackRepository.saveAll(tracksList);
+
+
+        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+
+
+    }
 }
 
