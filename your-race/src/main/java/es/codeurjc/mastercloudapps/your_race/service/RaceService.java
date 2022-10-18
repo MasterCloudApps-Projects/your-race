@@ -46,7 +46,7 @@ public class RaceService {
     public List<RaceDTO> findOpenRaces() {
        return raceRepository.findAll(Sort.by("id"))
                 .stream()
-                .filter(race -> LocalDateTime.now().isBefore(race.getDate()))
+                .filter(Race::isOpen)
                 .map(race -> mapToDTO(race, new RaceDTO()))
                 .toList();
     }

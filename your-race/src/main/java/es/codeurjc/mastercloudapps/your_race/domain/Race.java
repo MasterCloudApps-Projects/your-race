@@ -156,4 +156,8 @@ public class Race {
                 && applicationPeriodIsValid()
                 && datesAreValid();
     }
+
+    public boolean isOpen(){
+      return LocalDateTime.now().isBefore(this.date);
+    }
 }

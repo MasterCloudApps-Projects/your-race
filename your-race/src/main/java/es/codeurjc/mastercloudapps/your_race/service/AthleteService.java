@@ -98,7 +98,7 @@ public class AthleteService {
         return applicationRepository.findAll()
                 .stream()
                 .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
-                .filter(application -> LocalDateTime.now().isBefore(application.getApplicationRace().getDate()))
+                .filter(application ->  application.getApplicationRace().isOpen())
                 .map(application -> mapToDTO(application, new ApplicationDTO()))
                 .toList();
 
