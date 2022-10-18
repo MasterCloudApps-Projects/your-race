@@ -137,13 +137,12 @@ public class RaceService {
 
 
     private Optional<Organizer> findOrganizer(String name){
-        List<Organizer> organizers = organizerRepository.findAll();
-        for(Organizer organizer : organizers)
-        {
-            if(organizer.getName().equals(name))
-                return Optional.of(organizer);
-        }
-        return Optional.empty();
+
+        return organizerRepository.findAll()
+                .stream()
+                .filter(organizer -> organizer.getName().equals(name))
+                .findAny();
+
     }
 
 
