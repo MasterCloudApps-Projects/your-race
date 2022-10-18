@@ -3,16 +3,22 @@ package es.codeurjc.mastercloudapps.your_race.service;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
+import es.codeurjc.mastercloudapps.your_race.model.Score;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 
 @Service
@@ -72,13 +78,21 @@ public class TrackService {
     }
     private TrackDTO mapToDTO(final Track track, final TrackDTO trackDTO) {
         trackDTO.setId(track.getId());
+        trackDTO.setAthleteId(track.getAthlete() == null ? null : track.getAthlete().getId());
+        trackDTO.setName(track.getAthlete() == null ? null : track.getAthlete().getName());
+        trackDTO.setName(track.getAthlete() == null ? null : track.getAthlete().getSurname());
+
+        trackDTO.setRaceId(track.getRace() == null ? null : track.getRace().getId());
+        trackDTO.setRaceName(track.getRace() == null ? null : track.getRace().getName());
+        trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
+
         trackDTO.setRegistrationDate(track.getRegistrationDate());
+
         trackDTO.setStatus(track.getStatus());
         trackDTO.setScore(track.getScore());
         trackDTO.setDorsal(track.getDorsal());
         trackDTO.setPaymentInfo(track.getPaymentInfo());
-        trackDTO.setRace(track.getRace() == null ? null : track.getRace().getId());
-        trackDTO.setAthlete(track.getAthlete() == null ? null : track.getAthlete().getId());
+
         return trackDTO;
     }
 
@@ -88,13 +102,17 @@ public class TrackService {
         track.setScore(trackDTO.getScore());
         track.setDorsal(trackDTO.getDorsal());
         track.setPaymentInfo(trackDTO.getPaymentInfo());
-        final Race race = trackDTO.getRace() == null ? null : raceRepository.findById(trackDTO.getRace())
+        final Race race = trackDTO.getRaceId() == null ? null : raceRepository.findById(trackDTO.getRaceId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "race not found"));
+
         track.setRace(race);
-        final Athlete athlete = trackDTO.getAthlete() == null ? null : athleteRepository.findById(trackDTO.getAthlete())
+        final Athlete athlete = trackDTO.getAthleteId() == null ? null : athleteRepository.findById(trackDTO.getAthleteId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "athlete not found"));
         track.setAthlete(athlete);
         return track;
     }
 
+
+
 }
+

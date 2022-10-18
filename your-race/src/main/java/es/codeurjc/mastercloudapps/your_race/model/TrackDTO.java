@@ -16,7 +16,17 @@ public class TrackDTO {
 
     private Long id;
 
+    private Long athleteId;
+    private String name;
+    private String surname;
+
+    private Long raceId;
+    private String raceName;
+    private LocalDateTime raceDate;
+
     private LocalDateTime registrationDate;
+    @Size(max = 255)
+    private String paymentInfo;
 
     @Size(max = 255)
     private String status;
@@ -26,11 +36,8 @@ public class TrackDTO {
 
     private Integer dorsal;
 
-    @Size(max = 255)
-    private String paymentInfo;
 
-    private Long race;
-
-    private Long athlete;
 
 }
+
+
