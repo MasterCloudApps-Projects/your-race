@@ -5,14 +5,13 @@ import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Registration;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
-import es.codeurjc.mastercloudapps.your_race.repos.ApplicationPeriodRepository;
+
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.RegistrationRepository;
 
 import java.time.LocalDateTime;
 
-import java.util.ArrayList;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -27,20 +26,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class RaceService {
 
     private final RaceRepository raceRepository;
-    private final ApplicationPeriodRepository applicationPeriodRepository;
     private final OrganizerRepository organizerRepository;
-    private final RegistrationRepository registrationRepository;
+
 
     public RaceService(final RaceRepository raceRepository,
-            final ApplicationPeriodRepository applicationPeriodRepository,
-            final OrganizerRepository organizerRepository,
-            final RegistrationRepository registrationRepository) {
+            final OrganizerRepository organizerRepository) {
         this.raceRepository = raceRepository;
-        this.applicationPeriodRepository = applicationPeriodRepository;
         this.organizerRepository = organizerRepository;
-        this.registrationRepository = registrationRepository;
-
-
     }
 
     public List<RaceDTO> findAll() {
@@ -144,9 +136,4 @@ public class RaceService {
                 .findAny();
 
     }
-
-
-
-
-
 }
