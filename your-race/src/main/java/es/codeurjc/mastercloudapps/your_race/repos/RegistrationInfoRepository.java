@@ -4,5 +4,5 @@ import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface RegistrationRepository extends JpaRepository<RegistrationInfo, Long> {
+public interface RegistrationInfoRepository extends JpaRepository<RegistrationInfo, Long> {
 }
