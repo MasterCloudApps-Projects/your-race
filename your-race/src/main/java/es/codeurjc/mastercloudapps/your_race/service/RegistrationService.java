@@ -1,10 +1,10 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.RegistrationRepository;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -34,39 +34,39 @@ public class RegistrationService {
     }
 
     public Long create(final RegistrationDTO registrationDTO) {
-        final Registration registration = new Registration();
-        mapToEntity(registrationDTO, registration);
-        return registrationRepository.save(registration).getId();
+        final RegistrationInfo registrationInfo = new RegistrationInfo();
+        mapToEntity(registrationDTO, registrationInfo);
+        return registrationRepository.save(registrationInfo).getId();
     }
 
     public void update(final Long id, final RegistrationDTO registrationDTO) {
-        final Registration registration = registrationRepository.findById(id)
+        final RegistrationInfo registrationInfo = registrationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        mapToEntity(registrationDTO, registration);
-        registrationRepository.save(registration);
+        mapToEntity(registrationDTO, registrationInfo);
+        registrationRepository.save(registrationInfo);
     }
 
     public void delete(final Long id) {
         registrationRepository.deleteById(id);
     }
 
-    private RegistrationDTO mapToDTO(final Registration registration,
+    private RegistrationDTO mapToDTO(final RegistrationInfo registrationInfo,
             final RegistrationDTO registrationDTO) {
-        registrationDTO.setId(registration.getId());
-        registrationDTO.setRegistrationType(registration.getRegistrationType());
-        registrationDTO.setRegistrationDate(registration.getRegistrationDate());
-        registrationDTO.setRegistrationCost(registration.getRegistrationCost());
-        registrationDTO.setConcurrentRequestThreshold(registration.getConcurrentRequestThreshold());
+        registrationDTO.setId(registrationInfo.getId());
+        registrationDTO.setRegistrationType(registrationInfo.getRegistrationType());
+        registrationDTO.setRegistrationDate(registrationInfo.getRegistrationDate());
+        registrationDTO.setRegistrationCost(registrationInfo.getRegistrationCost());
+        registrationDTO.setConcurrentRequestThreshold(registrationInfo.getConcurrentRequestThreshold());
         return registrationDTO;
     }
 
-    private Registration mapToEntity(final RegistrationDTO registrationDTO,
-            final Registration registration) {
-        registration.setRegistrationType(registrationDTO.getRegistrationType());
-        registration.setRegistrationDate(registrationDTO.getRegistrationDate());
-        registration.setRegistrationCost(registrationDTO.getRegistrationCost());
-        registration.setConcurrentRequestThreshold(registrationDTO.getConcurrentRequestThreshold());
-        return registration;
+    private RegistrationInfo mapToEntity(final RegistrationDTO registrationDTO,
+                                         final RegistrationInfo registrationInfo) {
+        registrationInfo.setRegistrationType(registrationDTO.getRegistrationType());
+        registrationInfo.setRegistrationDate(registrationDTO.getRegistrationDate());
+        registrationInfo.setRegistrationCost(registrationDTO.getRegistrationCost());
+        registrationInfo.setConcurrentRequestThreshold(registrationDTO.getConcurrentRequestThreshold());
+        return registrationInfo;
     }
 
 }

@@ -3,14 +3,11 @@ package es.codeurjc.mastercloudapps.your_race.service;
 import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
-
-import java.time.LocalDateTime;
-
 
 
 import java.util.List;
@@ -91,9 +88,9 @@ public class RaceService {
         raceDTO.setOrganizerName(race.getOrganizer() == null ? null : race.getOrganizer().getName());
 
 
-        raceDTO.setRaceRegistrationDate (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationDate());
-        raceDTO.setRegistrationType (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationType());
-        raceDTO.setRegistrationCost (race.getRaceRegistration() == null ? null : race.getRaceRegistration().getRegistrationCost());
+        raceDTO.setRaceRegistrationDate (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationDate());
+        raceDTO.setRegistrationType (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationType());
+        raceDTO.setRegistrationCost (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationCost());
         return raceDTO;
     }
 
@@ -118,12 +115,12 @@ public class RaceService {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "organizer not found"));
         race.setOrganizer(organizer);
 
-        final Registration raceRegistration = raceDTO.getRaceRegistrationDate() == null ? null :
-                Registration.builder().registrationDate(raceDTO.getRaceRegistrationDate())
+        final RegistrationInfo raceRegistrationInfo = raceDTO.getRaceRegistrationDate() == null ? null :
+                RegistrationInfo.builder().registrationDate(raceDTO.getRaceRegistrationDate())
                                 .registrationType(raceDTO.getRegistrationType())
                                 .registrationCost(raceDTO.getRegistrationCost())
                                         .build();
-        race.setRaceRegistration(raceRegistration);
+        race.setRaceRegistrationInfo(raceRegistrationInfo);
         return race;
     }
 

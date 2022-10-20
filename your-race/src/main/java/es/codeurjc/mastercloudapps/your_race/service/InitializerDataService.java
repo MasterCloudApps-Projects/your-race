@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 
 import es.codeurjc.mastercloudapps.your_race.repos.*;
@@ -64,28 +64,28 @@ public class InitializerDataService {
         Race raceClosed1 = getRaceClosed1(organizer1);
         Race raceClosed2 = getRaceClosed2(organizer2);
 
-        race1.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYDRAWING)
+        race1.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
                 .registrationDate(LocalDateTime.of(2022, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
 
-        race2.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYORDER)
+        race2.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,15, 9,0))
                 .registrationCost(150.00).build());
 
-        race3.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYORDER)
+        race3.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,16, 9,0))
                 .registrationCost(150.00).build());
 
-        race4.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYORDER)
+        race4.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,17, 9,0))
                 .registrationCost(150.00).build());
 
 
-        raceClosed1.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYDRAWING)
+        raceClosed1.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
                 .registrationDate(LocalDateTime.of(2021, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
 
-        raceClosed2.setRaceRegistration(Registration.builder().registrationType(RegistrationType.BYORDER)
+        raceClosed2.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2022, Month.JANUARY,15, 9,0))
                 .registrationCost(150.00).build());
 

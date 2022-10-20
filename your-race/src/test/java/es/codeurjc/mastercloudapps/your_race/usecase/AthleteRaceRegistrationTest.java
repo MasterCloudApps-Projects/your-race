@@ -6,6 +6,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.List;
 
 
 
-
+@Disabled
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
@@ -70,7 +71,7 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
                     .location(faker.address().cityName())
                     .distance(faker.number().randomDouble(2, 0, 1000))
                     .organizer(organizer)
-                    .raceRegistration(Registration.builder()
+                    .raceRegistrationInfo(RegistrationInfo.builder()
                             .registrationDate(LocalDateTime.now().plusMonths(4L))
                             .build())
                     .applicationPeriod(ApplicationPeriod.builder()
@@ -107,7 +108,7 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
                     .athlete(athlete)
                     .race(race)
                     .status(faker.options().option("REGISTERED","PARTICIPATED"))
-                    .registrationDate(race.getRaceRegistration().getRegistrationDate())
+                    .registrationDate(race.getRaceRegistrationInfo().getRegistrationDate())
                     .dorsal(RandomUtils.nextInt())
                     .build();
         }

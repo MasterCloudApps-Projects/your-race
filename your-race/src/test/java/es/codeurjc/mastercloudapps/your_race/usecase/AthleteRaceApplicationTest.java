@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
-import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +66,7 @@ public class AthleteRaceApplicationTest extends AbstractDatabaseTest {
                     .location(faker.address().cityName())
                     .distance(faker.number().randomDouble(2, 0, 1000))
                     .organizer(organizer)
-                    .raceRegistration(Registration.builder()
+                    .raceRegistrationInfo(RegistrationInfo.builder()
                             .registrationDate(LocalDateTime.now().plusMonths(4L))
                             .build())
                     .applicationPeriod(ApplicationPeriod.builder()

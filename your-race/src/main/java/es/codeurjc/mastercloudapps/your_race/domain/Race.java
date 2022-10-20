@@ -74,7 +74,7 @@ public class Race {
     @ToString.Exclude
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "race_registration_id")
-    private Registration raceRegistration;
+    private RegistrationInfo raceRegistrationInfo;
 
 
     private boolean nameIsPresent(){
@@ -84,13 +84,13 @@ public class Race {
         return Optional.ofNullable(this.location).isPresent();
     }
     private boolean raceRegistrationIsValid(){
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationType()).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo.getRegistrationType()).isEmpty())
             return true;
-        if (this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER))
+        if (this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYORDER))
             return true;
-        return this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING);
+        return this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYDRAWING);
 
 
     }
@@ -107,19 +107,19 @@ public class Race {
     }
     private boolean concurrentThresholdIsValid()
     {
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getConcurrentRequestThreshold()).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo.getConcurrentRequestThreshold()).isEmpty())
             return true;
-        return this.raceRegistration.getConcurrentRequestThreshold() > 1;
+        return this.raceRegistrationInfo.getConcurrentRequestThreshold() > 1;
     }
 
     private boolean registrationDateIsValid(){
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
                 return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo.getRegistrationDate()).isEmpty())
             return true;
-        return this.raceRegistration.getRegistrationDate().isAfter(LocalDateTime.now());
+        return this.raceRegistrationInfo.getRegistrationDate().isAfter(LocalDateTime.now());
     }
 
     private boolean applicationPeriodIsValid(){
@@ -134,16 +134,16 @@ public class Race {
     }
     private boolean datesAreValid(){
 
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
             return true;
         if (Optional.ofNullable(this.applicationPeriod).isEmpty())
             return true;
-       if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+       if (Optional.ofNullable(this.raceRegistrationInfo.getRegistrationDate()).isEmpty())
             return true;
         if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
-        return this.raceRegistration.getRegistrationDate().isAfter(this.applicationPeriod.getLastDate());
+        return this.raceRegistrationInfo.getRegistrationDate().isAfter(this.applicationPeriod.getLastDate());
     }
     public boolean isValid() {
         return  nameIsPresent()

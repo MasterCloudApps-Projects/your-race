@@ -7,7 +7,7 @@ import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -65,7 +64,7 @@ class RaceTest extends AbstractDatabaseTest {
                 .initialDate(initialDay)
                 .lastDate(lastDay)
                 .build();
-        Registration registration = Registration.builder()
+        RegistrationInfo registrationInfo = RegistrationInfo.builder()
                 .registrationType(registrationType)
                 .registrationDate(registrationDate)
                 .registrationCost(registrationCost)
@@ -81,7 +80,7 @@ class RaceTest extends AbstractDatabaseTest {
                 .type(type)
                 .athleteCapacity(athleteCapacity)
                 .applicationPeriod(applicationPeriod)
-                .raceRegistration(registration)
+                .raceRegistrationInfo(registrationInfo)
                 .build();
 
         Assertions.assertSame(race.getName(), name);
@@ -92,7 +91,7 @@ class RaceTest extends AbstractDatabaseTest {
         Assertions.assertSame(race.getType(), type);
         Assertions.assertSame(race.getAthleteCapacity(), athleteCapacity);
         Assertions.assertSame(race.getApplicationPeriod(), applicationPeriod);
-        Assertions.assertSame(race.getRaceRegistration(), registration);
+        Assertions.assertSame(race.getRaceRegistrationInfo(), registrationInfo);
     }
 
     @DisplayName("Test a race is valid - Name and location are not empty")
@@ -118,15 +117,15 @@ class RaceTest extends AbstractDatabaseTest {
                 .location("Santiago de Compostela")
                 .build();
 
-        Registration registration = new Registration();
-        race.setRaceRegistration(registration);
+        RegistrationInfo registrationInfo = new RegistrationInfo();
+        race.setRaceRegistrationInfo(registrationInfo);
 
         Assertions.assertTrue(race.isValid());
 
-        registration.setRegistrationType(RegistrationType.BYORDER);
+        registrationInfo.setRegistrationType(RegistrationType.BYORDER);
         Assertions.assertTrue(race.isValid());
 
-        registration.setRegistrationType(RegistrationType.BYDRAWING);
+        registrationInfo.setRegistrationType(RegistrationType.BYDRAWING);
         Assertions.assertTrue(race.isValid());
 
     }
@@ -185,16 +184,16 @@ class RaceTest extends AbstractDatabaseTest {
                 .location("Santiago de Compostela")
                 .build();
 
-        Registration registration = new Registration();
-        race.setRaceRegistration(registration);
+        RegistrationInfo registrationInfo = new RegistrationInfo();
+        race.setRaceRegistrationInfo(registrationInfo);
 
-        registration.setConcurrentRequestThreshold(5000);
+        registrationInfo.setConcurrentRequestThreshold(5000);
         Assertions.assertTrue(race.isValid());
 
-        registration.setConcurrentRequestThreshold(2);
+        registrationInfo.setConcurrentRequestThreshold(2);
         Assertions.assertTrue(race.isValid());
 
-        registration.setConcurrentRequestThreshold(1);
+        registrationInfo.setConcurrentRequestThreshold(1);
         Assertions.assertFalse(race.isValid());
 
 
@@ -210,14 +209,14 @@ class RaceTest extends AbstractDatabaseTest {
 
         Assertions.assertTrue(race.isValid());
 
-        Registration registration = new Registration();
-        race.setRaceRegistration(registration);
+        RegistrationInfo registrationInfo = new RegistrationInfo();
+        race.setRaceRegistrationInfo(registrationInfo);
 
-        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+        registrationInfo.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
         Assertions.assertTrue(race.isValid());
 
 
-        registration.setRegistrationDate(LocalDateTime.of(2022,Month.JANUARY,1,9,0,0));
+        registrationInfo.setRegistrationDate(LocalDateTime.of(2022,Month.JANUARY,1,9,0,0));
         Assertions.assertFalse(race.isValid());
 
 
@@ -267,27 +266,27 @@ class RaceTest extends AbstractDatabaseTest {
         ApplicationPeriod applicationPeriod = new ApplicationPeriod();
         race.setApplicationPeriod(applicationPeriod);
 
-        Registration registration = new Registration();
-        race.setRaceRegistration(registration);
+        RegistrationInfo registrationInfo = new RegistrationInfo();
+        race.setRaceRegistrationInfo(registrationInfo);
 
         Assertions.assertTrue(race.isValid());
 
-        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+        registrationInfo.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
         Assertions.assertTrue(race.isValid());
 
-        registration.setRegistrationDate(null);
+        registrationInfo.setRegistrationDate(null);
         applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
         applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
 
         Assertions.assertTrue(race.isValid());
 
-        registration.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
+        registrationInfo.setRegistrationDate(LocalDateTime.of(2023,Month.JANUARY,1,9,0,0));
         applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
         applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
 
         Assertions.assertTrue(race.isValid());
 
-        registration.setRegistrationDate(LocalDateTime.of(2022,Month.JANUARY,1,9,0,0));
+        registrationInfo.setRegistrationDate(LocalDateTime.of(2022,Month.JANUARY,1,9,0,0));
         applicationPeriod.setInitialDate(LocalDateTime.of(2022,Month.NOVEMBER,1,9,0));
         applicationPeriod.setLastDate(LocalDateTime.of(2022,Month.DECEMBER,31,23,59));
 

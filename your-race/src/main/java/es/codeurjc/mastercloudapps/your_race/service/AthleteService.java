@@ -5,26 +5,19 @@ import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.random.RandomGenerator;
-import java.util.stream.Collectors;
 
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -154,7 +147,7 @@ public class AthleteService {
         applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
         applicationDTO.setRaceName(application.getApplicationRace().getName());
         applicationDTO.setDate(application.getApplicationRace().getDate());
-        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistration().getRegistrationDate());
+        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
 
 
         return applicationDTO;

@@ -5,7 +5,7 @@ import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Registration;
+import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
@@ -59,7 +59,7 @@ public class AthleteGetRaceTest extends AbstractDatabaseTest {
                     .location(faker.address().cityName())
                     .distance(faker.number().randomDouble(2, 0, 1000))
                     .organizer(organizer)
-                    .raceRegistration(Registration.builder()
+                    .raceRegistrationInfo(RegistrationInfo.builder()
                             .registrationDate(LocalDateTime.now().plusMonths(4L))
                             .build())
                     .date(LocalDateTime.now().plusMonths(6L))

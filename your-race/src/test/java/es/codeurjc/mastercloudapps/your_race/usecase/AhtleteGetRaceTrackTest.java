@@ -4,18 +4,15 @@ import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -68,7 +65,7 @@ public class AhtleteGetRaceTrackTest extends AbstractDatabaseTest {
                     .location(faker.address().cityName())
                     .distance(faker.number().randomDouble(2, 0, 1000))
                     .organizer(organizer)
-                    .raceRegistration(Registration.builder()
+                    .raceRegistrationInfo(RegistrationInfo.builder()
                             .registrationDate(LocalDateTime.now().plusMonths(4L))
                             .build())
                     .date(LocalDateTime.now().plusMonths(6L))
@@ -101,7 +98,7 @@ public class AhtleteGetRaceTrackTest extends AbstractDatabaseTest {
                     .athlete(athlete)
                     .race(race)
                     .status(faker.options().option("REGISTERED","PARTICIPATED"))
-                    .registrationDate(race.getRaceRegistration().getRegistrationDate())
+                    .registrationDate(race.getRaceRegistrationInfo().getRegistrationDate())
                     .dorsal(RandomUtils.nextInt())
                     .build();
         }
