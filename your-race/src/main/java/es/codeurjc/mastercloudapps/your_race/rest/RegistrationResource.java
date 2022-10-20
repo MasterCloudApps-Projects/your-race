@@ -1,7 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RegistrationService;
+import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import javax.validation.Valid;
@@ -22,40 +23,40 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/registrations", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegistrationResource {
 
-    private final RegistrationService registrationService;
+    private final TrackService trackService;
 
-    public RegistrationResource(final RegistrationService registrationService) {
-        this.registrationService = registrationService;
+    public RegistrationResource(final TrackService trackService) {
+        this.trackService = trackService;
     }
 
     @GetMapping
-    public ResponseEntity<List<RegistrationDTO>> getAllRegistrations() {
-        return ResponseEntity.ok(registrationService.findAll());
+    public ResponseEntity<List<TrackDTO>> getAllRegistrations() {
+        return ResponseEntity.ok(trackService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RegistrationDTO> getRegistration(@PathVariable final Long id) {
-        return ResponseEntity.ok(registrationService.get(id));
+    public ResponseEntity<TrackDTO> getRegistration(@PathVariable final Long id) {
+        return ResponseEntity.ok(trackService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createRegistration(
-            @RequestBody @Valid final RegistrationDTO registrationDTO) {
-        return new ResponseEntity<>(registrationService.create(registrationDTO), HttpStatus.CREATED);
+            @RequestBody @Valid final TrackDTO trackDTO) {
+        return new ResponseEntity<>(trackService.create(trackDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateRegistration(@PathVariable final Long id,
-            @RequestBody @Valid final RegistrationDTO registrationDTO) {
-        registrationService.update(id, registrationDTO);
+            @RequestBody @Valid final TrackDTO trackDTO) {
+        trackService.update(id, trackDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteRegistration(@PathVariable final Long id) {
-        registrationService.delete(id);
+        trackService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
