@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegistrationDTO {
+public class RegistrationByOrderDTO {
     @NotNull
     private Long idAthlete;
     @NotNull

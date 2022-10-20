@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -156,21 +157,37 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
 
 
     }
-    @DisplayName("An athlete with application should register to race")
+    @DisplayName("An athlete with application should register to race (ByOrder registration)")
     @Test
     void athleteShouldRegisterToRace() throws Exception
     {
+        //Queda generar y usar el applicationCode. Quitar de este endpoint el athlete porque se coge del application code
         ObjectMapper mapper = new ObjectMapper();
         mvc.perform(post("/api/registrations/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(  mapper.writeValueAsString(RegistrationDTO.builder()
+                .content(  mapper.writeValueAsString(RegistrationByOrderDTO.builder()
                         .idAthlete(athleteList.get(0).getId())
                         .applicationCode("APPLICATION_CODE" )
                         .build()
                 )))
-                .andExpect(status().isCreated())
-           //     .andExpect(jsonPath("$", hasSize(1)))
-             ;
+                .andExpect(status().isCreated());
+
+    }
+
+
+    @DisplayName("An organizer should register an athlete to a race (ByDraw registration)")
+    @Test
+    void organizerShouldRegisterAthleteToRace() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        mvc.perform(post("/api/draws/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content( mapper.writeValueAsString(RegistrationByDrawDTO.builder()
+                                .idAthlete(athleteList.get(0).getId())
+                                .idRace(raceList.get(0).getId())
+                                .build()
+                        )))
+                .andExpect(status().isCreated());
 
     }
 

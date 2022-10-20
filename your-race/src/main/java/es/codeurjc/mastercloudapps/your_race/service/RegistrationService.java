@@ -1,9 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Application;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Track;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import org.springframework.stereotype.Service;
@@ -22,8 +20,11 @@ public class RegistrationService {
         this.applicationRepository = applicationRepository;
     }
 
-    public Long create(final RegistrationDTO registrationDTO) {
-       return trackService.create(toTrackDTO(registrationDTO,TrackDTO.builder().build()));
+    public Long create(final RegistrationByOrderDTO registrationByOrderDTO) {
+       return trackService.create(toTrackDTO(registrationByOrderDTO,TrackDTO.builder().build()));
+    }
+    public Long createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) {
+        return trackService.create(toTrackDTO(registrationByDrawDTO,TrackDTO.builder().build()));
     }
 
     public List<TrackDTO> findAll() {
@@ -31,11 +32,19 @@ public class RegistrationService {
     }
 
 
-    private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO){
-       trackDTO.setAthleteId(registrationDTO.getIdAthlete());
-       trackDTO.setRaceId(getRaceId(registrationDTO.getApplicationCode()).orElse(null));
+    private TrackDTO toTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final TrackDTO trackDTO){
+       trackDTO.setAthleteId(registrationByOrderDTO.getIdAthlete());
+       trackDTO.setRaceId(getRaceId(registrationByOrderDTO.getApplicationCode()).orElse(null));
 
        return trackDTO;
+
+    }
+
+    private TrackDTO toTrackDTO(final RegistrationByDrawDTO registrationByDrawDTO, final TrackDTO trackDTO){
+        trackDTO.setAthleteId(registrationByDrawDTO.getIdAthlete());
+        trackDTO.setRaceId(registrationByDrawDTO.getIdRace());
+
+        return trackDTO;
 
     }
 
