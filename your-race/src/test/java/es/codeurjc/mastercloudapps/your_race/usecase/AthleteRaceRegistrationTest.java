@@ -1,9 +1,12 @@
 package es.codeurjc.mastercloudapps.your_race.usecase;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
+import com.jayway.jsonpath.JsonPath;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
+import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
@@ -17,6 +20,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.JsonPathResultMatchers;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -31,7 +36,7 @@ import java.util.List;
 
 
 
-@Disabled
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
@@ -161,13 +166,21 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
     @Test
     void athleteShouldRegisterToRace() throws Exception
     {
-        //Queda generar y usar el applicationCode. Quitar de este endpoint el athlete porque se coge del application code
         ObjectMapper mapper = new ObjectMapper();
+
+        MvcResult result = mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty()).andReturn();
+
+        ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
+
+
         mvc.perform(post("/api/registrations/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(  mapper.writeValueAsString(RegistrationByOrderDTO.builder()
                         .idAthlete(athleteList.get(0).getId())
-                        .applicationCode("APPLICATION_CODE" )
+                        .applicationCode(applicationDTO.getApplicationCode())
                         .build()
                 )))
                 .andExpect(status().isCreated());
@@ -179,6 +192,8 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
     @Test
     void organizerShouldRegisterAthleteToRace() throws Exception
     {
+
+
         ObjectMapper mapper = new ObjectMapper();
         mvc.perform(post("/api/draws/")
                         .contentType(MediaType.APPLICATION_JSON)
