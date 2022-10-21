@@ -28,7 +28,7 @@ public class Application {
     )
     private Long id;
 
-    @Column
+    @Column(unique=true)
     private String applicationCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
