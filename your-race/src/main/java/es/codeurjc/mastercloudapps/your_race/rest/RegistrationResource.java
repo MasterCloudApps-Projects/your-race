@@ -34,7 +34,7 @@ public class RegistrationResource {
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createRegistrationByOrder(
             @RequestBody @Valid final RegistrationByOrderDTO registrationByOrderDTO) {
-        return new ResponseEntity<>(registrationService.create(registrationByOrderDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(registrationService.createByOrder(registrationByOrderDTO), HttpStatus.CREATED);
     }
 
     @PostMapping (value = "/api/draws")
@@ -44,3 +44,9 @@ public class RegistrationResource {
     }
 
 }
+/*
+UN ENDPOINT
+// tracks/{id_athlete}/registrations
+body
+type: byorder
+*/

@@ -179,11 +179,26 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
         mvc.perform(post("/api/registrations/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(  mapper.writeValueAsString(RegistrationByOrderDTO.builder()
-                        .idAthlete(athleteList.get(0).getId())
                         .applicationCode(applicationDTO.getApplicationCode())
                         .build()
                 )))
                 .andExpect(status().isCreated());
+
+    }
+
+    @DisplayName("An athlete with non existing application code should not register to race (ByOrder registration)")
+    @Test
+    void athleteShouldNotRegisterToRace() throws Exception
+    {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mvc.perform(post("/api/registrations/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(  mapper.writeValueAsString(RegistrationByOrderDTO.builder()
+                                .applicationCode("APPLICATION_CODE_TEST")
+                                .build()
+                        )))
+                .andExpect(status().is5xxServerError());
 
     }
 

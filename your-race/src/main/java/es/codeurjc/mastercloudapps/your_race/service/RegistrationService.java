@@ -20,7 +20,7 @@ public class RegistrationService {
         this.applicationRepository = applicationRepository;
     }
 
-    public Long create(final RegistrationByOrderDTO registrationByOrderDTO) {
+    public Long createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) {
        return trackService.create(toTrackDTO(registrationByOrderDTO,TrackDTO.builder().build()));
     }
     public Long createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) {
@@ -33,8 +33,14 @@ public class RegistrationService {
 
 
     private TrackDTO toTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final TrackDTO trackDTO){
-       trackDTO.setAthleteId(registrationByOrderDTO.getIdAthlete());
        trackDTO.setRaceId(getRaceId(registrationByOrderDTO.getApplicationCode()).orElse(null));
+
+       trackDTO.setAthleteId(
+               applicationRepository.findAll().stream()
+               .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
+               .map(application -> application.getApplicationAthlete().getId())
+               .findAny().orElse(null)
+       );
 
        return trackDTO;
 

@@ -11,8 +11,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Builder
 public class RegistrationByOrderDTO {
-    @NotNull
-    private Long idAthlete;
+
     @NotNull
     @Size(max = 50)
     private String applicationCode;
