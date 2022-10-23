@@ -198,7 +198,7 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
                                 .applicationCode("APPLICATION_CODE_TEST")
                                 .build()
                         )))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().isNotFound());
 
     }
 

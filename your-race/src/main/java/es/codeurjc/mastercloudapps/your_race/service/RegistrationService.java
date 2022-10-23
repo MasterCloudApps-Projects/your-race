@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
@@ -20,8 +21,12 @@ public class RegistrationService {
         this.applicationRepository = applicationRepository;
     }
 
-    public Long createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) {
-       return trackService.create(toTrackDTO(registrationByOrderDTO,TrackDTO.builder().build()));
+    public Long createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws Exception {
+        TrackDTO trackDTO = toTrackDTO(registrationByOrderDTO,TrackDTO.builder().build());
+
+       if (trackDTO.getAthleteId()==null)
+           throw new ApplicationCodeNotValidException();
+       return trackService.create(trackDTO);
     }
     public Long createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) {
         return trackService.create(toTrackDTO(registrationByDrawDTO,TrackDTO.builder().build()));
@@ -40,6 +45,7 @@ public class RegistrationService {
                .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
                .map(application -> application.getApplicationAthlete().getId())
                .findAny().orElse(null)
+
        );
 
        return trackDTO;

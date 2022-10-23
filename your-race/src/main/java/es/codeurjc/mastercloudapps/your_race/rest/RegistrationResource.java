@@ -34,8 +34,14 @@ public class RegistrationResource {
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createRegistrationByOrder(
             @RequestBody @Valid final RegistrationByOrderDTO registrationByOrderDTO) {
-        return new ResponseEntity<>(registrationService.createByOrder(registrationByOrderDTO), HttpStatus.CREATED);
-    }
+        try {
+            Long trackId = registrationService.createByOrder(registrationByOrderDTO);
+            return new ResponseEntity<>(registrationService.createByOrder(registrationByOrderDTO), HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+        }
 
     @PostMapping (value = "/api/draws")
     @ApiResponse(responseCode = "201")
