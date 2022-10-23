@@ -26,10 +26,6 @@ public class RegistrationResource {
         this.registrationService = registrationService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<TrackDTO>> getAllRegistrations() {
-        return ResponseEntity.ok(registrationService.findAll());
-    }
 
     /*
     @PostMapping(value = "/api/registrations")
