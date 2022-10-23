@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,11 +39,26 @@ public class TrackResource {
         return ResponseEntity.ok(trackService.get(id));
     }
 
+    /*
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createTrack(@RequestBody @Valid final TrackDTO trackDTO) {
         return new ResponseEntity<>(trackService.create(trackDTO), HttpStatus.CREATED);
+    }*/
+
+    @PostMapping(value = "/api/registrations")
+    @ApiResponse(responseCode = "201")
+    public ResponseEntity<Long> createRegistration(
+            @RequestBody @Valid final RegistrationDTO registrationDTO) {
+        try {
+            Long trackId = trackService.create(registrationDTO);
+            return new ResponseEntity<>(trackId, HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTrack(@PathVariable final Long id,

@@ -3,14 +3,16 @@ package es.codeurjc.mastercloudapps.your_race.service;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
-import es.codeurjc.mastercloudapps.your_race.model.Score;
-import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
+import es.codeurjc.mastercloudapps.your_race.model.*;
+import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -28,12 +30,16 @@ public class TrackService {
     private final RaceRepository raceRepository;
     private final AthleteRepository athleteRepository;
 
+    private final ApplicationRepository applicationRepository;
+
 
     public TrackService(final TrackRepository trackRepository, final RaceRepository raceRepository,
-            final AthleteRepository athleteRepository) {
+                        final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository) {
         this.trackRepository = trackRepository;
         this.raceRepository = raceRepository;
         this.athleteRepository = athleteRepository;
+
+        this.applicationRepository = applicationRepository;
     }
 
     public List<TrackDTO> findAll() {
@@ -49,11 +55,23 @@ public class TrackService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Long create(final TrackDTO trackDTO) {
+    //este habrá que borrarlo
+  /*  public Long create(final TrackDTO trackDTO) {
         final Track track = new Track();
         mapToEntity(trackDTO, track);
         return trackRepository.save(track).getId();
+    }*/
+
+    public Long create(final RegistrationDTO registrationDTO) throws Exception {
+        TrackDTO trackDTO = toTrackDTO(registrationDTO,TrackDTO.builder().build());
+
+        if (trackDTO.getAthleteId()==null)
+            throw new ApplicationCodeNotValidException();
+        Track track = new Track();
+        track =  mapToEntity(trackDTO, track);
+        return trackRepository.save(track).getId();
     }
+
 
     public void update(final Long id, final TrackDTO trackDTO) {
         final Track track = trackRepository.findById(id)
@@ -125,6 +143,45 @@ public class TrackService {
         track.setAthlete(athlete);
         return track;
     }
+
+    private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
+    {
+        if (registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAWING))
+            return toTrackDTO((RegistrationByDrawDTO) registrationDTO,trackDTO);
+
+        return toTrackDTO((RegistrationByOrderDTO) registrationDTO, trackDTO);
+    }
+
+    private TrackDTO toTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final TrackDTO trackDTO){
+        trackDTO.setRaceId(getRaceId(registrationByOrderDTO.getApplicationCode()).orElse(null));
+
+        trackDTO.setAthleteId(
+                applicationRepository.findAll().stream()
+                        .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
+                        .map(application -> application.getApplicationAthlete().getId())
+                        .findAny().orElse(null)
+
+        );
+        return trackDTO;
+    }
+
+    private TrackDTO toTrackDTO(final RegistrationByDrawDTO registrationByDrawDTO, final TrackDTO trackDTO){
+        trackDTO.setAthleteId(registrationByDrawDTO.getIdAthlete());
+        trackDTO.setRaceId(registrationByDrawDTO.getIdRace());
+
+        return trackDTO;
+
+    }
+
+    private Optional<Long> getRaceId(String applicationCode){
+
+        return applicationRepository.findAll().stream()
+                .filter(application -> application.getApplicationCode().equals(applicationCode))
+                .findAny()
+                .map(application -> application.getApplicationRace().getId());
+
+    }
+
 
 
 
