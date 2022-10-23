@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,8 +10,8 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class RegistrationByOrderDTO {
+@SuperBuilder(toBuilder = true)
+public class RegistrationByOrderDTO extends RegistrationDTO {
 
     @NotNull
     @Size(max = 50)

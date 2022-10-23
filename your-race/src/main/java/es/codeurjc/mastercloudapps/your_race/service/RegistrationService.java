@@ -1,9 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
-import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,17 @@ public class RegistrationService {
         this.applicationRepository = applicationRepository;
     }
 
+
+
+    public Long create(final RegistrationDTO registrationDTO) throws Exception {
+        TrackDTO trackDTO = toTrackDTO(registrationDTO,TrackDTO.builder().build());
+
+        if (trackDTO.getAthleteId()==null)
+            throw new ApplicationCodeNotValidException();
+        return trackService.create(trackDTO);
+    }
+
+    /*
     public Long createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws Exception {
         TrackDTO trackDTO = toTrackDTO(registrationByOrderDTO,TrackDTO.builder().build());
 
@@ -31,10 +40,23 @@ public class RegistrationService {
     public Long createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) {
         return trackService.create(toTrackDTO(registrationByDrawDTO,TrackDTO.builder().build()));
     }
-
+*/
     public List<TrackDTO> findAll() {
         return trackService.findAll();
     }
+
+
+    private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
+    {
+        if (registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAWING))
+            return toTrackDTO((RegistrationByDrawDTO) registrationDTO,trackDTO);
+
+        return toTrackDTO((RegistrationByOrderDTO) registrationDTO, trackDTO);
+
+
+    }
+
+
 
 
     private TrackDTO toTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final TrackDTO trackDTO){

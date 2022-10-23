@@ -6,9 +6,7 @@ import com.github.javafaker.Faker;
 import com.jayway.jsonpath.JsonPath;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
-import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
+import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -176,15 +174,16 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
         ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
 
 
+        String request = mapper.writeValueAsString(produceRegistrationByOrder(applicationDTO));
         mvc.perform(post("/api/registrations/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(  mapper.writeValueAsString(RegistrationByOrderDTO.builder()
-                        .applicationCode(applicationDTO.getApplicationCode())
-                        .build()
-                )))
+                .content(request))
                 .andExpect(status().isCreated());
 
     }
+
+
+
 
     @DisplayName("An athlete with non existing application code should not register to race (ByOrder registration)")
     @Test
@@ -192,12 +191,14 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
     {
 
         ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(produceRegistrationByOrder(
+                ApplicationDTO.builder()
+                        .applicationCode("APPLICATION_CODE_TEST")
+                        .build()));
+
         mvc.perform(post("/api/registrations/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(  mapper.writeValueAsString(RegistrationByOrderDTO.builder()
-                                .applicationCode("APPLICATION_CODE_TEST")
-                                .build()
-                        )))
+                        .content(request))
                 .andExpect(status().isNotFound());
 
     }
@@ -210,15 +211,29 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        mvc.perform(post("/api/draws/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content( mapper.writeValueAsString(RegistrationByDrawDTO.builder()
-                                .idAthlete(athleteList.get(0).getId())
-                                .idRace(raceList.get(0).getId())
-                                .build()
-                        )))
-                .andExpect(status().isCreated());
+        String request = mapper.writeValueAsString(produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
 
+
+        mvc.perform(post("/api/registrations/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated());
     }
 
+
+    RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+       return RegistrationByOrderDTO.builder()
+                .registrationType(RegistrationType.BYORDER)
+                .applicationCode(applicationDTO.getApplicationCode())
+                .build();
+    }
+
+    RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
+        return RegistrationByDrawDTO.builder()
+                .registrationType(RegistrationType.BYDRAWING)
+                .idAthlete(athlete.getId())
+                .idRace(race.getId())
+                .build();
+
+    }
 }

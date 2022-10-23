@@ -2,6 +2,7 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RegistrationService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,6 +31,7 @@ public class RegistrationResource {
         return ResponseEntity.ok(registrationService.findAll());
     }
 
+    /*
     @PostMapping(value = "/api/registrations")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createRegistrationByOrder(
@@ -47,7 +49,21 @@ public class RegistrationResource {
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createRegistrationByDraw(@RequestBody @Valid final RegistrationByDrawDTO registrationByDrawDTO) {
             return new ResponseEntity<>(registrationService.createByDraw(registrationByDrawDTO), HttpStatus.CREATED);
+    }*/
+
+    @PostMapping(value = "/api/registrations")
+    @ApiResponse(responseCode = "201")
+    public ResponseEntity<Long> createRegistration(
+            @RequestBody @Valid final RegistrationDTO registrationDTO) {
+        try {
+            Long trackId = registrationService.create(registrationDTO);
+            return new ResponseEntity<>(trackId, HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
     }
+
 
 }
 /*
