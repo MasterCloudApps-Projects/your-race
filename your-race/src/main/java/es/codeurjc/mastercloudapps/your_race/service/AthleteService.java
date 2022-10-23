@@ -26,7 +26,6 @@ import javax.transaction.Transactional;
 @Service
 public class AthleteService {
 
-    //Revisar estas inyecciones, deberían ser SErvice en lugar de repository?
     private final AthleteRepository athleteRepository;
     private final ApplicationRepository applicationRepository;
     private final RaceRepository raceRepository;
@@ -38,6 +37,7 @@ public class AthleteService {
         this.athleteRepository = athleteRepository;
         this.applicationRepository = applicationRepository;
         this.raceRepository = raceRepository;
+
         this.trackService = trackService;
     }
 
@@ -146,8 +146,8 @@ public class AthleteService {
         applicationDTO.setName(application.getApplicationAthlete().getName());
         applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
         applicationDTO.setRaceName(application.getApplicationRace().getName());
-        applicationDTO.setDate(application.getApplicationRace().getDate());
-        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+       // applicationDTO.setDate(application.getApplicationRace().getDate());
+       // applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
 
 
         return applicationDTO;

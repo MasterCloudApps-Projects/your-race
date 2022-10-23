@@ -45,8 +45,7 @@ public class AthleteResource {
 
         if (open)
             return ResponseEntity.ok(athleteService.findAllApplicationOpenRace(id));
-        else
-          return ResponseEntity.ok(athleteService.findAllApplication(id));
+        return ResponseEntity.ok(athleteService.findAllApplication(id));
     }
 
     @GetMapping("/{id}/tracks")
