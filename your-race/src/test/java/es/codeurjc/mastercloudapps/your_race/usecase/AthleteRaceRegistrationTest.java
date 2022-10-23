@@ -175,7 +175,7 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
 
 
         String request = mapper.writeValueAsString(produceRegistrationByOrder(applicationDTO));
-        mvc.perform(post("/api/registrations/")
+        mvc.perform(post("/api/tracks/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(request))
                 .andExpect(status().isCreated());
@@ -196,7 +196,7 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
                         .applicationCode("APPLICATION_CODE_TEST")
                         .build()));
 
-        mvc.perform(post("/api/registrations/")
+        mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isNotFound());
@@ -214,7 +214,7 @@ public class AthleteRaceRegistrationTest extends AbstractDatabaseTest {
         String request = mapper.writeValueAsString(produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
 
 
-        mvc.perform(post("/api/registrations/")
+        mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isCreated());

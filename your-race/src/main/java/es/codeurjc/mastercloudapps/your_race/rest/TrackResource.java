@@ -46,7 +46,7 @@ public class TrackResource {
         return new ResponseEntity<>(trackService.create(trackDTO), HttpStatus.CREATED);
     }*/
 
-    @PostMapping(value = "/api/registrations")
+    @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createRegistration(
             @RequestBody @Valid final RegistrationDTO registrationDTO) {
