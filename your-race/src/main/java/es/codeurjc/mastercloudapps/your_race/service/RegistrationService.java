@@ -29,21 +29,7 @@ public class RegistrationService {
         return trackService.create(trackDTO);
     }
 
-    /*
-    public Long createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws Exception {
-        TrackDTO trackDTO = toTrackDTO(registrationByOrderDTO,TrackDTO.builder().build());
 
-       if (trackDTO.getAthleteId()==null)
-           throw new ApplicationCodeNotValidException();
-       return trackService.create(trackDTO);
-    }
-    public Long createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) {
-        return trackService.create(toTrackDTO(registrationByDrawDTO,TrackDTO.builder().build()));
-    }
-*/
-    public List<TrackDTO> findAll() {
-        return trackService.findAll();
-    }
 
 
     private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
