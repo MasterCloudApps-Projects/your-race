@@ -16,6 +16,13 @@ cd performance
 artillery run artilleryTest.yml
 ```
 
+### JMeter
+
+```sh
+cd performance
+```
+jmeter > Test Plan.jmx
+
 ### Prometheus
 
 ### Grafana
@@ -23,6 +30,52 @@ artillery run artilleryTest.yml
 Importar Dashboard 9628 para Postgres
 
 
+## K8s Setup
+
+Para ejecutar el conjunto de servicios se ha creado un paquete de manifiestos Kubernetes que se encarga de levantar todo el stack, Bases de datos, RabbitMQ y las 4 aplicaciones, pasándose las rutas de acceso y credenciales como variables de entorno.
+
+Es necesario tener levantado Minikube:
+
+```sh
+minikube start --cpus 6 --memory 16384
+minikube addons enable metrics-server
+minikube addons enable istio
+minikube addons enable istio-provisioner
+```
+
+Instalación de istio:
+
+```sh
+curl -L https://istio.io/downloadIstio | sh -
+cd istio-1.15.2
+export PATH=$PWD/bin:$PATH
+istioctl install --set profile=demo -y
+kubectl label namespace default istio-injection=enabled
+```
+
+
+## K8s Deploy
+
+```sh
+kubectl apply -f k8s/manifests/
+```
+
+Despliegue Istio gateway
+
+```sh
+kubectl apply -f k8s/istio/
+```
+
+
+## How to test
+
+Descubrir ip Istio gateway:
+
+```sh
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+export INGRESS_HOST=$(minikube ip)
+echo "http://$INGRESS_HOST:$INGRESS_PORT"
+```
 
 
 
