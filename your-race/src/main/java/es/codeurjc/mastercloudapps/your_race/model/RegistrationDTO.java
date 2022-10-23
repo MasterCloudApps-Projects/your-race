@@ -14,9 +14,10 @@ import lombok.experimental.SuperBuilder;
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "registrationType")   // field on which we differentiate objects
+
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = RegistrationByOrderDTO.class, name = "ByOrder"),  // if value of 'type' field equals to 'car' instantiate a Car object
-        @JsonSubTypes.Type(value = RegistrationByDrawDTO.class, name = "ByDrawing")  // if value of 'type' field equals to 'airplane' instantiate an Airplane object
+        @JsonSubTypes.Type(value = RegistrationByOrderDTO.class, name = "ByOrder"),
+        @JsonSubTypes.Type(value = RegistrationByDrawDTO.class, name = "ByDrawing")
 })
 public abstract class RegistrationDTO {
 
