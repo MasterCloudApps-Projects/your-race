@@ -88,29 +88,7 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
 
     }
 
-    @DisplayName("Get list of open races (not celebrated yet)")
-    @Test
-    void shouldGetListOpenRaces() throws Exception{
 
-        TestDataBuilder.setDateInPast(raceList.get(0));
-        TestDataBuilder.setDateInFuture(raceList.get(1));
-        TestDataBuilder.setDateInFuture(raceList.get(2));
-
-        raceRepository.saveAll(raceList);
-
-        mvc.perform(get("/api/races")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("open","true"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)));
-
-        mvc.perform(get("/api/races")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("open","false"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)));
-
-    }
 
 
 
