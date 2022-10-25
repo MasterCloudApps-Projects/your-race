@@ -59,11 +59,11 @@ public class Track {
     @Column
     private String paymentInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "race_id", nullable = false)
     private Race race;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "athlete_id", nullable = false)
     private Athlete athlete;
 
