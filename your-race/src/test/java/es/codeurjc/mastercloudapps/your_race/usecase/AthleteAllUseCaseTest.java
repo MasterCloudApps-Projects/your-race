@@ -1,19 +1,20 @@
 package es.codeurjc.mastercloudapps.your_race.usecase;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
+
 import es.codeurjc.mastercloudapps.your_race.domain.*;
+import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.apache.commons.lang3.RandomUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,7 +56,9 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     List<Athlete> athleteList;
     List<Track> tracksList;
 
-    private static class initializerData {
+
+
+ /*   private static class initializerData {
         private static Faker faker;
 
         static void init(){
@@ -120,12 +123,13 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
             race.getApplicationPeriod().setLastDate(LocalDateTime.now().minusMonths(2));
         }
 
-    }
+    }*/
+
 
     @BeforeEach
     public void initEach(){
 
-        initializerData.init();
+        TestDataBuilder.init();
         trackRepository.deleteAll();
         applicationRepository.deleteAll();
         raceRepository.deleteAll();
@@ -137,14 +141,14 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
         athleteList = new ArrayList<Athlete>();
         tracksList = new ArrayList<Track>();
 
-        organizer = initializerData.buildTestOrganizer();
+        organizer = TestDataBuilder.buildTestOrganizer();
 
         for (int i=0; i<3;i++)
-            raceList.add(initializerData.buildTestRace(organizer));
+            raceList.add(TestDataBuilder.buildTestRace(organizer));
 
 
         for (int i=0; i<3;i++)
-            athleteList.add(initializerData.buildTestAthlete());
+            athleteList.add(TestDataBuilder.buildTestAthlete());
 
         organizerRepository.save(organizer);
         raceRepository.saveAll(raceList);
@@ -157,9 +161,9 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     @Test
     void shouldGetListOpenRaces() throws Exception{
 
-        initializerData.setDateInPast(raceList.get(0));
-        initializerData.setDateInFuture(raceList.get(1));
-        initializerData.setDateInFuture(raceList.get(2));
+        TestDataBuilder.setDateInPast(raceList.get(0));
+        TestDataBuilder.setDateInFuture(raceList.get(1));
+        TestDataBuilder.setDateInFuture(raceList.get(2));
 
         raceRepository.saveAll(raceList);
 
@@ -247,9 +251,9 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     @Test
     void shouldGetAthleteApplicationOpenRacesList() throws Exception {
 
-        initializerData.setDateInPast(raceList.get(0));
-        initializerData.setDateInFuture(raceList.get(1));
-        initializerData.setDateInFuture(raceList.get(2));
+        TestDataBuilder.setDateInPast(raceList.get(0));
+        TestDataBuilder.setDateInFuture(raceList.get(1));
+        TestDataBuilder.setDateInFuture(raceList.get(2));
 
         raceRepository.saveAll(raceList);
 
@@ -289,8 +293,8 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     void athleteShouldApplyIfAppliactionPeriodIsOpen() throws Exception{
 
 
-        initializerData.setDateInFuture(raceList.get(0));
-        initializerData.setApplicationPeriodClosed(raceList.get(0));
+        TestDataBuilder.setDateInFuture(raceList.get(0));
+        TestDataBuilder.setApplicationPeriodClosed(raceList.get(0));
 
 
         raceRepository.saveAll(raceList);
@@ -300,7 +304,7 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").doesNotExist());
 
-        initializerData.setApplicationPeriodOpen(raceList.get(0));
+        TestDataBuilder.setApplicationPeriodOpen(raceList.get(0));
         raceRepository.saveAll(raceList);
 
         mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
@@ -314,12 +318,12 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     @Test
     void shouldGetAthleteRegisteredRace() throws Exception{
 
-        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(0)));
-        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
-        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(0)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(1)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(2)));
 
-        tracksList.add(initializerData.buildTrack(athleteList.get(1),raceList.get(1)));
-        tracksList.add(initializerData.buildTrack(athleteList.get(1),raceList.get(2)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(1),raceList.get(1)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(1),raceList.get(2)));
 
         trackRepository.saveAll(tracksList);
 
@@ -348,13 +352,13 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
     @Test
     void shouldGetAthleteRegisteredOpenRace() throws Exception{
 
-        initializerData.setDateInPast(raceList.get(0));
-        initializerData.setDateInFuture(raceList.get(1));
-        initializerData.setDateInFuture(raceList.get(2));
+        TestDataBuilder.setDateInPast(raceList.get(0));
+        TestDataBuilder.setDateInFuture(raceList.get(1));
+        TestDataBuilder.setDateInFuture(raceList.get(2));
 
-        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(0)));
-        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(1)));
-        tracksList.add(initializerData.buildTrack(athleteList.get(0),raceList.get(2)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(0)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(1)));
+        tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(2)));
 
 
         raceRepository.saveAll(raceList);
@@ -368,6 +372,84 @@ public class AthleteAllUseCaseTest extends AbstractDatabaseTest {
                 .andExpect(jsonPath("$", hasSize(2)));
 
 
+
+    }
+
+
+    @DisplayName("An athlete with application should register to race (ByOrder registration)")
+    @Test
+    void athleteShouldRegisterToRace() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        MvcResult result = mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty()).andReturn();
+
+        ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
+
+
+        String request = mapper.writeValueAsString(produceRegistrationByOrder(applicationDTO));
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated());
+
+    }
+
+
+
+
+    @DisplayName("An athlete with non existing application code should not register to race (ByOrder registration)")
+    @Test
+    void athleteShouldNotRegisterToRace() throws Exception
+    {
+
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(produceRegistrationByOrder(
+                ApplicationDTO.builder()
+                        .applicationCode("APPLICATION_CODE_TEST")
+                        .build()));
+
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isNotFound());
+
+    }
+
+
+    @DisplayName("An organizer should register an athlete to a race (ByDraw registration)")
+    @Test
+    void organizerShouldRegisterAthleteToRace() throws Exception
+    {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
+
+
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated());
+    }
+
+
+    RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+        return RegistrationByOrderDTO.builder()
+                .registrationType(RegistrationType.BYORDER)
+                .applicationCode(applicationDTO.getApplicationCode())
+                .build();
+    }
+
+    RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
+        return RegistrationByDrawDTO.builder()
+                .registrationType(RegistrationType.BYDRAWING)
+                .idAthlete(athlete.getId())
+                .idRace(race.getId())
+                .build();
 
     }
 }
