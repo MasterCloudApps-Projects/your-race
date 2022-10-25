@@ -29,7 +29,7 @@ public class AthleteService {
     private final AthleteRepository athleteRepository;
     private final ApplicationRepository applicationRepository;
     private final RaceRepository raceRepository;
-    //private final TrackService trackService;
+
 
     public AthleteService(final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository
                         ,RaceRepository raceRepository
@@ -38,7 +38,7 @@ public class AthleteService {
         this.applicationRepository = applicationRepository;
         this.raceRepository = raceRepository;
 
-    //    this.trackService = trackService;
+
     }
 
     public List<AthleteDTO> findAll() {
@@ -116,14 +116,6 @@ public class AthleteService {
         athleteRepository.deleteById(id);
     }
 
-  /*  public  List<TrackDTO> findAllTrack(Long id){
-        return trackService.findAllByAthlete(id);
-    }
-
-    public  List<TrackDTO> findAllOpenTrack(Long id){
-        return trackService.findAllOpenByAthlete(id);
-    }*/
-
 
     private AthleteDTO mapToDTO(final Athlete athlete, final AthleteDTO athleteDTO) {
         athleteDTO.setId(athlete.getId());
@@ -142,12 +134,13 @@ public class AthleteService {
 
     private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
 
+
         applicationDTO.setApplicationCode(application.getApplicationCode());
         applicationDTO.setName(application.getApplicationAthlete().getName());
         applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
         applicationDTO.setRaceName(application.getApplicationRace().getName());
-       // applicationDTO.setDate(application.getApplicationRace().getDate());
-       // applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+      //  applicationDTO.setDate(application.getApplicationRace().getDate());
+      //  applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
 
 
         return applicationDTO;

@@ -20,7 +20,7 @@ public class ApplicationDTO {
 
    private String raceName;
 
-  // private LocalDateTime date;
-  // private LocalDateTime raceRegistrationDate;
+   private LocalDateTime date;
+   private LocalDateTime raceRegistrationDate;
 }
 
