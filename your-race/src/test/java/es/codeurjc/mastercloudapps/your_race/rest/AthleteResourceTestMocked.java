@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AthleteResourceTest extends AbstractDatabaseTest {
+class AthleteResourceTestMocked extends AbstractDatabaseTest {
 
     @Autowired
     private MockMvc mvc;

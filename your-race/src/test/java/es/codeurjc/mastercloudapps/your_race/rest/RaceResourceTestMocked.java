@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class RaceResourceTest extends AbstractDatabaseTest {
+class RaceResourceTestMocked extends AbstractDatabaseTest {
 
     @Autowired
     ObjectMapper objectMapper;
