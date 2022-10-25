@@ -107,9 +107,6 @@ public class TrackResourceTest extends AbstractDatabaseTest {
 
     }
 
-
-
-
     @DisplayName("An athlete with non existing application code should not register to race (ByOrder registration)")
     @Test
     void athleteShouldNotRegisterToRace() throws Exception
