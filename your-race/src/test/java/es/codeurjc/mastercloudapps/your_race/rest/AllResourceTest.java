@@ -10,7 +10,6 @@ import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +29,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AthleteResourceTest extends AbstractDatabaseTest {
+public class AllResourceTest extends AbstractDatabaseTest {
 
     @Autowired
     private MockMvc mvc;
@@ -236,19 +234,19 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
         trackRepository.saveAll(tracksList);
 
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(1).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(1).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(2).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(2).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","false"))
                 .andExpect(status().isOk())
@@ -273,7 +271,7 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
         trackRepository.saveAll(tracksList);
 
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","true"))
                 .andExpect(status().isOk())
@@ -283,6 +281,106 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
 
     }
 
+
+
+    @DisplayName("Get list of open races (not celebrated yet)")
+    @Test
+    void shouldGetListOpenRaces() throws Exception{
+
+        TestDataBuilder.setDateInPast(raceList.get(0));
+        TestDataBuilder.setDateInFuture(raceList.get(1));
+        TestDataBuilder.setDateInFuture(raceList.get(2));
+
+        raceRepository.saveAll(raceList);
+
+        mvc.perform(get("/api/races")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+        mvc.perform(get("/api/races")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+
+    }
+
+
+    @DisplayName("An athlete with application should register to race (ByOrder registration)")
+    @Test
+    void athleteShouldRegisterToRace() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        MvcResult result = mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty()).andReturn();
+
+        ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
+
+
+        String request = mapper.writeValueAsString(produceRegistrationByOrder(applicationDTO));
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated());
+
+    }
+
+    @DisplayName("An athlete with non existing application code should not register to race (ByOrder registration)")
+    @Test
+    void athleteShouldNotRegisterToRace() throws Exception
+    {
+
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(produceRegistrationByOrder(
+                ApplicationDTO.builder()
+                        .applicationCode("APPLICATION_CODE_TEST")
+                        .build()));
+
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isNotFound());
+
+    }
+
+
+    @DisplayName("An organizer should register an athlete to a race (ByDraw registration)")
+    @Test
+    void organizerShouldRegisterAthleteToRace() throws Exception
+    {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
+
+
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated());
+    }
+
+
+    RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+        return RegistrationByOrderDTO.builder()
+                .registrationType(RegistrationType.BYORDER)
+                .applicationCode(applicationDTO.getApplicationCode())
+                .build();
+    }
+
+    RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
+        return RegistrationByDrawDTO.builder()
+                .registrationType(RegistrationType.BYDRAWING)
+                .idAthlete(athlete.getId())
+                .idRace(race.getId())
+                .build();
+
+    }
 
 
 }
