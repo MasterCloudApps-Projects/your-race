@@ -55,12 +55,6 @@ public class TrackService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    //este habrá que borrarlo
-  /*  public Long create(final TrackDTO trackDTO) {
-        final Track track = new Track();
-        mapToEntity(trackDTO, track);
-        return trackRepository.save(track).getId();
-    }*/
 
     public Long create(final RegistrationDTO registrationDTO) throws Exception {
         TrackDTO trackDTO = toTrackDTO(registrationDTO,TrackDTO.builder().build());
