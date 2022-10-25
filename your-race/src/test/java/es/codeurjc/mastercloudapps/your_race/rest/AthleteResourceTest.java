@@ -236,19 +236,19 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
         trackRepository.saveAll(tracksList);
 
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(1).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(1).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(2).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(2).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","false"))
                 .andExpect(status().isOk())
@@ -273,7 +273,7 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
         trackRepository.saveAll(tracksList);
 
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/tracks")
+        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("open","true"))
                 .andExpect(status().isOk())
