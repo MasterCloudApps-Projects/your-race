@@ -1,7 +1,7 @@
 
 
 
-package es.codeurjc.mastercloudapps.your_race.unit;
+package es.codeurjc.mastercloudapps.your_race.domain;
 
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
