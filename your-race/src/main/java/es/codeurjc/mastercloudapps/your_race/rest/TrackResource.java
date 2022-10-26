@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
+import es.codeurjc.mastercloudapps.your_race.model.QueryTrackDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
@@ -22,23 +23,26 @@ public class TrackResource {
         this.trackService = trackService;
     }
 
-    @GetMapping
+   /* @GetMapping
     public ResponseEntity<List<TrackDTO>> getAllTracks() {
         return ResponseEntity.ok(trackService.findAll());
     }
+*/
 
     @GetMapping("/{id}")
     public ResponseEntity<TrackDTO> getTrack(@PathVariable final Long id) {
         return ResponseEntity.ok(trackService.get(id));
     }
 
-    @GetMapping("/athletes/{id}")
-    public ResponseEntity<List<TrackDTO>> getAthleteTrackRaces(@PathVariable final Long id, @RequestParam boolean open){
+    @GetMapping
+    public ResponseEntity<List<TrackDTO>> getTracks(@RequestParam boolean open, @RequestBody @Valid final QueryTrackDTO trackDTO){
+
+        if (trackDTO.getAthleteId() == null)
+            return ResponseEntity.ok(trackService.findAll());
 
         if (open)
-            return ResponseEntity.ok(trackService.findAllOpenByAthlete(id));
-        else
-            return ResponseEntity.ok(trackService.findAllByAthlete(id));
+            return ResponseEntity.ok(trackService.findAllOpenByAthlete(trackDTO.getAthleteId()));
+        return ResponseEntity.ok(trackService.findAllByAthlete(trackDTO.getAthleteId()));
     }
 
     /*
