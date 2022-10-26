@@ -125,7 +125,7 @@ class RaceTest extends AbstractDatabaseTest {
         registrationInfo.setRegistrationType(RegistrationType.BYORDER);
         Assertions.assertTrue(race.isValid());
 
-        registrationInfo.setRegistrationType(RegistrationType.BYDRAWING);
+        registrationInfo.setRegistrationType(RegistrationType.BYDRAW);
         Assertions.assertTrue(race.isValid());
 
     }

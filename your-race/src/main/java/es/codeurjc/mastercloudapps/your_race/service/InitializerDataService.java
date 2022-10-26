@@ -31,9 +31,6 @@ public class InitializerDataService {
     private RaceRepository raceRepository;
 
     @Autowired
-    private ApplicationPeriodRepository applicationPeriodRepository;
-
-    @Autowired
     private AthleteRepository athleteRepository;
 
     @Autowired
@@ -66,7 +63,7 @@ public class InitializerDataService {
         Race raceClosed2 = getRaceClosed2(organizer2);
 
         List<RegistrationInfo> registrationInfoList = new ArrayList<>();
-        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAW)
                 .registrationDate(LocalDateTime.of(2022, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
 
@@ -79,7 +76,7 @@ public class InitializerDataService {
         registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,17, 9,0))
                 .registrationCost(150.00).build());
-        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAW)
                 .registrationDate(LocalDateTime.of(2021, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
         registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)

@@ -90,7 +90,7 @@ public class Race {
             return true;
         if (this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYORDER))
             return true;
-        return this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYDRAWING);
+        return this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYDRAW);
 
 
     }

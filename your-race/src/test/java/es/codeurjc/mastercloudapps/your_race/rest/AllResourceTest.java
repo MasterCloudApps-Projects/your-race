@@ -375,7 +375,7 @@ public class AllResourceTest extends AbstractDatabaseTest {
 
     RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
         return RegistrationByDrawDTO.builder()
-                .registrationType(RegistrationType.BYDRAWING)
+                .registrationType(RegistrationType.BYDRAW)
                 .idAthlete(athlete.getId())
                 .idRace(race.getId())
                 .build();

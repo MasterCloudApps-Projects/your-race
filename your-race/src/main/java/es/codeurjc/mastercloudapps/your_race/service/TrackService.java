@@ -139,7 +139,7 @@ public class TrackService {
     private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
     {
         if (registrationDTO.getRegistrationType() != null
-                &&registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAWING))
+                && registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAW))
             return toTrackDTO((RegistrationByDrawDTO) registrationDTO,trackDTO);
 
         return toTrackDTO((RegistrationByOrderDTO) registrationDTO, trackDTO);
