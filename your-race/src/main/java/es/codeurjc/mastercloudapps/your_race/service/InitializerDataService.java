@@ -16,6 +16,8 @@ import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -36,7 +38,6 @@ public class InitializerDataService {
 
     @Autowired
     private ApplicationRepository applicationRepository;
-
 
     @Autowired
     private TrackRepository trackRepository;
@@ -64,35 +65,42 @@ public class InitializerDataService {
         Race raceClosed1 = getRaceClosed1(organizer1);
         Race raceClosed2 = getRaceClosed2(organizer2);
 
-        race1.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
+        List<RegistrationInfo> registrationInfoList = new ArrayList<>();
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
                 .registrationDate(LocalDateTime.of(2022, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
 
-        race2.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,15, 9,0))
                 .registrationCost(150.00).build());
-
-        race3.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,16, 9,0))
                 .registrationCost(150.00).build());
-
-        race4.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2023, Month.JANUARY,17, 9,0))
                 .registrationCost(150.00).build());
-
-
-        raceClosed1.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYDRAWING)
                 .registrationDate(LocalDateTime.of(2021, Month.OCTOBER,31, 9,0))
                 .registrationCost(500.00).build());
-
-        raceClosed2.setRaceRegistrationInfo(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
+        registrationInfoList.add(RegistrationInfo.builder().registrationType(RegistrationType.BYORDER)
                 .registrationDate(LocalDateTime.of(2022, Month.JANUARY,15, 9,0))
                 .registrationCost(150.00).build());
+
+
+        race1.setRaceRegistrationInfo(registrationInfoList.get(0));
+        race2.setRaceRegistrationInfo(registrationInfoList.get(1));
+        race3.setRaceRegistrationInfo(registrationInfoList.get(2));
+        race4.setRaceRegistrationInfo(registrationInfoList.get(3));
+
+        raceClosed1.setRaceRegistrationInfo(registrationInfoList.get(4));
+        raceClosed2.setRaceRegistrationInfo(registrationInfoList.get(5));
 
 
         Athlete athlete1 = Athlete.builder().name("Antonio").surname("Delgado").build();
         Athlete athlete2 = Athlete.builder().name("María").surname("Rodríguez").build();
         Athlete athlete3 = Athlete.builder().name("Clara").surname("Smith").build();
+
+
 
         this.organizerRepository.save(organizer1);
         this.raceRepository.save(race1);

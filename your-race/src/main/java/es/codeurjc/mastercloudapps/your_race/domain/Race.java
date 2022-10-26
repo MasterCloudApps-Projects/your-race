@@ -73,7 +73,7 @@ public class Race {
 
     @ToString.Exclude
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "race_registration_id")
+    @JoinColumn(name = "race_registration_info_id")
     private RegistrationInfo raceRegistrationInfo;
 
 
