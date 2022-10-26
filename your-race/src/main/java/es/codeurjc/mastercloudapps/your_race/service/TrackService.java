@@ -58,7 +58,7 @@ public class TrackService {
         TrackDTO trackDTO = toTrackDTO(registrationDTO,TrackDTO.builder().build());
 
         if (trackDTO.getAthleteId()==null)
-            throw new ApplicationCodeNotValidException();
+            throw new ApplicationCodeNotValidException("Application code is invalid. Athlete or application race were not found.");
         Track track = new Track();
         track =  mapToEntity(trackDTO, track);
         return trackRepository.save(track).getId();
@@ -138,7 +138,8 @@ public class TrackService {
 
     private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
     {
-        if (registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAWING))
+        if (registrationDTO.getRegistrationType() != null
+                &&registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAWING))
             return toTrackDTO((RegistrationByDrawDTO) registrationDTO,trackDTO);
 
         return toTrackDTO((RegistrationByOrderDTO) registrationDTO, trackDTO);
