@@ -235,21 +235,30 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
 
         trackRepository.saveAll(tracksList);
 
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(0).getId()).build());
 
-        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(0).getId())
+        mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
 
-        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(1).getId())
+        request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(1).getId()).build());
+
+        mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
-        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(2).getId())
+        request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(2).getId()).build());
+
+        mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -273,8 +282,12 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
         trackRepository.saveAll(tracksList);
 
 
-        mvc.perform(get("/api/tracks/athletes/" + athleteList.get(0).getId())
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(0).getId()).build());
+
+        mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
                         .param("open","true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
@@ -282,6 +295,7 @@ public class AthleteResourceTest extends AbstractDatabaseTest {
 
 
     }
+
 
 
 
