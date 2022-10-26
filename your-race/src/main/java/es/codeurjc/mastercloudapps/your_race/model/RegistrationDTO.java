@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 
 @JsonSubTypes({
         @JsonSubTypes.Type(value = RegistrationByOrderDTO.class, name = "ByOrder"),
-        @JsonSubTypes.Type(value = RegistrationByDrawDTO.class, name = "ByDrawing")
+        @JsonSubTypes.Type(value = RegistrationByDrawDTO.class, name = "ByDraw")
 })
 public abstract class RegistrationDTO {
 
