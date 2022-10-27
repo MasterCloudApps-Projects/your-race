@@ -2,9 +2,11 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 
 
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.testcontainers.containers.PostgreSQLContainer;
 
-@Disabled
+//@Disabled
 @SpringBootTest
 @AutoConfigureMockMvc
-class RaceResourceTestMocked extends AbstractDatabaseTest {
+class RaceResourceTestMocked { //} extends AbstractDatabaseTest {
 
     @Autowired
     ObjectMapper objectMapper;
@@ -40,6 +43,9 @@ class RaceResourceTestMocked extends AbstractDatabaseTest {
 
     @MockBean
     private RaceService raceService;
+
+    @ClassRule
+    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @Test
     void getRacesTest() throws Exception {

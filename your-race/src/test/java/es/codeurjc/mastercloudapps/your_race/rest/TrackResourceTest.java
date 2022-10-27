@@ -2,12 +2,14 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +21,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +30,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
+//@Disabled
 @AutoConfigureMockMvc
 @SpringBootTest
-public class TrackResourceTest extends AbstractDatabaseTest {
+public class TrackResourceTest { //extends AbstractDatabaseTest {
 
     @Autowired
     private MockMvc mvc;
@@ -56,6 +59,8 @@ public class TrackResourceTest extends AbstractDatabaseTest {
     List<Athlete> athleteList;
     List<Track> tracksList;
 
+    @ClassRule
+    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @BeforeEach
     public void initEach(){
