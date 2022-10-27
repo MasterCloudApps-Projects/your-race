@@ -27,10 +27,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 
-//@Disabled
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class AthleteResourceTestMocked  { //extends UniqueAbstractDatabaseTest {
+class AthleteResourceTestMocked  {
 
     @Autowired
     private MockMvc mvc;

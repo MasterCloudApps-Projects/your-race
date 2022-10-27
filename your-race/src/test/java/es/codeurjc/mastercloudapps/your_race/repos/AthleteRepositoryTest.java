@@ -15,9 +15,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@Disabled
+
 @SpringBootTest
-class AthleteRepositoryTest {//extends AbstractDatabaseTest {
+class AthleteRepositoryTest {
     @Autowired
     private AthleteRepository athleteRepository;
 

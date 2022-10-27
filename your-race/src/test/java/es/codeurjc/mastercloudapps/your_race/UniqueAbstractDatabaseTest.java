@@ -11,7 +11,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers
-//@ContextConfiguration(initializers = UniqueAbstractDatabaseTest.Initializer.class)
 public class UniqueAbstractDatabaseTest extends PostgreSQLContainer<UniqueAbstractDatabaseTest> {
 
 
@@ -28,24 +27,6 @@ public class UniqueAbstractDatabaseTest extends PostgreSQLContainer<UniqueAbstra
         }
         return container;
     }
-
-
-
-  /*  @Container
-    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:14.5")
-            .withDatabaseName("test")
-            .withUsername("admin")
-            .withPassword("admin");
-
-    static class Initializer
-            implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-        public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-            TestPropertyValues.of(
-                    "spring.datasource.url=" + postgreSQLContainer.getJdbcUrl()
-            ).applyTo(configurableApplicationContext.getEnvironment());
-        }
-    }*/
-
 
     @Override
     public void start(){

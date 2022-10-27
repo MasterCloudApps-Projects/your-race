@@ -30,10 +30,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@Disabled
+
 @AutoConfigureMockMvc
 @SpringBootTest
-public class TrackResourceTest { //extends AbstractDatabaseTest {
+public class TrackResourceTest {
 
     @Autowired
     private MockMvc mvc;

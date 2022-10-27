@@ -31,10 +31,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-//@Disabled
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class RaceResourceTestMocked { //} extends AbstractDatabaseTest {
+class RaceResourceTestMocked {
 
     @Autowired
     ObjectMapper objectMapper;
