@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.repos;
 
-import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import org.junit.ClassRule;
 import org.junit.Ignore;
@@ -19,7 +19,7 @@ class AthleteRepositoryTest {
     private AthleteRepository athleteRepository;
 
     @ClassRule
-    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     @Test
     @Ignore

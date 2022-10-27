@@ -1,7 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 
-import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 
@@ -42,7 +42,7 @@ class RaceResourceTestMocked {
     private RaceService raceService;
 
     @ClassRule
-    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     @Test
     void getRacesTest() throws Exception {

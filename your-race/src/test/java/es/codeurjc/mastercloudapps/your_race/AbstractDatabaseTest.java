@@ -1,29 +1,24 @@
 package es.codeurjc.mastercloudapps.your_race;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.util.TestPropertyValues;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers
-public class UniqueAbstractDatabaseTest extends PostgreSQLContainer<UniqueAbstractDatabaseTest> {
+public class AbstractDatabaseTest extends PostgreSQLContainer<AbstractDatabaseTest> {
 
 
     private static final String IMAGE_VERSION = "postgres:14.5";
-    private static UniqueAbstractDatabaseTest container;
+    private static AbstractDatabaseTest container;
 
-    private UniqueAbstractDatabaseTest() {
+    private AbstractDatabaseTest() {
         super(IMAGE_VERSION);
     }
 
-    public static UniqueAbstractDatabaseTest getInstance() {
+    public static AbstractDatabaseTest getInstance() {
         if (container == null) {
-            container = new UniqueAbstractDatabaseTest();
+            container = new AbstractDatabaseTest();
         }
         return container;
     }

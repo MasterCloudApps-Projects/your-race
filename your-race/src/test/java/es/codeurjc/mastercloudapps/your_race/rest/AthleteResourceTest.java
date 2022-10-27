@@ -1,7 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
@@ -59,7 +59,7 @@ public class AthleteResourceTest {
 
 
     @ClassRule
-    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
 
     @BeforeEach

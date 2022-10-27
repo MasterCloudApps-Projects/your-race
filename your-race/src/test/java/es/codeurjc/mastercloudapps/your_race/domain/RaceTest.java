@@ -4,7 +4,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import com.github.javafaker.Faker;
-import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
+import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +21,7 @@ import java.time.Month;
 class RaceTest {
 
     @ClassRule
-    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     Faker faker;
     @BeforeEach
