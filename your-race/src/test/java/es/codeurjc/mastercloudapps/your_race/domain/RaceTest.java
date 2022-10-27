@@ -23,15 +23,18 @@ import java.time.Month;
 
 
 @SpringBootTest
-class RaceTest { // extends AbstractDatabaseTest {
+class RaceTest {
+
+    @ClassRule
+    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+
     Faker faker;
     @BeforeEach
     public void initEach(){
         faker = new Faker();
     }
 
-    @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+
 
     @Test
     @DisplayName("Can create Race with name and location")

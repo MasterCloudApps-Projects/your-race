@@ -60,7 +60,7 @@ public class TrackResourceTest { //extends AbstractDatabaseTest {
     List<Track> tracksList;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @BeforeEach
     public void initEach(){

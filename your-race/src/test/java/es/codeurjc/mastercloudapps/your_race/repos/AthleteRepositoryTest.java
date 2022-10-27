@@ -22,7 +22,7 @@ class AthleteRepositoryTest {//extends AbstractDatabaseTest {
     private AthleteRepository athleteRepository;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @Test
     @Ignore

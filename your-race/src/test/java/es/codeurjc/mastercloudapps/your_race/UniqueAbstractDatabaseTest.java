@@ -11,10 +11,27 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers
-@ContextConfiguration(initializers = UniqueAbstractDatabaseTest.Initializer.class)
+//@ContextConfiguration(initializers = UniqueAbstractDatabaseTest.Initializer.class)
 public class UniqueAbstractDatabaseTest extends PostgreSQLContainer<UniqueAbstractDatabaseTest> {
 
-    @Container
+
+    private static final String IMAGE_VERSION = "postgres:14.5";
+    private static UniqueAbstractDatabaseTest container;
+
+    private UniqueAbstractDatabaseTest() {
+        super(IMAGE_VERSION);
+    }
+
+    public static UniqueAbstractDatabaseTest getInstance() {
+        if (container == null) {
+            container = new UniqueAbstractDatabaseTest();
+        }
+        return container;
+    }
+
+
+
+  /*  @Container
     public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:14.5")
             .withDatabaseName("test")
             .withUsername("admin")
@@ -27,18 +44,15 @@ public class UniqueAbstractDatabaseTest extends PostgreSQLContainer<UniqueAbstra
                     "spring.datasource.url=" + postgreSQLContainer.getJdbcUrl()
             ).applyTo(configurableApplicationContext.getEnvironment());
         }
-    }
+    }*/
 
-    public static PostgreSQLContainer getInstance(){
-        if(postgreSQLContainer == null){
-            postgreSQLContainer = new UniqueAbstractDatabaseTest();
-        }
-        return  postgreSQLContainer;
-    }
 
     @Override
     public void start(){
         super.start();
+        System.setProperty("DB_URL", container.getJdbcUrl());
+        System.setProperty("DB_USERNAME", container.getUsername());
+        System.setProperty("DB_PASSWORD", container.getPassword());
     }
 
     @Override

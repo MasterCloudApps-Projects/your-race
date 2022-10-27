@@ -39,7 +39,7 @@ class AthleteResourceTestMocked  { //extends UniqueAbstractDatabaseTest {
     private AthleteService athleteService;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @Test
     void getAthletesTest() throws Exception {

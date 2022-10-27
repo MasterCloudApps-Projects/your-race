@@ -45,7 +45,7 @@ class RaceResourceTestMocked { //} extends AbstractDatabaseTest {
     private RaceService raceService;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @Test
     void getRacesTest() throws Exception {

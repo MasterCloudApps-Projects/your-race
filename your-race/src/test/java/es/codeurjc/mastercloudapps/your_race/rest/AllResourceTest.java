@@ -62,8 +62,8 @@ public class AllResourceTest //extends UniqueAbstractDatabaseTest
     List<Athlete> athleteList;
     List<Track> tracksList;
 
-@ClassRule
-public static PostgreSQLContainer postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
+    @ClassRule
+    public static UniqueAbstractDatabaseTest postgreSQLContainer = UniqueAbstractDatabaseTest.getInstance();
 
     @BeforeEach
     public void initEach(){
