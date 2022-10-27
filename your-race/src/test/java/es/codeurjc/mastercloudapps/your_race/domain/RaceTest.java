@@ -4,11 +4,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import com.github.javafaker.Faker;
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
-import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.time.LocalDateTime;
 import java.time.Month;

@@ -2,14 +2,11 @@ package es.codeurjc.mastercloudapps.your_race.repos;
 
 import es.codeurjc.mastercloudapps.your_race.UniqueAbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import org.junit.ClassRule;
 import org.junit.Ignore;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Optional;
 
