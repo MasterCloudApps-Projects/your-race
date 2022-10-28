@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.your_race.rest;
+package es.codeurjc.mastercloudapps.your_race.acceptance;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
