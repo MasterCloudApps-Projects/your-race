@@ -56,13 +56,9 @@ Body
 
 ## How to populate data for local testing
 
-Copy initializer script to docker container:
+Copy initializer script to docker container and run script over it:
 ```
 docker cp database/populate_initial_data.sql k8s_pgdb_1:/var/lib/postgresql 
-```
-
-Run script in container:
-```
 docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial_data.sql
 ```
 
