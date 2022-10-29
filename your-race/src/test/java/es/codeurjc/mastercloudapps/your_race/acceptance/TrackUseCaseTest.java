@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class TrackResourceTest {
+public class TrackUseCaseTest {
 
     @Autowired
     private MockMvc mvc;
