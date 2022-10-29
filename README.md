@@ -25,9 +25,9 @@ Importar Dashboard 9628 para Postgres
 ### Athlete race application
 ```
 POST {{baseUrl}}/api/athletes/{idAthlete}}/applications/{idRace}}
-````
-E.g.  
-``` http://localhost:8080/api/athletes/12210/applications/12191 ```
+
+E.g: http://localhost:8080/api/athletes/12210/applications/12191 
+```
 
 ### Race registration By Order (with Application code)
 ```
@@ -54,7 +54,19 @@ Body
 }
 ```
 
+## How to populate data for local testing
 
+Copy initializer script to docker container:
+```
+docker cp database/populate_initial_data.sql k8s_pgdb_1:/var/lib/postgresql 
+```
+
+Run script in container:
+```
+docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial_data.sql
+```
+
+Check out generated ids in file [database_initial_ids.txt](/database/database_initial_ids.txt).
 
 ___
 ## :es: Documentación de Entrega

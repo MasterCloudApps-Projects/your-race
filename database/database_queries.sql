@@ -9,14 +9,22 @@ on r2.id = r.race_registration_id
 where r.organizer_id = o.id 
 
 select * from athlete a 
+select * from registration_info r 
+select * from organizer 
+select * from race
+select * from application_period ap 
 
-select * from registration r 
 
-
+delete from race cascade;
+delete from application_period;
+delete from organizer;
+delete from athlete cascade;
+delete from registration;
+delete from application;
+delete from track
 
 
 // DDL Statements
-
 drop table race cascade;
 drop table application_period;
 drop table organizer;
@@ -24,13 +32,3 @@ drop table athlete cascade;
 drop table registration;
 drop table application;
 drop table track
-
-
-delete from organizer
-delete from race
-delete from application_period 
-
-
-select * from organizer 
-select * from race
-select * from application_period ap 
