@@ -3,6 +3,7 @@ package es.codeurjc.mastercloudapps.your_race.service;
 import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodIsClosedException;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
@@ -60,25 +61,26 @@ public class AthleteService {
         return athleteRepository.save(athlete).getId();
     }
 
-    public Optional<ApplicationDTO> raceApplication( final Long idAthlete, final Long idRace){
+    public Optional<ApplicationDTO> raceApplication ( final Long idAthlete, final Long idRace) throws Exception {
 
         Optional<Athlete> athlete = athleteRepository.findById(idAthlete);
         Optional<Race> race = raceRepository.findById(idRace);
 
 
-        if (athlete.isPresent() && race.isPresent()
-                && race.get().getApplicationPeriod().isOpen()) {
-            Application application = Application.builder().applicationAthlete(athlete.get())
-                    .applicationRace(race.get())
-                    .applicationCode(RandomStringUtils.random(10,true,true))
-                    .build();
+        if (athlete.isPresent() && race.isPresent()) {
+            if (race.get().getApplicationPeriod().isOpen()) {
+                Application application = Application.builder().applicationAthlete(athlete.get())
+                        .applicationRace(race.get())
+                        .applicationCode(RandomStringUtils.random(10, true, true))
+                        .build();
 
-            applicationRepository.save(application);
-            return Optional.of(mapToDTO(application, new ApplicationDTO()));
+                applicationRepository.save(application);
+                return Optional.of(mapToDTO(application, new ApplicationDTO()));
 
+            }
+            throw new ApplicationPeriodIsClosedException("Application Period is closed");
         }
-        else
-            return Optional.empty();
+        return Optional.empty();
 
 
     }

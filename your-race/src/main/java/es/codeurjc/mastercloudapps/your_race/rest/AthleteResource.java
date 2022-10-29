@@ -60,11 +60,17 @@ public class AthleteResource {
     @PostMapping("/{id}/applications/{idRace}")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
-        Optional<ApplicationDTO> applicationDTO = athleteService.raceApplication(id,idRace);
-        if (applicationDTO.isPresent())
-            return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
-        else
-            return ResponseEntity.badRequest().body(Optional.empty()) ;
+       try {
+           Optional<ApplicationDTO> applicationDTO = athleteService.raceApplication(id, idRace);
+           if (applicationDTO.isPresent())
+               return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
+           else
+               return ResponseEntity.badRequest().body(Optional.empty());
+
+        } catch (Exception e){
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+
+        }
     }
 
 
