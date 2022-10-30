@@ -2,6 +2,7 @@ package es.codeurjc.mastercloudapps.your_race.acceptance;
 
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
+import es.codeurjc.mastercloudapps.your_race.model.*;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.time.LocalDateTime;
@@ -73,5 +74,20 @@ class TestDataBuilder {
             race.getApplicationPeriod().setLastDate(LocalDateTime.now().minusMonths(2));
         }
 
+    public static RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+        return RegistrationByOrderDTO.builder()
+                .registrationType(RegistrationType.BYORDER)
+                .applicationCode(applicationDTO.getApplicationCode())
+                .build();
+    }
+
+    public static RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
+        return RegistrationByDrawDTO.builder()
+                .registrationType(RegistrationType.BYDRAW)
+                .idAthlete(athlete.getId())
+                .idRace(race.getId())
+                .build();
+
+    }
     }
 
