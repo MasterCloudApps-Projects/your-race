@@ -25,9 +25,10 @@ public class TrackDTO {
     @NotNull
     private Long raceId;
     private String raceName;
-  //  private LocalDateTime raceDate;
 
-  //  private LocalDateTime registrationDate;
+    private LocalDateTime raceDate;
+
+    private LocalDateTime registrationDate;
     @Size(max = 255)
     private String paymentInfo;
 

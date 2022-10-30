@@ -93,8 +93,8 @@ public class AthleteService {
         applicationDTO.setName(application.getApplicationAthlete().getName());
         applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
         applicationDTO.setRaceName(application.getApplicationRace().getName());
-      //  applicationDTO.setDate(application.getApplicationRace().getDate());
-      //  applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+        applicationDTO.setDate(application.getApplicationRace().getDate());
+        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
 
 
         return applicationDTO;

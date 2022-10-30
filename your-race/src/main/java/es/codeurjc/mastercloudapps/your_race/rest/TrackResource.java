@@ -44,10 +44,10 @@ public class TrackResource {
     public ResponseEntity<TrackDTO> createRegistration(
             @RequestBody @Valid final RegistrationDTO registrationDTO) {
         try {
-          /*  if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
+            if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
                  registrationDTO.setRegistrationType(RegistrationType.BYORDER);
             else
-                registrationDTO.setRegistrationType(RegistrationType.BYDRAW);*/
+                registrationDTO.setRegistrationType(RegistrationType.BYDRAW);
 
             TrackDTO trackDTO = trackService.create(registrationDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
