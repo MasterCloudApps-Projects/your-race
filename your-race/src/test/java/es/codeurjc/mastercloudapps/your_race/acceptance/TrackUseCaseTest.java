@@ -93,20 +93,12 @@ public class TrackUseCaseTest {
     @Test
     void athleteShouldRegisterToRace() throws Exception
     {
-        ObjectMapper mapper = new ObjectMapper();
 
-        MvcResult result = mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty()).andReturn();
+        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
 
-        ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
-
-
-        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder(applicationDTO));
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
+                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isCreated());
 
     }
@@ -115,16 +107,12 @@ public class TrackUseCaseTest {
     @Test
     void athleteShouldNotRegisterToRace() throws Exception
     {
-
-        ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder(
-                ApplicationDTO.builder()
-                        .applicationCode("APPLICATION_CODE_TEST")
-                        .build()));
+        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
+        applicationDTO.setApplicationCode("APPLICATION_CODE_TEST");
 
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
+                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isBadRequest());
 
     }
@@ -134,15 +122,9 @@ public class TrackUseCaseTest {
     @Test
     void organizerShouldRegisterAthleteToRace() throws Exception
     {
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
-
-
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
+                        .content(TestDataBuilder.generateRegistrationByDrawBodyRequest(athleteList.get(0),raceList.get(0))))
                 .andExpect(status().isCreated());
     }
 

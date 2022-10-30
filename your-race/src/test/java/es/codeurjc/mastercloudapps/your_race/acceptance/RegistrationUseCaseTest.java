@@ -132,12 +132,9 @@ public class RegistrationUseCaseTest {
 
         ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(3),raceList.get(0));
 
-        ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder(applicationDTO));
-
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
+                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isBadRequest());
 
 

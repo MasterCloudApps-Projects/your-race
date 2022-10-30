@@ -88,14 +88,22 @@ class TestDataBuilder {
             race.getApplicationPeriod().setLastDate(LocalDateTime.now().minusMonths(2));
         }
 
-    public static RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+    public static String generateRegistrationByOrderBodyRequest(ApplicationDTO applicationDTO) throws Exception{
+         return mapper.writeValueAsString(produceRegistrationByOrder(applicationDTO));
+    }
+
+    public static String generateRegistrationByDrawBodyRequest (Athlete athlete, Race race) throws Exception{
+        return mapper.writeValueAsString(produceRegistrationByDraw(athlete,race));
+
+    }
+    private static RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
         return RegistrationByOrderDTO.builder()
                 .registrationType(RegistrationType.BYORDER)
                 .applicationCode(applicationDTO.getApplicationCode())
                 .build();
     }
 
-    public static RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
+    private static RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
         return RegistrationByDrawDTO.builder()
                 .registrationType(RegistrationType.BYDRAW)
                 .idAthlete(athlete.getId())
@@ -120,11 +128,9 @@ class TestDataBuilder {
 
         ApplicationDTO applicationDTO = athleteApplyToRace(mvc, athlete,race);
 
-        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder (applicationDTO));
-
         MvcResult result = mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
+                        .content(generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isCreated()).andReturn();
 
         return mapper.readValue(result.getResponse().getContentAsString(), TrackDTO.class);
