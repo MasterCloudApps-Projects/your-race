@@ -166,7 +166,7 @@ public class Race {
         return this.raceTracks.size();
     }
     public int getNextDorsal() throws Exception{
-        if (this.athleteCapacity!= null && this.raceTracks.size()+1 < this.athleteCapacity)
+        if (this.athleteCapacity!= null && this.raceTracks.size()+1 <= this.athleteCapacity)
             return this.raceTracks.size()+1;
 
         throw new RaceCapacityIsEmpty("Race capacity has been reached. There's no more dorsals available for this race.");
