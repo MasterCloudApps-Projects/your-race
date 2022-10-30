@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceCapacityIsEmpty;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
@@ -54,7 +55,7 @@ public class Race {
     private Integer athleteCapacity;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "race")
+    @OneToMany(mappedBy = "race", fetch = FetchType.EAGER)
     private Set<Track> raceTracks;
 
     @ToString.Exclude
@@ -159,5 +160,16 @@ public class Race {
 
     public boolean isOpen(){
       return LocalDateTime.now().isBefore(this.date);
+    }
+
+    public int getRaceTracks(){
+        return this.raceTracks.size();
+    }
+    public int getNextDorsal() throws Exception{
+        if (this.athleteCapacity!= null && this.raceTracks.size()+1 < this.athleteCapacity)
+            return this.raceTracks.size()+1;
+
+        throw new RaceCapacityIsEmpty("Race capacity has been reached. There's no more dorsals available for this race.");
+
     }
 }

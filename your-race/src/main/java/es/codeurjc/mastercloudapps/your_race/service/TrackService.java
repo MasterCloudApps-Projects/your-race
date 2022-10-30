@@ -60,9 +60,11 @@ public class TrackService {
         if (trackDTO.getAthleteId()==null)
             throw new ApplicationCodeNotValidException("Application code is invalid. Athlete or application race were not found.");
 
-        Track track = trackRepository.save(mapToEntity(trackDTO, new Track()));
-        return mapToDTO(track, new TrackDTO());
 
+        Track track = mapToEntity(trackDTO, new Track());
+        track.setDorsal(track.getRace().getNextDorsal());
+        track = trackRepository.save(track);
+        return mapToDTO(track, new TrackDTO());
 
     }
 

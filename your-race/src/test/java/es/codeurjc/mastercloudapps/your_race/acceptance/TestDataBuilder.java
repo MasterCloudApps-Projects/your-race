@@ -31,6 +31,7 @@ class TestDataBuilder {
                             .lastDate(LocalDateTime.now().plusMonths(1L))
                             .build())
                     .date(LocalDateTime.now().plusMonths(6L))
+                    .athleteCapacity(3)
                     .build();
         }
 

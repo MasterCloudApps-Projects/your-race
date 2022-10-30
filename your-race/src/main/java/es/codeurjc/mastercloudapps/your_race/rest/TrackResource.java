@@ -60,7 +60,7 @@ public class TrackResource {
             TrackDTO trackDTO = trackService.create(registrationDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
         } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
     }
