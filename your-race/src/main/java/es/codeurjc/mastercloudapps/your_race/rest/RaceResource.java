@@ -1,6 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
+import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.service.ApplicationService;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.*;
 public class RaceResource {
 
     private final RaceService raceService;
+    private final ApplicationService applicationService;
 
-    public RaceResource(final RaceService raceService) {
+    public RaceResource(final RaceService raceService,final ApplicationService applicationService) {
         this.raceService = raceService;
+        this.applicationService = applicationService;
     }
 
     @GetMapping
@@ -35,6 +39,11 @@ public class RaceResource {
     @GetMapping("/{id}")
     public ResponseEntity<RaceDTO> getRace(@PathVariable final Long id) {
         return ResponseEntity.ok(raceService.get(id));
+    }
+
+    @GetMapping("/{id}/applications")
+    public ResponseEntity<List<ApplicationDTO>> getRaceApplications(@PathVariable final Long id) {
+        return ResponseEntity.ok(applicationService.getRaceApplications(id));
     }
 
     @PostMapping

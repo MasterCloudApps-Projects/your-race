@@ -10,6 +10,7 @@ import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
+import es.codeurjc.mastercloudapps.your_race.service.ApplicationService;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,13 +20,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -151,7 +153,7 @@ public class RegistrationUseCaseTest {
         ApplicationDTO applicationDTO2 = TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(2),raceList.get(0));
 
 
-        mvc.perform(post("/api/races/" + raceList.get(0).getId() + "/applications")
+        mvc.perform(get("/api/races/" + raceList.get(0).getId() + "/applications")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(3)));
