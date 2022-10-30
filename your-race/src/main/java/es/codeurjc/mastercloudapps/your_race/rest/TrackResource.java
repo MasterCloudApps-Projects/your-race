@@ -54,11 +54,11 @@ public class TrackResource {
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createRegistration(
+    public ResponseEntity<TrackDTO> createRegistration(
             @RequestBody @Valid final RegistrationDTO registrationDTO) {
         try {
-            Long trackId = trackService.create(registrationDTO);
-            return new ResponseEntity<>(trackId, HttpStatus.CREATED);
+            TrackDTO trackDTO = trackService.create(registrationDTO);
+            return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 

@@ -54,14 +54,16 @@ public class TrackService {
     }
 
 
-    public Long create(final RegistrationDTO registrationDTO) throws Exception {
-        TrackDTO trackDTO = toTrackDTO(registrationDTO,TrackDTO.builder().build());
+    public TrackDTO create(final RegistrationDTO registrationDTO) throws Exception {
 
+       TrackDTO trackDTO = toTrackDTO(registrationDTO,TrackDTO.builder().build());
         if (trackDTO.getAthleteId()==null)
             throw new ApplicationCodeNotValidException("Application code is invalid. Athlete or application race were not found.");
-        Track track = new Track();
-        track =  mapToEntity(trackDTO, track);
-        return trackRepository.save(track).getId();
+
+        Track track = trackRepository.save(mapToEntity(trackDTO, new Track()));
+        return mapToDTO(track, new TrackDTO());
+
+
     }
 
 
@@ -108,9 +110,9 @@ public class TrackService {
 
         trackDTO.setRaceId(track.getRace() == null ? null : track.getRace().getId());
         trackDTO.setRaceName(track.getRace() == null ? null : track.getRace().getName());
-        trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
+       // trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
 
-        trackDTO.setRegistrationDate(track.getRegistrationDate());
+      //  trackDTO.setRegistrationDate(track.getRegistrationDate());
 
         trackDTO.setStatus(track.getStatus());
         trackDTO.setScore(track.getScore());
@@ -121,7 +123,7 @@ public class TrackService {
     }
 
     private Track mapToEntity(final TrackDTO trackDTO, final Track track) {
-        track.setRegistrationDate(trackDTO.getRegistrationDate());
+      //  track.setRegistrationDate(trackDTO.getRegistrationDate());
         track.setStatus(trackDTO.getStatus());
         track.setScore(trackDTO.getScore());
         track.setDorsal(trackDTO.getDorsal());
