@@ -125,7 +125,7 @@ public class TrackUseCaseTest {
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
     }
 
