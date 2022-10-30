@@ -39,40 +39,12 @@ public class AthleteResource {
         return ResponseEntity.ok(athleteService.get(id));
     }
 
-/*
-    @GetMapping("/{id}/applications")
-    public ResponseEntity<List<ApplicationDTO>> getAthleteApplicationRaces(@PathVariable final Long id, @RequestParam boolean open){
-
-        if (open)
-            return ResponseEntity.ok(athleteService.findAllApplicationOpenRace(id));
-        return ResponseEntity.ok(athleteService.findAllApplication(id));
-    }
-*/
-
 
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createAthlete(@RequestBody @Valid final AthleteDTO athleteDTO) {
         return new ResponseEntity<>(athleteService.create(athleteDTO), HttpStatus.CREATED);
     }
-
-/*
-    @PostMapping("/{id}/applications/{idRace}")
-    @ApiResponse(responseCode = "201")
-    public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
-       try {
-           Optional<ApplicationDTO> applicationDTO = athleteService.raceApplication(id, idRace);
-           if (applicationDTO.isPresent())
-               return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
-           else
-              return  new ResponseEntity<>( HttpStatus.NOT_FOUND);
-
-        } catch (Exception e){
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-
-        }
-    }
-*/
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateAthlete(@PathVariable final Long id,

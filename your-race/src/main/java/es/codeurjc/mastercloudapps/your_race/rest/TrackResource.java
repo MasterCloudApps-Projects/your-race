@@ -23,11 +23,6 @@ public class TrackResource {
         this.trackService = trackService;
     }
 
-   /* @GetMapping
-    public ResponseEntity<List<TrackDTO>> getAllTracks() {
-        return ResponseEntity.ok(trackService.findAll());
-    }
-*/
 
     @GetMapping("/{id}")
     public ResponseEntity<TrackDTO> getTrack(@PathVariable final Long id) {
@@ -45,12 +40,6 @@ public class TrackResource {
         return ResponseEntity.ok(trackService.findAllByAthlete(trackDTO.getAthleteId()));
     }
 
-    /*
-    @PostMapping
-    @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createTrack(@RequestBody @Valid final TrackDTO trackDTO) {
-        return new ResponseEntity<>(trackService.create(trackDTO), HttpStatus.CREATED);
-    }*/
 
     @PostMapping
     @ApiResponse(responseCode = "201")

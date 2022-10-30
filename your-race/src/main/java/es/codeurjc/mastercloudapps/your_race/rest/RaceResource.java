@@ -21,11 +21,10 @@ import org.springframework.web.bind.annotation.*;
 public class RaceResource {
 
     private final RaceService raceService;
-    private final ApplicationService applicationService;
 
-    public RaceResource(final RaceService raceService,final ApplicationService applicationService) {
+    public RaceResource(final RaceService raceService) {
         this.raceService = raceService;
-        this.applicationService = applicationService;
+
     }
 
     @GetMapping

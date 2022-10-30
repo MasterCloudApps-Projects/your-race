@@ -52,19 +52,4 @@ public class ApplicationResource {
         }
     }
 
-   /* @PostMapping("/{id}/applications/{idRace}")
-    @ApiResponse(responseCode = "201")
-    public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
-        try {
-            Optional<ApplicationDTO> applicationDTO = applicationService.raceApplication(id, idRace);
-            if (applicationDTO.isPresent())
-                return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
-            else
-                return  new ResponseEntity<>( HttpStatus.NOT_FOUND);
-
-        } catch (Exception e){
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-
-        }
-    }*/
 }

@@ -28,16 +28,12 @@ import javax.transaction.Transactional;
 public class AthleteService {
 
     private final AthleteRepository athleteRepository;
-    private final ApplicationRepository applicationRepository;
-    private final RaceRepository raceRepository;
 
 
-    public AthleteService(final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository
-                        ,RaceRepository raceRepository
-                         ,TrackService trackService   ) {
+
+    public AthleteService(final AthleteRepository athleteRepository  ) {
         this.athleteRepository = athleteRepository;
-        this.applicationRepository = applicationRepository;
-        this.raceRepository = raceRepository;
+
 
 
     }

@@ -57,40 +57,6 @@ public class TrackService {
 
 
 
-  /*  public TrackDTO create(final RegistrationDTO registrationDTO) throws Exception {
-
-       TrackDTO trackDTO = registrationToTrackDTO(registrationDTO,TrackDTO.builder().build());
-        if (trackDTO.getAthleteId()==null)
-            throw new ApplicationCodeNotValidException("Application code is invalid. Athlete or application race were not found.");
-
-
-        Track track = mapToEntity(trackDTO, new Track());
-        track.setDorsal(track.getRace().getNextDorsal());
-        track = trackRepository.save(track);
-        return mapToDTO(track, new TrackDTO());
-
-    } */
-
-   /* REFACTORIZADA 1
-    public TrackDTO create(final RegistrationDTO registrationDTO) throws Exception {
-
-
-
-        Track track = registrationToTrack(registrationDTO,Track.builder().build());
-        if (track.getAthlete()==null)
-            throw new ApplicationCodeNotValidException("Application code is invalid. Athlete was not found.");
-
-        if (track.getRace()==null)
-            throw new ApplicationCodeNotValidException("Application code is invalid. Race was not found.");
-
-        Race race = track.getRace();
-        int dorsal = race.getNextDorsal();
-        track.setDorsal(dorsal);
-        track = trackRepository.save(track);
-        return mapToDTO(track, new TrackDTO());
-
-    }*/
-
     public TrackDTO create(final RegistrationDTO registrationDTO) throws Exception {
     Race race = getRegistrationRace(registrationDTO);
     Athlete athlete = getRegistrationAthlete(registrationDTO);
@@ -185,93 +151,7 @@ public class TrackService {
         return track;
     }
 
-    /*
-    private TrackDTO toTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
-    {
-        if (registrationDTO.getRegistrationType() != null
-                && registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAW))
-            return toTrackDTO((RegistrationByDrawDTO) registrationDTO,trackDTO);
 
-        return toTrackDTO((RegistrationByOrderDTO) registrationDTO, trackDTO);
-    }
-
-    private TrackDTO toTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final TrackDTO trackDTO){
-        trackDTO.setRaceId(getRaceId(registrationByOrderDTO.getApplicationCode()).orElse(null));
-
-        trackDTO.setAthleteId(
-                applicationRepository.findAll().stream()
-                        .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
-                        .map(application -> application.getApplicationAthlete().getId())
-                        .findAny().orElse(null)
-
-        );
-        return trackDTO;
-    }
-
-    private TrackDTO toTrackDTO(final RegistrationByDrawDTO registrationByDrawDTO, final TrackDTO trackDTO){
-        trackDTO.setAthleteId(registrationByDrawDTO.getIdAthlete());
-        trackDTO.setRaceId(registrationByDrawDTO.getIdRace());
-
-        return trackDTO;
-
-    }*/
-
-/*
-    private TrackDTO registrationToTrackDTO(final RegistrationDTO registrationDTO, final TrackDTO trackDTO)
-    {
-        if (registrationDTO.getRegistrationType() != null
-                && registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAW))
-            return registrationByDrawToTrackDTO((RegistrationByDrawDTO) registrationDTO,trackDTO);
-
-        return registrationByOrderToTrackDTO((RegistrationByOrderDTO) registrationDTO, trackDTO);
-    }
-
-    private TrackDTO registrationByOrderToTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final TrackDTO trackDTO){
-        trackDTO.setRaceId(getRaceId(registrationByOrderDTO.getApplicationCode()).orElse(null));
-
-        trackDTO.setAthleteId(
-                applicationRepository.findAll().stream()
-                        .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
-                        .map(application -> application.getApplicationAthlete().getId())
-                        .findAny().orElse(null)
-
-        );
-        return trackDTO;
-    }
-
-    private TrackDTO registrationByDrawToTrackDTO(final RegistrationByDrawDTO registrationByDrawDTO, final TrackDTO trackDTO){
-        trackDTO.setAthleteId(registrationByDrawDTO.getIdAthlete());
-        trackDTO.setRaceId(registrationByDrawDTO.getIdRace());
-
-        return trackDTO;
-
-    }*/
-
-
-
- /*   private Track registrationToTrack(final RegistrationDTO registrationDTO, final Track track)
-    {
-        if (registrationDTO.getRegistrationType() != null
-                && registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAW))
-            return registrationByDrawToTrackDTO((RegistrationByDrawDTO) registrationDTO,track);
-
-        return registrationByOrderToTrackDTO((RegistrationByOrderDTO) registrationDTO, track);
-    }
-
-    private Track registrationByOrderToTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final Track track){
-
-        track.setRace(getRace(registrationByOrderDTO).orElse(null));
-        track.setAthlete(getAthlete(registrationByOrderDTO).orElse(null));
-        return track;
-    }
-
-    private Track registrationByDrawToTrackDTO(final RegistrationByDrawDTO registrationByDrawDTO, final Track track){
-        track.getAthlete().setId(registrationByDrawDTO.getIdAthlete());
-        track.getRace().setId(registrationByDrawDTO.getIdRace());
-
-        return track;
-
-    }*/
 
     private Race getRegistrationRace(final RegistrationDTO registrationDTO)
     {
@@ -297,26 +177,6 @@ public class TrackService {
 
 
 
-
-/*
-    private Track registrationByOrderToTrackDTO(final RegistrationByOrderDTO registrationByOrderDTO, final Track track){
-
-        track.setRace(getRace(registrationByOrderDTO).orElse(null));
-        track.setAthlete(getAthlete(registrationByOrderDTO).orElse(null));
-        return track;
-    }
-
-    private Track registrationByDrawToTrackDTO(final RegistrationByDrawDTO registrationByDrawDTO, final Track track){
-        track.getAthlete().setId(registrationByDrawDTO.getIdAthlete());
-        track.getRace().setId(registrationByDrawDTO.getIdRace());
-
-        return track;
-
-    } */
-
-
-
-
     private Optional<Race> getRace(RegistrationByOrderDTO registrationByOrderDTO){
 
         return applicationRepository.findAll().stream()
@@ -339,10 +199,6 @@ public class TrackService {
 
     private Optional<Race> getRace(RegistrationByDrawDTO registrationByDrawDTO){
 
-        /*        Optional<Race> race = applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationRace().getId().equals(registrationByDrawDTO.getIdRace()))
-                .findAny()
-                .map(Application::getApplicationRace);*/
         List<Application> applicationList = applicationRepository.findAll();
         Race race = new Race();
 
