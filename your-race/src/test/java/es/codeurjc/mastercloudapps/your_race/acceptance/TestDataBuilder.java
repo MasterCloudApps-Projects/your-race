@@ -1,18 +1,31 @@
 package es.codeurjc.mastercloudapps.your_race.acceptance;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import org.apache.commons.lang3.RandomUtils;
+import org.junit.jupiter.api.DisplayName;
+import org.mockito.Mock;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class TestDataBuilder {
 
         private static Faker faker;
+        private static ObjectMapper mapper;
 
         static void init(){
             faker = new Faker();
+            mapper = new ObjectMapper();
         }
 
 
@@ -88,6 +101,35 @@ class TestDataBuilder {
                 .idAthlete(athlete.getId())
                 .idRace(race.getId())
                 .build();
+
+    }
+
+
+    public static ApplicationDTO athleteApplyToRace(MockMvc mvc, Athlete athlete, Race race) throws Exception{
+
+       MvcResult result = mvc.perform(post("/api/athletes/" + athlete.getId()+"/applications/"+race.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.applicationCode").isNotEmpty()).andReturn();
+
+        return mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
+
+    }
+
+    public static TrackDTO registerAthleteToRaceByOrder(MockMvc mvc, Athlete athlete, Race race) throws Exception{
+
+        ApplicationDTO applicationDTO = athleteApplyToRace(mvc, athlete,race);
+
+        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder (applicationDTO));
+
+        MvcResult result = mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isCreated()).andReturn();
+
+        return mapper.readValue(result.getResponse().getContentAsString(), TrackDTO.class);
+
+
 
     }
     }

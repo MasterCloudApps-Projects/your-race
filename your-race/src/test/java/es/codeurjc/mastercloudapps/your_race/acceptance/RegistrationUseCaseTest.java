@@ -95,26 +95,11 @@ public class RegistrationUseCaseTest {
     }
 
     @Test
-    @DisplayName("An ahtlete should get a dorsal when sucessfully registrated in a Race")
+    @DisplayName("An athlete should get a dorsal when sucessfully registrated in a Race")
         public void assignDorsalNumber() throws Exception{
-        ObjectMapper mapper = new ObjectMapper();
 
-        MvcResult result = mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty()).andReturn();
+        TrackDTO trackDTO = TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(0),raceList.get(0));
 
-        ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
-
-
-        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder (applicationDTO));
-
-        result = mvc.perform(post("/api/tracks/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
-                .andExpect(status().isCreated()).andReturn();
-
-        TrackDTO trackDTO = mapper.readValue(result.getResponse().getContentAsString(), TrackDTO.class);
         assertThat(trackDTO.getDorsal()).isNotNull();
         assertThat(trackDTO.getDorsal()).isEqualTo(Integer.valueOf(1));
 
@@ -122,7 +107,7 @@ public class RegistrationUseCaseTest {
     }
 
     @Test
-    @DisplayName("An ahtlete should be sucessfully registrated only if there's capacity in the Race")
+    @DisplayName("An athlete should be sucessfully registrated only if there's capacity in the Race")
     public void checkRaceCapacity (){
 
     }
