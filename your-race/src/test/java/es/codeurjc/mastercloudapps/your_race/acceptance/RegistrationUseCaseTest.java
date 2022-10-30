@@ -116,6 +116,7 @@ public class RegistrationUseCaseTest {
 
         TrackDTO trackDTO = mapper.readValue(result.getResponse().getContentAsString(), TrackDTO.class);
         assertThat(trackDTO.getDorsal()).isNotNull();
+        assertThat(trackDTO.getDorsal()).isEqualTo(Integer.valueOf(1));
 
 
     }
