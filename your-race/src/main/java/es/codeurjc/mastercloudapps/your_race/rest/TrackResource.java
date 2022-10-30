@@ -1,8 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
-import es.codeurjc.mastercloudapps.your_race.model.TrackRequestDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
-import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
@@ -46,6 +44,11 @@ public class TrackResource {
     public ResponseEntity<TrackDTO> createRegistration(
             @RequestBody @Valid final RegistrationDTO registrationDTO) {
         try {
+          /*  if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
+                 registrationDTO.setRegistrationType(RegistrationType.BYORDER);
+            else
+                registrationDTO.setRegistrationType(RegistrationType.BYDRAW);*/
+
             TrackDTO trackDTO = trackService.create(registrationDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
         } catch (Exception e){
@@ -53,7 +56,6 @@ public class TrackResource {
 
         }
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTrack(@PathVariable final Long id,

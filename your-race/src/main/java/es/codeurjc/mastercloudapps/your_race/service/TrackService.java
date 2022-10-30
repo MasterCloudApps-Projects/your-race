@@ -152,27 +152,23 @@ public class TrackService {
     }
 
 
-
     private Race getRegistrationRace(final RegistrationDTO registrationDTO)
     {
-        if (registrationDTO.getRegistrationType() != null
-                && registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAW)) {
-            return getRace((RegistrationByDrawDTO) registrationDTO).orElse(null);
+       if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
+            return getRace((RegistrationByOrderDTO) registrationDTO).orElse(null);
+       return  getRace((RegistrationByDrawDTO) registrationDTO).orElse(null);
 
-        }
-
-        return getRace((RegistrationByOrderDTO) registrationDTO).orElse(null);
     }
+
+
 
     private Athlete getRegistrationAthlete(final RegistrationDTO registrationDTO)
     {
-        if (registrationDTO.getRegistrationType() != null
-                && registrationDTO.getRegistrationType().equals(RegistrationType.BYDRAW)) {
-            return getAthlete((RegistrationByDrawDTO) registrationDTO).orElse(null);
+        if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
+            return getAthlete((RegistrationByOrderDTO) registrationDTO).orElse(null);
+        return  getAthlete((RegistrationByDrawDTO) registrationDTO).orElse(null);
 
-        }
 
-        return getAthlete((RegistrationByOrderDTO) registrationDTO).orElse(null);
     }
 
 
