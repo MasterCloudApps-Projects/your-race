@@ -121,5 +121,25 @@ public class RegistrationUseCaseTest {
 
     }
 
+    @Test
+    @DisplayName("An athlete should be sucessfully registrated only if there's capacity in the Race")
+    public void checkRaceCapacity () throws Exception{
 
+        raceList.get(0).setAthleteCapacity(3);
+        TrackDTO trackDTO = TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(0),raceList.get(0));
+        TrackDTO trackDTO1 = TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(1),raceList.get(0));
+        TrackDTO trackDTO2= TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(2),raceList.get(0));
+
+        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(3),raceList.get(0));
+
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder(applicationDTO));
+
+        mvc.perform(post("/api/tracks/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isBadRequest());
+
+
+    }
 }
