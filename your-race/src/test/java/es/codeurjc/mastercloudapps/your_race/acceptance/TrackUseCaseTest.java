@@ -118,10 +118,13 @@ public class TrackUseCaseTest {
     }
 
 
-    @DisplayName("An organizer should register an athlete to a race (ByDraw registration)")
+    @DisplayName("An organizer should register an athlete who has applied to a race (ByDraw registration)")
     @Test
     void organizerShouldRegisterAthleteToRace() throws Exception
     {
+
+        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
+
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestDataBuilder.generateRegistrationByDrawBodyRequest(athleteList.get(0),raceList.get(0))))

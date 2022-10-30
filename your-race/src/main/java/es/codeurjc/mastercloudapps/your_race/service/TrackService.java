@@ -339,10 +339,18 @@ public class TrackService {
 
     private Optional<Race> getRace(RegistrationByDrawDTO registrationByDrawDTO){
 
-        return applicationRepository.findAll().stream()
+        /*        Optional<Race> race = applicationRepository.findAll().stream()
                 .filter(application -> application.getApplicationRace().getId().equals(registrationByDrawDTO.getIdRace()))
                 .findAny()
-                .map(Application::getApplicationRace);
+                .map(Application::getApplicationRace);*/
+        List<Application> applicationList = applicationRepository.findAll();
+        Race race = new Race();
+
+        for(Application application : applicationList)
+            if(application.getApplicationRace().getId().equals(registrationByDrawDTO.getIdRace()))
+                race = application.getApplicationRace();
+
+        return Optional.of(race);
 
     }
 
