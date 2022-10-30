@@ -11,6 +11,7 @@ import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,9 @@ public class TrackService {
                 .race(race)
                 .athlete(athlete)
                 .dorsal(dorsal)
+                .registrationDate(LocalDateTime.now())
+                .paymentInfo("Pending")
+                .status("Registered")
                 .build();
         track = trackRepository.save(track);
         return mapToDTO(track, new TrackDTO());
@@ -119,13 +123,13 @@ public class TrackService {
         trackDTO.setId(track.getId());
         trackDTO.setAthleteId(track.getAthlete() == null ? null : track.getAthlete().getId());
         trackDTO.setName(track.getAthlete() == null ? null : track.getAthlete().getName());
-        trackDTO.setName(track.getAthlete() == null ? null : track.getAthlete().getSurname());
+        trackDTO.setSurname(track.getAthlete() == null ? null : track.getAthlete().getSurname());
 
         trackDTO.setRaceId(track.getRace() == null ? null : track.getRace().getId());
         trackDTO.setRaceName(track.getRace() == null ? null : track.getRace().getName());
-       // trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
+        trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
 
-      //  trackDTO.setRegistrationDate(track.getRegistrationDate());
+       trackDTO.setRegistrationDate(track.getRegistrationDate());
 
         trackDTO.setStatus(track.getStatus());
         trackDTO.setScore(track.getScore());
@@ -136,7 +140,7 @@ public class TrackService {
     }
 
     private Track mapToEntity(final TrackDTO trackDTO, final Track track) {
-      //  track.setRegistrationDate(trackDTO.getRegistrationDate());
+        track.setRegistrationDate(trackDTO.getRegistrationDate());
         track.setStatus(trackDTO.getStatus());
         track.setScore(trackDTO.getScore());
         track.setDorsal(trackDTO.getDorsal());
