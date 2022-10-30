@@ -31,22 +31,22 @@ INSERT INTO public.registration_info (id,concurrent_request_threshold,registrati
 	 (10019,NULL,150.0,'2022-01-15 09:00:00','BYORDER');	 
 	 
 INSERT INTO public.race (id,athlete_capacity,"date",description,distance,"location","name","type",application_period_id,organizer_id,race_registration_info_id) VALUES
-	 (10001,NULL,'2022-11-06 09:00:00','The New York City Marathon is an annual marathon that courses through the five boroughs of New York City.
+	 (10001,5,'2022-11-06 09:00:00','The New York City Marathon is an annual marathon that courses through the five boroughs of New York City.
 It is the largest marathon in the world, with 53,627 finishers in 2019 and 98,247 applicants for the 2017 race
 ',42.195,'New York, NY, USA','New York City Marathon','Running',10002,10000,10003),
-	 (10005,NULL,'2023-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
+	 (10005,5,'2023-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
 por el Club Deportivo La Legión 101 Km.
 ',101.0,'Ronda, Málaga, Spain','101 kilómetros de Ronda - Marcha Individual','Running',10006,10004,10007),
-	 (10008,NULL,'2023-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
+	 (10008,5,'2023-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
 por el Club Deportivo La Legión 101 Km.
 ',101.0,'Ronda, Málaga, Spain','101 kilómetros de Ronda - MTB','MTB',10009,10004,10010),
-	 (10011,NULL,'2023-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
+	 (10011,5,'2023-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
 por el Club Deportivo La Legión 101 Km.
 ',101.0,'Ronda, Málaga, Spain','101 kilómetros de Ronda - Por Equipos','Team',10012,10004,10013),
-	 (10014,NULL,'2021-11-06 09:00:00','The New York City Marathon is an annual marathon that courses through the five boroughs of New York City.
+	 (10014,5,'2021-11-06 09:00:00','The New York City Marathon is an annual marathon that courses through the five boroughs of New York City.
 It is the largest marathon in the world, with 53,627 finishers in 2019 and 98,247 applicants for the 2017 race
 ',42.195,'New York, NY, USA','New York City Marathon - Edition of 2021','Running',10015,10000,10016),
-	 (10017,NULL,'2022-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
+	 (10017,5,'2022-05-13 10:00:00','Marcha trail de 101 kilómetros en 24 horas por la serranía de Ronda y alrededores, organizados
 por el Club Deportivo La Legión 101 Km.
 ',101.0,'Ronda, Málaga, Spain','101 kilómetros de Ronda - Marcha Individual - Edition of 2022','Running',10018,10004,10019);
 
