@@ -206,6 +206,9 @@ public class AthleteUseCaseTest {
 
     }
 
+
+
+
     @DisplayName("Athlete should apply to a race only if ApplicationPeriod is open")
     @Test
     void athleteShouldApplyIfApplicationPeriodIsOpen() throws Exception{

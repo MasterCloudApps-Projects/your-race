@@ -127,9 +127,9 @@ public class TrackService {
 
         trackDTO.setRaceId(track.getRace() == null ? null : track.getRace().getId());
         trackDTO.setRaceName(track.getRace() == null ? null : track.getRace().getName());
-        trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
+       // trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
 
-       trackDTO.setRegistrationDate(track.getRegistrationDate());
+      // trackDTO.setRegistrationDate(track.getRegistrationDate());
 
         trackDTO.setStatus(track.getStatus());
         trackDTO.setScore(track.getScore());

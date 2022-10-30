@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -20,7 +21,9 @@ public class ApplicationDTO {
 
    private String raceName;
 
+
    private LocalDateTime date;
+
    private LocalDateTime raceRegistrationDate;
 }
 
