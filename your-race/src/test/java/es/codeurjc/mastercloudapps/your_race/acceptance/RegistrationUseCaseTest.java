@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -137,6 +138,23 @@ public class RegistrationUseCaseTest {
                         .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isBadRequest());
 
+
+    }
+
+    @Test
+    @DisplayName("An organizer should get the list of applications to a race")
+    public void checkRaceApplications () throws Exception{
+
+        raceList.get(0).setAthleteCapacity(3);
+        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0),raceList.get(0));
+        ApplicationDTO applicationDTO1 = TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(1),raceList.get(0));
+        ApplicationDTO applicationDTO2 = TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(2),raceList.get(0));
+
+
+        mvc.perform(post("/api/races/" + raceList.get(0).getId() + "/applications")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$",hasSize(3)));
 
     }
 }
