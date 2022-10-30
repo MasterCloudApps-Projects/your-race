@@ -30,6 +30,11 @@ public class ApplicationResource {
         return ResponseEntity.ok(applicationService.findAllApplication(id));
     }
 
+    @GetMapping("/races/{id}")
+    public ResponseEntity<List<ApplicationDTO>> getRaceApplications(@PathVariable final Long id) {
+        return ResponseEntity.ok(applicationService.getRaceApplications(id));
+    }
+
     @PostMapping()
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Optional<ApplicationDTO>> createApplication(@RequestBody final ApplicationRequestDTO applicationRequestDTO){

@@ -41,10 +41,6 @@ public class RaceResource {
         return ResponseEntity.ok(raceService.get(id));
     }
 
-    @GetMapping("/{id}/applications")
-    public ResponseEntity<List<ApplicationDTO>> getRaceApplications(@PathVariable final Long id) {
-        return ResponseEntity.ok(applicationService.getRaceApplications(id));
-    }
 
     @PostMapping
     @ApiResponse(responseCode = "201")

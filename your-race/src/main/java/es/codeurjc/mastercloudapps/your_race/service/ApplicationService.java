@@ -80,14 +80,10 @@ public class ApplicationService {
 
 
     public List<ApplicationDTO> getRaceApplications(final Long id) {
-
-       return  applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationRace().getId().equals(id))
-                .map(application ->  mapToDTO(application, new ApplicationDTO()))
-               .collect(Collectors.toList());
-
-
-
+        return applicationRepository.findAll().stream()
+               .filter(application -> application.getApplicationRace().getId().equals(id))
+               .map(application ->  mapToDTO(application, new ApplicationDTO()))
+              .collect(Collectors.toList());
     }
 
     private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
