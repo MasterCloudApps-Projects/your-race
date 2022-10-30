@@ -103,7 +103,7 @@ public class TrackUseCaseTest {
         ApplicationDTO applicationDTO = mapper.readValue( result.getResponse().getContentAsString(), ApplicationDTO.class);
 
 
-        String request = mapper.writeValueAsString(produceRegistrationByOrder(applicationDTO));
+        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder(applicationDTO));
         mvc.perform(post("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
@@ -117,7 +117,7 @@ public class TrackUseCaseTest {
     {
 
         ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(produceRegistrationByOrder(
+        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByOrder(
                 ApplicationDTO.builder()
                         .applicationCode("APPLICATION_CODE_TEST")
                         .build()));
@@ -137,7 +137,7 @@ public class TrackUseCaseTest {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
+        String request = mapper.writeValueAsString(TestDataBuilder.produceRegistrationByDraw(athleteList.get(0),raceList.get(0)));
 
 
         mvc.perform(post("/api/tracks/")
@@ -147,7 +147,7 @@ public class TrackUseCaseTest {
     }
 
 
-    RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+ /*   RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
         return RegistrationByOrderDTO.builder()
                 .registrationType(RegistrationType.BYORDER)
                 .applicationCode(applicationDTO.getApplicationCode())
@@ -161,5 +161,5 @@ public class TrackUseCaseTest {
                 .idRace(race.getId())
                 .build();
 
-    }
+    } */
 }

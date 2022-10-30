@@ -104,7 +104,7 @@ public class AthleteUseCaseTest {
 
         mvc.perform(post("/api/athletes/" + "0000" +"/applications/"+ "0000")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
 
     }
 
@@ -115,15 +115,15 @@ public class AthleteUseCaseTest {
 
         mvc.perform(post("/api/athletes/" + "0000" + "/applications/"+raceList.get(0).getId())
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
 
         mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/" + "0000")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
 
         mvc.perform(post("/api/athletes/" + "0000" +"/applications/"+ "0000")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @DisplayName("Races that an athlete has applied to")

@@ -65,10 +65,10 @@ public class AthleteResource {
            if (applicationDTO.isPresent())
                return new ResponseEntity<>(applicationDTO, HttpStatus.CREATED);
            else
-               return ResponseEntity.badRequest().body(Optional.empty());
+              return  new ResponseEntity<>( HttpStatus.NOT_FOUND);
 
         } catch (Exception e){
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 
         }
     }
