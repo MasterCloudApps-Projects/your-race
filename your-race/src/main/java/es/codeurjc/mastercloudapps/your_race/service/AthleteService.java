@@ -61,50 +61,6 @@ public class AthleteService {
         return athleteRepository.save(athlete).getId();
     }
 
-    public Optional<ApplicationDTO> raceApplication ( final Long idAthlete, final Long idRace) throws Exception {
-
-        Optional<Athlete> athlete = athleteRepository.findById(idAthlete);
-        Optional<Race> race = raceRepository.findById(idRace);
-
-
-        if (athlete.isPresent() && race.isPresent()) {
-            if (race.get().getApplicationPeriod().isOpen()) {
-                Application application = Application.builder().applicationAthlete(athlete.get())
-                        .applicationRace(race.get())
-                        .applicationCode(RandomStringUtils.random(10, true, true))
-                        .build();
-
-                applicationRepository.save(application);
-                return Optional.of(mapToDTO(application, new ApplicationDTO()));
-
-            }
-            throw new ApplicationPeriodIsClosedException("Application Period is closed");
-        }
-        return Optional.empty();
-
-
-    }
-
-
-    public List<ApplicationDTO> findAllApplication(Long id){
-
-        return  applicationRepository.findAll()
-                .stream()
-                .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
-                .map(application -> mapToDTO(application, new ApplicationDTO()))
-                .toList();
-    }
-
-    public List<ApplicationDTO> findAllApplicationOpenRace(Long id){
-
-        return applicationRepository.findAll()
-                .stream()
-                .filter(application -> Objects.equals(application.getApplicationAthlete().getId(), id))
-                .filter(application ->  application.getApplicationRace().isOpen())
-                .map(application -> mapToDTO(application, new ApplicationDTO()))
-                .toList();
-
-    }
 
 
     public void update(final Long id, final AthleteDTO athleteDTO) {

@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,13 +98,24 @@ public class AthleteUseCaseTest {
     @Test
     void athleteShouldApplyToExistingRace() throws Exception{
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
+                .athleteId(athleteList.get(0).getId())
+                .raceId(raceList.get(0).getId()).build());
+
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
-        mvc.perform(post("/api/athletes/" + "0000" +"/applications/"+ "0000")
-                        .contentType(MediaType.APPLICATION_JSON))
+        request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
+                .athleteId(0L)
+                .raceId(0L).build());
+
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isNotFound());
 
     }
@@ -113,41 +125,51 @@ public class AthleteUseCaseTest {
     @Test
     void applicationToNonExistingAthleteRaceShouldNotBePossible() throws Exception{
 
-        mvc.perform(post("/api/athletes/" + "0000" + "/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
+        ObjectMapper mapper = new ObjectMapper();
+        String request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
+                .athleteId(0L)
+                .raceId(raceList.get(0).getId()).build());
+
+
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isNotFound());
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/" + "0000")
-                        .contentType(MediaType.APPLICATION_JSON))
+        request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
+                .athleteId(athleteList.get(0).getId())
+                .raceId(0L).build());
+
+
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isNotFound());
 
-        mvc.perform(post("/api/athletes/" + "0000" +"/applications/"+ "0000")
-                        .contentType(MediaType.APPLICATION_JSON))
+
+        request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
+                .athleteId(0L)
+                .raceId(0L).build());
+
+
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isNotFound());
+
+
     }
 
     @DisplayName("Races that an athlete has applied to")
     @Test
     void shouldGetAthleteApplicationRacesList() throws Exception {
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
-
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(1).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+        TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(0));
+        TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(1));
+        TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(1), raceList.get(1));
 
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(1).getId() +"/applications/"+raceList.get(1).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
-
-
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/applications")
+        mvc.perform(get("/api/applications/athletes/" + athleteList.get(0).getId())
                         .param("open","false")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -167,30 +189,17 @@ public class AthleteUseCaseTest {
 
         raceRepository.saveAll(raceList);
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
+        TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(0));
+        TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(1));
+        TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(2));
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(1).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
-
-
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(2).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.applicationCode").isNotEmpty());
-
-
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/applications")
+        mvc.perform(get("/api/applications/athletes/" + athleteList.get(0).getId())
                         .param("open","true")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
-        mvc.perform(get("/api/athletes/" + athleteList.get(0).getId()+"/applications")
+        mvc.perform(get("/api/applications/athletes/" + athleteList.get(0).getId())
                         .param("open","false")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -200,7 +209,7 @@ public class AthleteUseCaseTest {
 
     @DisplayName("Athlete should apply to a race only if ApplicationPeriod is open")
     @Test
-    void athleteShouldApplyIfAppliactionPeriodIsOpen() throws Exception{
+    void athleteShouldApplyIfApplicationPeriodIsOpen() throws Exception{
 
 
         TestDataBuilder.setDateInFuture(raceList.get(0));
@@ -209,16 +218,23 @@ public class AthleteUseCaseTest {
 
         raceRepository.saveAll(raceList);
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
+        ObjectMapper mapper = new ObjectMapper();
+        String  request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
+                .athleteId(athleteList.get(0).getId())
+                .raceId(raceList.get(0).getId()).build());
+
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").doesNotExist());
 
         TestDataBuilder.setApplicationPeriodOpen(raceList.get(0));
         raceRepository.saveAll(raceList);
 
-        mvc.perform(post("/api/athletes/" + athleteList.get(0).getId()+"/applications/"+raceList.get(0).getId())
-                        .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(post("/api/applications")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 

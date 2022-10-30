@@ -39,7 +39,7 @@ public class AthleteResource {
         return ResponseEntity.ok(athleteService.get(id));
     }
 
-
+/*
     @GetMapping("/{id}/applications")
     public ResponseEntity<List<ApplicationDTO>> getAthleteApplicationRaces(@PathVariable final Long id, @RequestParam boolean open){
 
@@ -47,7 +47,7 @@ public class AthleteResource {
             return ResponseEntity.ok(athleteService.findAllApplicationOpenRace(id));
         return ResponseEntity.ok(athleteService.findAllApplication(id));
     }
-
+*/
 
 
     @PostMapping
@@ -56,7 +56,7 @@ public class AthleteResource {
         return new ResponseEntity<>(athleteService.create(athleteDTO), HttpStatus.CREATED);
     }
 
-
+/*
     @PostMapping("/{id}/applications/{idRace}")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Optional<ApplicationDTO>> createApplication(@PathVariable final Long id, @PathVariable final Long idRace){
@@ -72,7 +72,7 @@ public class AthleteResource {
 
         }
     }
-
+*/
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateAthlete(@PathVariable final Long id,
