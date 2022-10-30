@@ -84,7 +84,7 @@ public class RegistrationUseCaseTest {
             raceList.add(TestDataBuilder.buildTestRace(organizer));
 
 
-        for (int i=0; i<3;i++)
+        for (int i=0; i<4;i++)
             athleteList.add(TestDataBuilder.buildTestAthlete());
 
         organizerRepository.save(organizer);
@@ -107,8 +107,19 @@ public class RegistrationUseCaseTest {
     }
 
     @Test
-    @DisplayName("An athlete should be sucessfully registrated only if there's capacity in the Race")
-    public void checkRaceCapacity (){
+    @DisplayName("Dorsals are provided in a consecutive order of registration")
+    public void checkDorsalAssignation () throws Exception{
+
+        raceList.get(0).setAthleteCapacity(3);
+        TrackDTO trackDTO = TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(0),raceList.get(0));
+        TrackDTO trackDTO1 = TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(1),raceList.get(0));
+        TrackDTO trackDTO2= TestDataBuilder.registerAthleteToRaceByOrder(mvc,athleteList.get(2),raceList.get(0));
+
+        assertThat(trackDTO.getDorsal()).isEqualTo(Integer.valueOf(1));
+        assertThat(trackDTO1.getDorsal()).isEqualTo(Integer.valueOf(2));
+        assertThat(trackDTO2.getDorsal()).isEqualTo(Integer.valueOf(3));
 
     }
+
+
 }
