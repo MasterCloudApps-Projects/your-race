@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
-import es.codeurjc.mastercloudapps.your_race.model.QueryTrackDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackRequestDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
@@ -35,7 +35,7 @@ public class TrackResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<TrackDTO>> getTracks(@RequestParam boolean open, @RequestBody @Valid final QueryTrackDTO trackDTO){
+    public ResponseEntity<List<TrackDTO>> getTracks(@RequestParam boolean open, @RequestBody @Valid final TrackRequestDTO trackDTO){
 
         if (trackDTO.getAthleteId() == null)
             return ResponseEntity.ok(trackService.findAll());

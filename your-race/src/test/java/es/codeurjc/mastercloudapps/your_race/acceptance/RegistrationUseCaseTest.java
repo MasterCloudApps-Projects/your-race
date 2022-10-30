@@ -143,8 +143,6 @@ public class RegistrationUseCaseTest {
 
 
     }
-
-    @Disabled
     @Test
     @DisplayName("An organizer should get the list of applications to a race")
     public void checkRaceApplications () throws Exception{

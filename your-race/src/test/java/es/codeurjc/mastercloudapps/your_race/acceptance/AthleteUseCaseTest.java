@@ -18,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -254,7 +253,7 @@ public class AthleteUseCaseTest {
         trackRepository.saveAll(tracksList);
 
         ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(0).getId()).build());
+        String request = mapper.writeValueAsString(TrackRequestDTO.builder().athleteId(athleteList.get(0).getId()).build());
 
         mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -263,7 +262,7 @@ public class AthleteUseCaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
 
-        request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(1).getId()).build());
+        request = mapper.writeValueAsString(TrackRequestDTO.builder().athleteId(athleteList.get(1).getId()).build());
 
         mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -272,7 +271,7 @@ public class AthleteUseCaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
 
-        request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(2).getId()).build());
+        request = mapper.writeValueAsString(TrackRequestDTO.builder().athleteId(athleteList.get(2).getId()).build());
 
         mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -301,7 +300,7 @@ public class AthleteUseCaseTest {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        String request = mapper.writeValueAsString(QueryTrackDTO.builder().athleteId(athleteList.get(0).getId()).build());
+        String request = mapper.writeValueAsString(TrackRequestDTO.builder().athleteId(athleteList.get(0).getId()).build());
 
         mvc.perform(get("/api/tracks/")
                         .contentType(MediaType.APPLICATION_JSON)
