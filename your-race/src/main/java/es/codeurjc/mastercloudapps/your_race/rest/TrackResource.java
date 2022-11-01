@@ -1,7 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
-import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceCapacityIsEmpty;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,19 +45,16 @@ public class TrackResource {
     @ApiResponse(responseCode = "201")
     public ResponseEntity<TrackDTO> createRegistration(
             @RequestBody @Valid final RegistrationDTO registrationDTO)
-            throws ApplicationCodeNotValidException, RaceCapacityIsEmpty {
-     //   try {
-            if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
+            throws ApplicationCodeNotValidException, RaceFullCapacityException {
+
+           if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
                  registrationDTO.setRegistrationType(RegistrationType.BYORDER);
             else
                 registrationDTO.setRegistrationType(RegistrationType.BYDRAW);
 
             TrackDTO trackDTO = trackService.create(registrationDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
-     //   } catch (Exception e){
-     //       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-       // }
     }
 
     @PutMapping("/{id}")
