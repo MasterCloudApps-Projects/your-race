@@ -91,6 +91,7 @@ public class RaceService {
         raceDTO.setRaceRegistrationDate (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationDate());
         raceDTO.setRegistrationType (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationType());
         raceDTO.setRegistrationCost (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationCost());
+        raceDTO.setAvailableCapacity(race.getAvailableCapacity());
         return raceDTO;
     }
 

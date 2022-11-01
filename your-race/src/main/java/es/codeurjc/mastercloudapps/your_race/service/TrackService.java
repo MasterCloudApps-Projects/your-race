@@ -57,7 +57,7 @@ public class TrackService {
     }
 
 
-    public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException {
+    public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
         Race race = getRace(registrationByOrderDTO);
         Athlete athlete = getAthlete(registrationByOrderDTO);
 
@@ -71,7 +71,7 @@ public class TrackService {
         return registerToRace(athlete,race);
 
     }
-    public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException {
+    public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException, AthleteAlreadyRegisteredToRace {
         Race race = getRace(registrationByDrawDTO);
         Athlete athlete = getAthlete(registrationByDrawDTO);
 
@@ -83,9 +83,14 @@ public class TrackService {
 
         return registerToRace(athlete,race);
 
+
     }
 
-    private TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException{
+    private TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
+
+        if(findAthleteTrackInRace(athlete,race))
+            throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
+
         int dorsal = race.getNextDorsal();
         Track track = Track.builder()
                 .race(race)
@@ -97,6 +102,16 @@ public class TrackService {
                 .build();
         track = trackRepository.save(track);
         return mapToDTO(track, new TrackDTO());
+    }
+
+    private boolean findAthleteTrackInRace(Athlete athlete, Race race){
+       Optional<Track> optionalTrack = trackRepository.findAll().stream()
+                .filter(track -> track.getRace().getId().equals(race.getId())
+                                && track.getAthlete().getId().equals(athlete.getId()))
+                .findAny();
+
+        return optionalTrack.isPresent();
+
     }
 
 
@@ -172,26 +187,6 @@ public class TrackService {
         track.setAthlete(athlete);
         return track;
     }
-
-/*
-    private Race getRegistrationRace(final RegistrationDTO registrationDTO)
-    {
-       if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
-            return getRace((RegistrationByOrderDTO) registrationDTO).orElse(null);
-       return  getRace((RegistrationByDrawDTO) registrationDTO).orElse(null);
-
-    }
-
-
-
-    private Athlete getRegistrationAthlete(final RegistrationDTO registrationDTO)
-    {
-        if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
-            return getAthlete((RegistrationByOrderDTO) registrationDTO).orElse(null);
-        return  getAthlete((RegistrationByDrawDTO) registrationDTO).orElse(null);
-
-
-    }*/
 
 
 

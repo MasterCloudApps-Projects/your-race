@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.YourRaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.model.*;
@@ -46,7 +47,8 @@ public class TrackResource {
     @ApiResponse(responseCode = "201")
     public ResponseEntity<TrackDTO> createRegistrationByOrder(
             @RequestBody @Valid final RegistrationByOrderDTO registrationByOrderDTO)
-            throws ApplicationCodeNotValidException, RaceFullCapacityException {
+            throws ApplicationCodeNotValidException, RaceFullCapacityException
+            ,AthleteAlreadyRegisteredToRace {
 
             TrackDTO trackDTO = trackService.createByOrder(registrationByOrderDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
@@ -57,7 +59,8 @@ public class TrackResource {
     @ApiResponse(responseCode = "201")
     public ResponseEntity<TrackDTO> createRegistrationByDraw(
             @RequestBody @Valid final RegistrationByDrawDTO registrationByDrawDTO)
-            throws RaceFullCapacityException, YourRaceNotFoundException {
+            throws RaceFullCapacityException, YourRaceNotFoundException
+                ,AthleteAlreadyRegisteredToRace{
 
         TrackDTO trackDTO = trackService.createByDraw(registrationByDrawDTO);
         return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);

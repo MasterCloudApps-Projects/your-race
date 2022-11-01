@@ -172,4 +172,8 @@ public class Race {
         throw new RaceFullCapacityException("Race capacity has been reached. There's no more dorsals available for this race.");
 
     }
+
+    public Integer getAvailableCapacity(){
+        return athleteCapacity - this.raceTracks.size();
+    }
 }

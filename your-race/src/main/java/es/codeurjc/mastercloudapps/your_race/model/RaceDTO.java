@@ -36,6 +36,7 @@ public class RaceDTO {
     private String type;
 
     private Integer athleteCapacity;
+    private Integer availableCapacity;
 
     private LocalDateTime applicationInitialDate;
     private LocalDateTime applicationLastDate;
@@ -46,6 +47,8 @@ public class RaceDTO {
     private LocalDateTime raceRegistrationDate;
     private RegistrationType registrationType;
     private Double registrationCost;
+
+
 
 
 
