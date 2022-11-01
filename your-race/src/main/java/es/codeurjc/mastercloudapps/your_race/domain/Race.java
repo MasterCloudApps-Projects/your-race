@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 
-import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceCapacityIsEmpty;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
@@ -165,11 +165,11 @@ public class Race {
     public int getRaceTracks(){
         return this.raceTracks.size();
     }
-    public int getNextDorsal() throws RaceCapacityIsEmpty{
+    public int getNextDorsal() throws RaceFullCapacityException {
         if (this.athleteCapacity!= null && this.raceTracks.size()+1 <= this.athleteCapacity)
             return this.raceTracks.size()+1;
 
-        throw new RaceCapacityIsEmpty("Race capacity has been reached. There's no more dorsals available for this race.");
+        throw new RaceFullCapacityException("Race capacity has been reached. There's no more dorsals available for this race.");
 
     }
 }
