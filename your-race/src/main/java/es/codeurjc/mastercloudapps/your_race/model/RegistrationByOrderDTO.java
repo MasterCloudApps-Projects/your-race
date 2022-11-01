@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class RegistrationByOrderDTO extends RegistrationDTO {
+public class RegistrationByOrderDTO {
 
     @NotNull
     @Size(max = 50)

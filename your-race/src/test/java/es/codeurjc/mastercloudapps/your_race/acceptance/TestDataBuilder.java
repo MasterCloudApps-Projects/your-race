@@ -96,16 +96,14 @@ class TestDataBuilder {
         return mapper.writeValueAsString(produceRegistrationByDraw(athlete,race));
 
     }
-    private static RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
+    private static RegistrationByOrderDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
         return RegistrationByOrderDTO.builder()
-                .registrationType(RegistrationType.BYORDER)
                 .applicationCode(applicationDTO.getApplicationCode())
                 .build();
     }
 
-    private static RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
+    private static RegistrationByDrawDTO produceRegistrationByDraw(Athlete athlete, Race race){
         return RegistrationByDrawDTO.builder()
-                .registrationType(RegistrationType.BYDRAW)
                 .idAthlete(athlete.getId())
                 .idRace(race.getId())
                 .build();

@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class RegistrationByDrawDTO extends RegistrationDTO {
+public class RegistrationByDrawDTO {
 
     @NotNull
     private Long idAthlete;

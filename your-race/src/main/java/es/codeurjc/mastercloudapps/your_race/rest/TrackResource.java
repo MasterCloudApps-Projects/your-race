@@ -2,6 +2,7 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.YourRaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,19 +42,25 @@ public class TrackResource {
     }
 
 
-    @PostMapping
+    @PostMapping("/byorder")
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<TrackDTO> createRegistration(
-            @RequestBody @Valid final RegistrationDTO registrationDTO)
+    public ResponseEntity<TrackDTO> createRegistrationByOrder(
+            @RequestBody @Valid final RegistrationByOrderDTO registrationByOrderDTO)
             throws ApplicationCodeNotValidException, RaceFullCapacityException {
 
-           if(registrationDTO.getClass().equals(RegistrationByOrderDTO.class))
-                 registrationDTO.setRegistrationType(RegistrationType.BYORDER);
-            else
-                registrationDTO.setRegistrationType(RegistrationType.BYDRAW);
-
-            TrackDTO trackDTO = trackService.create(registrationDTO);
+            TrackDTO trackDTO = trackService.createByOrder(registrationByOrderDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/bydraw")
+    @ApiResponse(responseCode = "201")
+    public ResponseEntity<TrackDTO> createRegistrationByDraw(
+            @RequestBody @Valid final RegistrationByDrawDTO registrationByDrawDTO)
+            throws RaceFullCapacityException, YourRaceNotFoundException {
+
+        TrackDTO trackDTO = trackService.createByDraw(registrationByDrawDTO);
+        return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
 
     }
 

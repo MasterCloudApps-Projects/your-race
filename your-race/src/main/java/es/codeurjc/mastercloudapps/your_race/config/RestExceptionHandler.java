@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.config;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.YourRaceException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.YourRaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.model.ErrorResponse;
 import es.codeurjc.mastercloudapps.your_race.model.FieldError;
 import es.codeurjc.mastercloudapps.your_race.model.YourRaceErrorResponse;
@@ -31,5 +32,15 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(YourRaceNotFoundException.class)
+    public ResponseEntity<YourRaceErrorResponse> handleThrowableNotFound(final Throwable exception) {
+
+        final YourRaceErrorResponse errorResponse = YourRaceErrorResponse.builder()
+                .exception(exception.getClass().getSimpleName().toString())
+                .message(exception.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
 
 }

@@ -1,19 +1,15 @@
 package es.codeurjc.mastercloudapps.your_race.acceptance;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
-import es.codeurjc.mastercloudapps.your_race.service.ApplicationService;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
