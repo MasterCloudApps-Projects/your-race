@@ -150,6 +150,27 @@ public class TrackService {
 
     }
 
+    public List<TrackDTO> findAllByRace(Long id){
+
+        return  trackRepository.findAll()
+                .stream()
+                .filter(track -> track.getRace().getId().equals(id))
+                .map(track -> mapToDTO(track,new TrackDTO()))
+                .toList();
+
+    }
+
+    public List<TrackDTO> findByAthleteAndRace(Long athleteId,Long raceId){
+
+        return  trackRepository.findAll()
+                .stream()
+                .filter(track -> track.getAthlete().getId().equals(athleteId))
+                .filter(track -> track.getRace().getId().equals(raceId))
+                .map(track -> mapToDTO(track,new TrackDTO()))
+                .toList();
+
+    }
+
 
 
     private TrackDTO mapToDTO(final Track track, final TrackDTO trackDTO) {

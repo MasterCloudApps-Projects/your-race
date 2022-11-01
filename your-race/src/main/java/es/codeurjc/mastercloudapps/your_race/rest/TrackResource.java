@@ -34,12 +34,20 @@ public class TrackResource {
     @GetMapping
     public ResponseEntity<List<TrackDTO>> getTracks(@RequestParam boolean open, @RequestBody @Valid final TrackRequestDTO trackDTO){
 
-        if (trackDTO.getAthleteId() == null)
+        if (trackDTO.getAthleteId() == null && trackDTO.getRaceId() == null )
             return ResponseEntity.ok(trackService.findAll());
 
-        if (open)
-            return ResponseEntity.ok(trackService.findAllOpenByAthlete(trackDTO.getAthleteId()));
-        return ResponseEntity.ok(trackService.findAllByAthlete(trackDTO.getAthleteId()));
+        if (trackDTO.getAthleteId() != null && trackDTO.getRaceId() != null)
+            return ResponseEntity.ok(trackService.findByAthleteAndRace(trackDTO.getAthleteId(),trackDTO.getRaceId()));
+
+        if (trackDTO.getAthleteId() != null)
+        {
+                if (open)
+                    return ResponseEntity.ok(trackService.findAllOpenByAthlete(trackDTO.getAthleteId()));
+                return ResponseEntity.ok(trackService.findAllByAthlete(trackDTO.getAthleteId()));
+        }
+
+        return ResponseEntity.ok(trackService.findAllByRace(trackDTO.getRaceId()));
     }
 
 
