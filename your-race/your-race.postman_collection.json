@@ -542,21 +542,14 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/api/races/:id",
+											"raw": "{{baseUrl}}/api/races/20159",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
 												"api",
 												"races",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "31774110",
-													"description": "(Required) "
-												}
+												"20159"
 											]
 										}
 									},
@@ -647,7 +640,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"location\": \"fugiat amet tempor dolore\",\n    \"name\": \"ut officia ipsum dolor\",\n    \"organizer\": -81892401,\n    \"id\": -5759243,\n    \"description\": \"in dolore ad et officia\",\n    \"date\": \"1990-06-26T20:07:53.205Z\",\n    \"distance\": -86353132,\n    \"type\": \"cillum voluptate\",\n    \"applicationPeriod\": -27093144\n}",
+											"raw": "{\n     \"id\": 20159,\n        \"name\": \"MLG Meadowlands\",\n        \"description\": \"A race for testing\",\n        \"date\": \"2023-05-01T20:26:43.730416\",\n        \"location\": \"North Jakayla\",\n        \"distance\": 410.9,\n        \"type\": null,\n        \"athleteCapacity\": 100,\n        \"applicationInitialDate\": \"2022-10-01T20:26:43.730402\",\n        \"applicationLastDate\": \"2022-12-01T20:26:43.73041\",\n        \"organizerName\": \"Test Organizer\",\n        \"raceRegistrationDate\": \"2023-03-01T20:26:43.730377\",\n        \"registrationType\": null,\n        \"registrationCost\": null\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -655,21 +648,14 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/api/races/:id",
+											"raw": "{{baseUrl}}/api/races/20159",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
 												"api",
 												"races",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "31774110",
-													"description": "(Required) "
-												}
+												"20159"
 											]
 										}
 									},
@@ -1601,7 +1587,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"athleteId\": 10022,\n    \"raceId\": 10005\n}",
+									"raw": "{\n    \"athleteId\": 17965,\n    \"raceId\": 20165\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1640,7 +1626,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/applications/races/14978",
+									"raw": "{{baseUrl}}/api/applications/races/20159",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1648,7 +1634,7 @@
 										"api",
 										"applications",
 										"races",
-										"14978"
+										"20159"
 									]
 								}
 							},
@@ -1717,7 +1703,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/applications/athletes/10021?open=true",
+									"raw": "{{baseUrl}}/api/applications/athletes/10022?open=true",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1725,7 +1711,7 @@
 										"api",
 										"applications",
 										"athletes",
-										"10021"
+										"10022"
 									],
 									"query": [
 										{
@@ -2145,7 +2131,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"registrationType\": \"BYORDER\",\n    \"applicationCode\": \"dsV55CmKcD\"\n\n}",
+									"raw": "{\n    \"applicationCode\": \"4vjUHEf5JZ\"\n\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2153,14 +2139,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/tracks/",
+									"raw": "{{baseUrl}}/api/tracks/byorder",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"api",
 										"tracks",
-										""
+										"byorder"
 									]
 								}
 							},
@@ -2253,7 +2239,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"registrationType\": \"BYDRAW\",\n    \"idAthlete\": 10020,\n    \"idRace\": 10008\n\n}",
+									"raw": "{\n    \"athleteId\": 10021,\n    \"raceId\": 20165\n\n   \n    \n\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2261,14 +2247,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/tracks/",
+									"raw": "{{baseUrl}}/api/tracks/bydraw",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"api",
 										"tracks",
-										""
+										"bydraw"
 									]
 								}
 							},
@@ -2359,7 +2345,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \n}",
+									"raw": "{\n   \n    \"raceId\": 20165\n}",
 									"options": {
 										"raw": {
 											"language": "json"

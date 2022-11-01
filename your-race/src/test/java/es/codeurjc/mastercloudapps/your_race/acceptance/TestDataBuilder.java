@@ -131,7 +131,7 @@ class TestDataBuilder {
 
         ApplicationDTO applicationDTO = athleteApplyToRace(mvc, athlete,race);
 
-        MvcResult result = mvc.perform(post("/api/tracks/")
+        MvcResult result = mvc.perform(post("/api/tracks/byorder/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isCreated()).andReturn();

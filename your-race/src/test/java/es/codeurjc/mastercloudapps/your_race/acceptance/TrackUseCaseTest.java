@@ -96,7 +96,7 @@ public class TrackUseCaseTest {
 
         ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
 
-        mvc.perform(post("/api/tracks/")
+        mvc.perform(post("/api/tracks/byorder/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isCreated());
@@ -110,7 +110,7 @@ public class TrackUseCaseTest {
         ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
         applicationDTO.setApplicationCode("APPLICATION_CODE_TEST");
 
-        mvc.perform(post("/api/tracks/")
+        mvc.perform(post("/api/tracks/byorder/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
                 .andExpect(status().isBadRequest());
@@ -125,7 +125,7 @@ public class TrackUseCaseTest {
 
         ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
 
-        mvc.perform(post("/api/tracks/")
+        mvc.perform(post("/api/tracks/bydraw/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestDataBuilder.generateRegistrationByDrawBodyRequest(athleteList.get(0),raceList.get(0))))
                 .andExpect(status().isCreated());
