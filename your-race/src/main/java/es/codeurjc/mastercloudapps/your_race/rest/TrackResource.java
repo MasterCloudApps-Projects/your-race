@@ -3,7 +3,7 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
-import es.codeurjc.mastercloudapps.your_race.domain.exception.YourRaceNotFoundException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

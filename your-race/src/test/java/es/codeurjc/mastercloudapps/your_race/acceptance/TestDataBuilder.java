@@ -104,8 +104,8 @@ class TestDataBuilder {
 
     private static RegistrationByDrawDTO produceRegistrationByDraw(Athlete athlete, Race race){
         return RegistrationByDrawDTO.builder()
-                .idAthlete(athlete.getId())
-                .idRace(race.getId())
+                .athleteId(athlete.getId())
+                .raceId(race.getId())
                 .build();
 
     }

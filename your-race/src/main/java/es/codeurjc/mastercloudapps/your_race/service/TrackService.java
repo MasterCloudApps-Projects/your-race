@@ -5,6 +5,9 @@ import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.*;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.AthleteNotFoundException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.RaceNotFoundException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
@@ -232,7 +235,7 @@ public class TrackService {
     private Race getRace(RegistrationByDrawDTO registrationByDrawDTO){
 
         return applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationRace().getId().equals(registrationByDrawDTO.getIdRace()))
+                .filter(application -> application.getApplicationRace().getId().equals(registrationByDrawDTO.getRaceId()))
                 .findAny()
                 .map(Application::getApplicationRace).orElse(null);
 
@@ -241,7 +244,7 @@ public class TrackService {
     private Athlete getAthlete(RegistrationByDrawDTO registrationByDrawDTO){
 
         return applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationAthlete().getId().equals(registrationByDrawDTO.getIdAthlete()))
+                .filter(application -> application.getApplicationAthlete().getId().equals(registrationByDrawDTO.getAthleteId()))
                 .findAny()
                 .map(Application::getApplicationAthlete).orElse(null);
 

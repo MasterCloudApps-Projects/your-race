@@ -14,9 +14,9 @@ import javax.validation.constraints.Size;
 public class RegistrationByDrawDTO {
 
     @NotNull
-    private Long idAthlete;
+    private Long athleteId;
     @NotNull
-    private Long idRace;
+    private Long raceId;
 
 
 }
