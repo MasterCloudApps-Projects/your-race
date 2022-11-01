@@ -31,11 +31,10 @@ E.g: http://localhost:8080/api/athletes/12210/applications/12191
 
 ### Race registration By Order (with Application code)
 ```
-POST {{baseUrl}}/api/tracks/
+POST {{baseUrl}}/api/tracks/byorder
 
 Body
 {
-    "registrationType": "ByOrder",
     "applicationCode": "{applicationCode}"
 
 }
@@ -43,13 +42,12 @@ Body
 
 ### Race registration By Draw (by Organizer) (Pendiente de implementar)
 ```
-POST {{baseUrl}}/api/tracks/
+POST {{baseUrl}}/api/tracks/bydraw
 
 Body
 {
-    "registrationType": "ByDraw",
-    "idAthlete": {idAthlete},
-    "idRace": {idRace}
+    "athleteId": {athleteId},
+    "raceId": {raceId}
 
 }
 ```
