@@ -228,8 +228,7 @@ public class AthleteUseCaseTest {
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$").doesNotExist());
+                .andExpect(status().isBadRequest());
 
         TestDataBuilder.setApplicationPeriodOpen(raceList.get(0));
         raceRepository.saveAll(raceList);
