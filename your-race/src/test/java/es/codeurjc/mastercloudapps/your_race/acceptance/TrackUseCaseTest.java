@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.acceptance;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
@@ -17,13 +17,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -132,19 +131,4 @@ public class TrackUseCaseTest {
     }
 
 
- /*   RegistrationDTO produceRegistrationByOrder(ApplicationDTO applicationDTO){
-        return RegistrationByOrderDTO.builder()
-                .registrationType(RegistrationType.BYORDER)
-                .applicationCode(applicationDTO.getApplicationCode())
-                .build();
-    }
-
-    RegistrationDTO produceRegistrationByDraw(Athlete athlete, Race race){
-        return RegistrationByDrawDTO.builder()
-                .registrationType(RegistrationType.BYDRAW)
-                .idAthlete(athlete.getId())
-                .idRace(race.getId())
-                .build();
-
-    } */
 }
