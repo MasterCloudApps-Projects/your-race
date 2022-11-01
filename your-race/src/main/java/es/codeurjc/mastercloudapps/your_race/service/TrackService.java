@@ -5,6 +5,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceCapacityIsEmpty;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
@@ -58,7 +59,7 @@ public class TrackService {
 
 
 
-    public TrackDTO create(final RegistrationDTO registrationDTO) throws Exception {
+    public TrackDTO create(final RegistrationDTO registrationDTO) throws ApplicationCodeNotValidException, RaceCapacityIsEmpty {
     Race race = getRegistrationRace(registrationDTO);
     Athlete athlete = getRegistrationAthlete(registrationDTO);
 

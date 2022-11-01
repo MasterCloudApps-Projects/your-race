@@ -165,7 +165,7 @@ public class Race {
     public int getRaceTracks(){
         return this.raceTracks.size();
     }
-    public int getNextDorsal() throws Exception{
+    public int getNextDorsal() throws RaceCapacityIsEmpty{
         if (this.athleteCapacity!= null && this.raceTracks.size()+1 <= this.athleteCapacity)
             return this.raceTracks.size()+1;
 

@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodIsClosedException;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationRequestDTO;
 import es.codeurjc.mastercloudapps.your_race.service.ApplicationService;
@@ -37,8 +38,9 @@ public class ApplicationResource {
 
     @PostMapping()
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Optional<ApplicationDTO>> createApplication(@RequestBody final ApplicationRequestDTO applicationRequestDTO){
-        try {
+    public ResponseEntity<Optional<ApplicationDTO>> createApplication(@RequestBody final ApplicationRequestDTO applicationRequestDTO)
+                            throws ApplicationPeriodIsClosedException {
+     //   try {
 
             Optional<ApplicationDTO> applicationDTO = applicationService.raceApplication(applicationRequestDTO);
             if (applicationDTO.isPresent())
@@ -46,10 +48,10 @@ public class ApplicationResource {
             else
                 return  new ResponseEntity<>( HttpStatus.NOT_FOUND);
 
-        } catch (Exception e){
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+      //  } catch (Exception e){
+      //      return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 
-        }
+        //}
     }
 
 }

@@ -33,7 +33,7 @@ public class ApplicationService {
         this.raceRepository = raceRepository;
     }
 
-    public Optional<ApplicationDTO> raceApplication (ApplicationRequestDTO applicationRequestDTO) throws Exception {
+    public Optional<ApplicationDTO> raceApplication (ApplicationRequestDTO applicationRequestDTO) throws ApplicationPeriodIsClosedException {
 
 
         Optional<Athlete> athlete =  athleteRepository.findById(applicationRequestDTO.getAthleteId());
