@@ -10,6 +10,7 @@ declare
 	application_period_id integer;
 	registration_info_id integer;
 	race_id integer;
+	athlete_id integer;
 
 begin
 	
@@ -41,6 +42,24 @@ begin
 	 (race_id,athelete_capacity,'2023-02-01 09:00:00','Test race',42.195,'Madrid','Test Race Marathon','Running',
 	application_period_id,organizer_id,registration_info_id);
 
+	<<generate_athlete_applications>>
+	for counter in 1..applicants_num loop		
+		select nextval('test_data_seq') into athlete_id;
+		
+		INSERT INTO public.athlete (id,"name",surname,track_record) VALUES
+		 (athlete_id,'Test athlete ' || athlete_id,'Test' || athlete_id,NULL);
+		
+		INSERT INTO public.application (id,application_code,application_athlete_id,application_race_id) VALUES
+		 (nextval('test_data_seq'), substr(md5(random()::text), 0, 10),athlete_id,race_id);
+		
+	end loop generate_athlete_applications;	
+
+
 
 end populate_test_data $$;
+
+-- delete from race where id = 1003;		
+-- delete from organizer where id = 1000;
+-- delete from application_period where id = 1001;
+-- delete from registration_info where id = 1002;
 
