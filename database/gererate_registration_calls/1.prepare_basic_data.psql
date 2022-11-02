@@ -1,5 +1,5 @@
 do $$
-<<populate_test_data>>
+<<prepare_basic_data>>
 declare
 
 	applicants_num integer := 100;
@@ -17,7 +17,7 @@ begin
 	drop sequence if exists test_data_seq;
 	create sequence test_data_seq
 	increment 1
-	start 1000;
+	start 10000;
 	
 	select nextval('test_data_seq') into organizer_id;
 	-- create race	
@@ -56,10 +56,5 @@ begin
 
 
 
-end populate_test_data $$;
-
--- delete from race where id = 1003;		
--- delete from organizer where id = 1000;
--- delete from application_period where id = 1001;
--- delete from registration_info where id = 1002;
+end prepare_basic_data $$;
 
