@@ -1,0 +1,46 @@
+do $$
+<<populate_test_data>>
+declare
+
+	applicants_num integer := 100;
+	athelete_capacity integer := 50;
+	concurrent_request_treshold integer := 20;
+
+	organizer_id integer;
+	application_period_id integer;
+	registration_info_id integer;
+	race_id integer;
+
+begin
+	
+	drop sequence if exists test_data_seq;
+	create sequence test_data_seq
+	increment 1
+	start 1000;
+	
+	select nextval('test_data_seq') into organizer_id;
+	-- create race	
+	INSERT INTO public.organizer (id,"name") VALUES
+	 (organizer_id,'Test Organizer');
+
+	select nextval('test_data_seq') into application_period_id;
+
+	INSERT INTO public.application_period (id,initial_date,last_date) VALUES
+	 (application_period_id,'2022-01-01 00:00:00','2022-12-31 23:59:00');
+	
+	select nextval('test_data_seq') into registration_info_id;
+
+	INSERT INTO public.registration_info (id,concurrent_request_threshold,registration_cost,registration_date,registration_type) VALUES
+	 (registration_info_id, concurrent_request_treshold  ,50.0,'2023-01-01 09:00:00','BYORDER');	 
+	
+	select nextval('test_data_seq') into race_id;
+	
+	
+	INSERT INTO public.race (id,athlete_capacity,"date",description,distance,"location","name","type",
+	application_period_id,organizer_id,race_registration_info_id) VALUES
+	 (race_id,athelete_capacity,'2023-02-01 09:00:00','Test race',42.195,'Madrid','Test Race Marathon','Running',
+	application_period_id,organizer_id,registration_info_id);
+
+
+end populate_test_data $$;
+
