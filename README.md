@@ -52,7 +52,30 @@ Body
 }
 ```
 
-## How to populate data for local testing
+## Scripts for massive calls generation
+
+1. Prepare basic data for race in database.
+```
+docker cp database/gererate_registration_calls/1.prepare_basic_data.psql k8s_pgdb_1:/var/lib/postgresql/1.prepare_basic_data.psql 
+docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/1.prepare_basic_data.psql 
+```
+2. Run shell script.
+```
+bash database/gererate_registration_calls/2.generate_registration_calls.bash
+```
+
+3. Run the resulting endpoint calls script.
+```
+bash 3.massive_registration_calls.bash
+```
+
+To start over again and remove the generated data in the database run the script:
+```
+docker cp database/gererate_registration_calls/_delete_basic_data.sql k8s_pgdb_1:/var/lib/postgresql/_delete_basic_data.sql 
+docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/_delete_basic_data.sql 
+```
+
+## How to populate some data for local exploratory testing
 
 Copy initializer script to docker container and run script over it:
 ```
