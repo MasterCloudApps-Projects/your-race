@@ -2,8 +2,8 @@ do $$
 <<prepare_basic_data>>
 declare
 
-	athelete_applications integer := 100;
-	athelete_capacity integer := 50;
+	athlete_applications integer := 2;
+	athlete_capacity integer := 1;
 	concurrent_request_treshold integer := 20;
 
 	organizer_id integer;
@@ -39,11 +39,11 @@ begin
 	
 	INSERT INTO public.race (id,athlete_capacity,"date",description,distance,"location","name","type",
 	application_period_id,organizer_id,race_registration_info_id) VALUES
-	 (race_id,athelete_capacity,'2023-02-01 09:00:00','Test race',42.195,'Madrid','Test Race Marathon','Running',
+	 (race_id,athlete_capacity,'2023-02-01 09:00:00','Test race',42.195,'Madrid','Test Race Marathon','Running',
 	application_period_id,organizer_id,registration_info_id);
 
 	<<generate_athlete_applications>>
-	for counter in 1..athelete_applications loop		
+	for counter in 1..athlete_applications loop		
 		select nextval('test_data_seq') into athlete_id;
 		
 		INSERT INTO public.athlete (id,"name",surname,track_record) VALUES

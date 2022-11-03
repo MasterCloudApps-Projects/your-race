@@ -59,16 +59,14 @@ These scripts are prepared to produce massive calls for register athletes to a r
 
 1. Prepare basic data for race in database.
 
-Adjust the number of applicant athletes and the race capacity in the script db/gererate_registration_calls/1.prepare_basic_data.psql. By default values are set to 100 and 50 respectively.
-
-- applicants_num integer := 100;
-- athelete_capacity integer := 50;
+Adjust the number of applicant athletes and the race capacity in the script db/gererate_registration_calls/1.prepare_basic_data.psql. 
 
 Copy the script in the database container and run it:
 
 ```
 docker cp db/gererate_registration_calls/1.prepare_basic_data.psql k8s_pgdb_1:/var/lib/postgresql/1.prepare_basic_data.psql 
 docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/1.prepare_basic_data.psql 
+
 ```
 2. Run shell script providing the results file name.
 ```
