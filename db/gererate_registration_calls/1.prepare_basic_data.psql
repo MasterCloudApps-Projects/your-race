@@ -2,7 +2,7 @@ do $$
 <<prepare_basic_data>>
 declare
 
-	applicants_num integer := 100;
+	athelete_applications integer := 100;
 	athelete_capacity integer := 50;
 	concurrent_request_treshold integer := 20;
 
@@ -43,7 +43,7 @@ begin
 	application_period_id,organizer_id,registration_info_id);
 
 	<<generate_athlete_applications>>
-	for counter in 1..applicants_num loop		
+	for counter in 1..athelete_applications loop		
 		select nextval('test_data_seq') into athlete_id;
 		
 		INSERT INTO public.athlete (id,"name",surname,track_record) VALUES
