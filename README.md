@@ -70,14 +70,15 @@ Copy the script in the database container and run it:
 docker cp db/gererate_registration_calls/1.prepare_basic_data.psql k8s_pgdb_1:/var/lib/postgresql/1.prepare_basic_data.psql 
 docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/1.prepare_basic_data.psql 
 ```
-2. Run shell script.
+2. Run shell script providing the results file name.
 ```
-bash db/gererate_registration_calls/2.generate_registration_calls.bash
+REGISTRATION_CALLS_FILE_NAME="performance/test/massive_registration_calls-"$(date +"%Y-%m-%d-%H-%M-%s".bash)
+bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRATION_CALLS_FILE_NAME
 ```
 
-3. Run the resulting endpoint calls script.
+3. Run the resulting script with the endpoint calls.
 ```
-bash 3.massive_registration_calls.bash
+bash $REGISTRATION_CALLS_FILE_NAME
 ```
 
 ### Removing generated test data
