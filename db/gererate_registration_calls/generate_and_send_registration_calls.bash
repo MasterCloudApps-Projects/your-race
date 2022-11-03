@@ -16,4 +16,5 @@ bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRA
 #3. Run the resulting script with the endpoint calls.
 SECONDS=0
 bash $REGISTRATION_CALLS_FILE_NAME
-echo "Duration: $SECONDS seconds"
+echo "Duration: $SECONDS seconds ("$(( SECONDS / 60 )) "minutes)("$(( SECONDS / 3060 )) "hours)" > ${REGISTRATION_CALLS_FILE_NAME}_result.txt
+echo `cat ${REGISTRATION_CALLS_FILE_NAME}_result.txt`

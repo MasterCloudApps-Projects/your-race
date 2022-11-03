@@ -2,8 +2,8 @@ do $$
 <<prepare_basic_data>>
 declare
 
-	athlete_applications integer := 1000;
-	athlete_capacity integer := 500;
+	athlete_applications integer := 100;
+	athlete_capacity integer := 50;
 	concurrent_request_treshold integer := 20;
 
 	organizer_id integer;

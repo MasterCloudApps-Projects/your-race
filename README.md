@@ -52,46 +52,17 @@ Body
 }
 ```
 
-## Scripts for massive calls generation
+## Massive calls generation
 
-These scripts are prepared to produce massive calls for register athletes to a race with previous application.
-
-
-1. Prepare basic data for race in database.
-
-Adjust the number of applicant athletes and the race capacity in the script db/gererate_registration_calls/1.prepare_basic_data.psql. 
-
-Copy the script in the database container and run it:
+Run this script to send massive calls for register athletes to a race with previous application: [generate_and_send_registration_calls.bash](/db/gererate_registration_calls/generate_and_send_registration_calls.bash)
 
 ```
-docker cp db/gererate_registration_calls/1.prepare_basic_data.psql k8s_pgdb_1:/var/lib/postgresql/1.prepare_basic_data.psql 
-docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/1.prepare_basic_data.psql 
+bash /db/gererate_registration_calls/generate_and_send_registration_calls.bash
+``` 
 
-```
-2. Run shell script providing the results file name.
-```
-REGISTRATION_CALLS_FILE_NAME="performance/test/massive_registration_calls-"$(date +"%Y-%m-%d-%H-%M-%s".bash)
-bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRATION_CALLS_FILE_NAME
-```
-3
-3. Run the resulting script with the endpoint calls.
-```
-bash $REGISTRATION_CALLS_FILE_NAME
-```
+You can set the number of applicant athletes and the race capacity editing the script [1.prepare_basic_data.psql](/db/gererate_registration_calls/1.prepare_basic_data.psql).
 
-### Removing generated test data
 
-To start over again and remove the generated data in the database run the script:
-```
-docker cp db/gererate_registration_calls/_delete_basic_data.sql k8s_pgdb_1:/var/lib/postgresql/_delete_basic_data.sql 
-docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/_delete_basic_data.sql 
-```
-
-## Run all scripts
-To run all the scripts above use the following script:
-```
-bash all_scripts_generate_registration_calls.bash
-```
 ## How to populate some data for local exploratory testing
 
 Copy initializer script to docker container and run script over it:
