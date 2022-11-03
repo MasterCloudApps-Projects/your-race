@@ -14,4 +14,6 @@ REGISTRATION_CALLS_FILE_NAME="performance/test/massive_registration_calls-"$(dat
 bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRATION_CALLS_FILE_NAME
 
 #3. Run the resulting script with the endpoint calls.
+SECONDS=0
 bash $REGISTRATION_CALLS_FILE_NAME
+echo "Duration: $SECONDS seconds"

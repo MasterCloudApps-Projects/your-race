@@ -2,8 +2,8 @@ do $$
 <<prepare_basic_data>>
 declare
 
-	athlete_applications integer := 2;
-	athlete_capacity integer := 1;
+	athlete_applications integer := 100;
+	athlete_capacity integer := 50;
 	concurrent_request_treshold integer := 20;
 
 	organizer_id integer;
@@ -14,6 +14,8 @@ declare
 
 begin
 	
+
+
 	drop sequence if exists test_data_seq;
 	create sequence test_data_seq
 	increment 1
