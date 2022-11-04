@@ -14,6 +14,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public class ApplicationService {
 
     public Optional<ApplicationDTO> raceApplication (ApplicationRequestDTO applicationRequestDTO) throws ApplicationPeriodIsClosedException {
 
+        String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+{}[]|:;<>?,./";
+        int DEFAULT_PASSWORD_LENGTH = 10;
 
         Optional<Athlete> athlete =  athleteRepository.findById(applicationRequestDTO.getAthleteId());
         Optional<Race> race = raceRepository.findById(applicationRequestDTO.getRaceId());
@@ -44,7 +47,8 @@ public class ApplicationService {
             if (race.get().getApplicationPeriod().isOpen()) {
                 Application application = Application.builder().applicationAthlete(athlete.get())
                         .applicationRace(race.get())
-                        .applicationCode(RandomStringUtils.random(10, true, true))
+                        .applicationCode(RandomStringUtils.random(DEFAULT_PASSWORD_LENGTH, 0, VALID_PW_CHARS.length(), false,
+                                false, VALID_PW_CHARS.toCharArray(), new SecureRandom()))
                         .build();
 
                 applicationRepository.save(application);
@@ -83,7 +87,7 @@ public class ApplicationService {
         return applicationRepository.findAll().stream()
                .filter(application -> application.getApplicationRace().getId().equals(id))
                .map(application ->  mapToDTO(application, new ApplicationDTO()))
-              .collect(Collectors.toList());
+              .toList();
     }
 
     private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
