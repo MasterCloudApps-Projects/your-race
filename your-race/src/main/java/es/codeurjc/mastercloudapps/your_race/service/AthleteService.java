@@ -1,23 +1,41 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
+import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodIsClosedException;
+import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
+
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Optional;
+
+import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 
+@Transactional
 @Service
 public class AthleteService {
 
     private final AthleteRepository athleteRepository;
 
-    public AthleteService(final AthleteRepository athleteRepository) {
+
+
+    public AthleteService(final AthleteRepository athleteRepository  ) {
         this.athleteRepository = athleteRepository;
+
+
+
     }
 
     public List<AthleteDTO> findAll() {
@@ -39,6 +57,8 @@ public class AthleteService {
         return athleteRepository.save(athlete).getId();
     }
 
+
+
     public void update(final Long id, final AthleteDTO athleteDTO) {
         final Athlete athlete = athleteRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -49,6 +69,7 @@ public class AthleteService {
     public void delete(final Long id) {
         athleteRepository.deleteById(id);
     }
+
 
     private AthleteDTO mapToDTO(final Athlete athlete, final AthleteDTO athleteDTO) {
         athleteDTO.setId(athlete.getId());
@@ -64,5 +85,20 @@ public class AthleteService {
         athlete.setTrackRecord(athleteDTO.getTrackRecord());
         return athlete;
     }
+
+    private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
+
+
+        applicationDTO.setApplicationCode(application.getApplicationCode());
+        applicationDTO.setName(application.getApplicationAthlete().getName());
+        applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
+        applicationDTO.setRaceName(application.getApplicationRace().getName());
+        applicationDTO.setDate(application.getApplicationRace().getDate());
+        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+
+
+        return applicationDTO;
+    }
+
 
 }

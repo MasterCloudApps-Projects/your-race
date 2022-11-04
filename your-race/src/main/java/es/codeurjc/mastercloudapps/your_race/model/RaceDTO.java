@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,12 +36,22 @@ public class RaceDTO {
     private String type;
 
     private Integer athleteCapacity;
+    private Integer availableCapacity;
 
-    private Long applicationPeriod;
+    private LocalDateTime applicationInitialDate;
+    private LocalDateTime applicationLastDate;
 
-    @NotNull
-    private Long organizer;
 
-    private Long raceRegistration;
+    private String organizerName;
+
+    private LocalDateTime raceRegistrationDate;
+    private RegistrationType registrationType;
+    private Double registrationCost;
+
+
+
+
+
+
 
 }

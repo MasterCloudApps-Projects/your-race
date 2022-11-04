@@ -1,6 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,4 +49,15 @@ public class ApplicationPeriod {
     )
     private Race race;
 
+    public boolean isOpen(){
+        return isValid() && initialDate.isBefore(LocalDateTime.now())
+                && LocalDateTime.now().isBefore(lastDate);
+
+    }
+
+    private boolean isValid(){
+      return this.initialDate.isBefore(this.lastDate);
+    }
+
 }
+

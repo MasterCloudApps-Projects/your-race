@@ -21,7 +21,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Registration {
+public class RegistrationInfo {
 
     @Id
     @Column(nullable = false, updatable = false)

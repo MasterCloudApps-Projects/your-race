@@ -1,6 +1,10 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
-import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceNotFoundException;
+import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
@@ -8,14 +12,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -28,20 +25,54 @@ public class TrackResource {
         this.trackService = trackService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<TrackDTO>> getAllTracks() {
-        return ResponseEntity.ok(trackService.findAll());
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TrackDTO> getTrack(@PathVariable final Long id) {
         return ResponseEntity.ok(trackService.get(id));
     }
 
-    @PostMapping
+    @GetMapping
+    public ResponseEntity<List<TrackDTO>> getTracks(@RequestParam boolean open, @RequestBody @Valid final TrackRequestDTO trackDTO){
+
+        if (trackDTO.getAthleteId() == null && trackDTO.getRaceId() == null )
+            return ResponseEntity.ok(trackService.findAll());
+
+        if (trackDTO.getAthleteId() != null && trackDTO.getRaceId() != null)
+            return ResponseEntity.ok(trackService.findByAthleteAndRace(trackDTO.getAthleteId(),trackDTO.getRaceId()));
+
+        if (trackDTO.getAthleteId() != null)
+        {
+                if (open)
+                    return ResponseEntity.ok(trackService.findAllOpenByAthlete(trackDTO.getAthleteId()));
+                return ResponseEntity.ok(trackService.findAllByAthlete(trackDTO.getAthleteId()));
+        }
+
+        return ResponseEntity.ok(trackService.findAllByRace(trackDTO.getRaceId()));
+    }
+
+
+    @PostMapping("/byorder")
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createTrack(@RequestBody @Valid final TrackDTO trackDTO) {
-        return new ResponseEntity<>(trackService.create(trackDTO), HttpStatus.CREATED);
+    public ResponseEntity<TrackDTO> createRegistrationByOrder(
+            @RequestBody @Valid final RegistrationByOrderDTO registrationByOrderDTO)
+            throws ApplicationCodeNotValidException, RaceFullCapacityException
+            ,AthleteAlreadyRegisteredToRace {
+
+            TrackDTO trackDTO = trackService.createByOrder(registrationByOrderDTO);
+            return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/bydraw")
+    @ApiResponse(responseCode = "201")
+    public ResponseEntity<TrackDTO> createRegistrationByDraw(
+            @RequestBody @Valid final RegistrationByDrawDTO registrationByDrawDTO)
+            throws RaceFullCapacityException, YourRaceNotFoundException
+                ,AthleteAlreadyRegisteredToRace{
+
+        TrackDTO trackDTO = trackService.createByDraw(registrationByDrawDTO);
+        return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
+
     }
 
     @PutMapping("/{id}")
