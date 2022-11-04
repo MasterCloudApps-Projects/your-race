@@ -37,7 +37,7 @@ Para ejecutar el conjunto de servicios se ha creado un paquete de manifiestos Ku
 Es necesario tener levantado Minikube:
 
 ```sh
-minikube start --cpus 6 --memory 16384
+minikube start --cpus 6 --memory 16g
 minikube addons enable metrics-server
 minikube addons enable istio
 minikube addons enable istio-provisioner
@@ -53,11 +53,34 @@ istioctl install --set profile=demo -y
 kubectl label namespace default istio-injection=enabled
 ```
 
+## K8s Setup + prometheus operator
+
+```sh
+minikube delete && minikube start \
+--cpus 6 --memory 16g \
+--bootstrapper=kubeadm \
+--extra-config=kubelet.authentication-token-webhook=true \
+--extra-config=kubelet.authorization-mode=Webhook \
+--extra-config=scheduler.bind-address=0.0.0.0 \
+--extra-config=controller-manager.bind-address=0.0.0.0
+
+cd k8s/manifests-operator
+git clone https://github.com/prometheus-operator/kube-prometheus.git
+cd kube-prometheus
+kubectl apply --server-side -f manifests/setup
+until kubectl get servicemonitors --all-namespaces ; \
+do date; sleep 1; echo ""; done
+kubectl create -f manifests/
+```
 
 ## K8s Deploy
 
 ```sh
 kubectl apply -f k8s/manifests/
+```
+
+```sh
+kubectl apply -f k8s/manifests-operator/
 ```
 
 Despliegue Istio gateway
