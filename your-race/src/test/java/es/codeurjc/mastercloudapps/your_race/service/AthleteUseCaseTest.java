@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.your_race.acceptance;
+package es.codeurjc.mastercloudapps.your_race.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
@@ -45,7 +45,6 @@ public class AthleteUseCaseTest {
     @Autowired
     private AthleteRepository athleteRepository;
 
-
     @Autowired
     private TrackRepository trackRepository;
 
@@ -68,8 +67,6 @@ public class AthleteUseCaseTest {
         raceRepository.deleteAll();
         organizerRepository.deleteAll();
 
-
-
         raceList = new ArrayList<Race>();
         athleteList = new ArrayList<Athlete>();
         tracksList = new ArrayList<Track>();
@@ -86,10 +83,8 @@ public class AthleteUseCaseTest {
         organizerRepository.save(organizer);
         raceRepository.saveAll(raceList);
         athleteRepository.saveAll(athleteList);
-
-
     }
-
+    
     @DisplayName("Existing athlete should apply to existing race")
     @Test
     void athleteShouldApplyToExistingRace() throws Exception{
@@ -113,7 +108,6 @@ public class AthleteUseCaseTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isNotFound());
-
     }
 
 
@@ -126,7 +120,6 @@ public class AthleteUseCaseTest {
                 .athleteId(0L)
                 .raceId(raceList.get(0).getId()).build());
 
-
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
@@ -136,24 +129,19 @@ public class AthleteUseCaseTest {
                 .athleteId(athleteList.get(0).getId())
                 .raceId(0L).build());
 
-
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isNotFound());
-
 
         request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
                 .athleteId(0L)
                 .raceId(0L).build());
 
-
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
                 .andExpect(status().isNotFound());
-
-
     }
 
     @DisplayName("Races that an athlete has applied to")
@@ -163,17 +151,14 @@ public class AthleteUseCaseTest {
         TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(0));
         TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(0), raceList.get(1));
         TestDataBuilder.athleteApplyToRace(mvc,athleteList.get(1), raceList.get(1));
-
-
+        
         mvc.perform(get("/api/applications/athletes/" + athleteList.get(0).getId())
                         .param("open","false")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].raceName", is(raceList.get(0).getName())));
-
     }
-
 
     @DisplayName("Races that an athlete has applied to and are open")
     @Test
@@ -200,20 +185,14 @@ public class AthleteUseCaseTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
-
     }
-
-
-
 
     @DisplayName("Athlete should apply to a race only if ApplicationPeriod is open")
     @Test
     void athleteShouldApplyIfApplicationPeriodIsOpen() throws Exception{
-
-
+        
         TestDataBuilder.setDateInFuture(raceList.get(0));
         TestDataBuilder.setApplicationPeriodClosed(raceList.get(0));
-
 
         raceRepository.saveAll(raceList);
 
@@ -235,7 +214,6 @@ public class AthleteUseCaseTest {
                         .content(request))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
-
     }
 
     @DisplayName("An athlete should get the races that has been registered to")
@@ -278,7 +256,6 @@ public class AthleteUseCaseTest {
                         .param("open","false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
-
     }
 
     @DisplayName("An athlete should get the open races that has been registered to")
@@ -293,11 +270,9 @@ public class AthleteUseCaseTest {
         tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(1)));
         tracksList.add(TestDataBuilder.buildTrack(athleteList.get(0),raceList.get(2)));
 
-
         raceRepository.saveAll(raceList);
         trackRepository.saveAll(tracksList);
-
-
+        
         ObjectMapper mapper = new ObjectMapper();
         String request = mapper.writeValueAsString(TrackRequestDTO.builder().athleteId(athleteList.get(0).getId()).build());
 
@@ -307,12 +282,5 @@ public class AthleteUseCaseTest {
                         .param("open","true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
-
-
-
     }
-
-
-
-
 }

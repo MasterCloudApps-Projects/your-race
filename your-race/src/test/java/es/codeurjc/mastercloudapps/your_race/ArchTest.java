@@ -24,7 +24,6 @@ public class ArchTest {
     }
 
     @Test
-    @Disabled
     public void layeredArchitecture_rule() {
         layeredArchitecture()
                 .consideringAllDependencies()

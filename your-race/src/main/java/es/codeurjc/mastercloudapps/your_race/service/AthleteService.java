@@ -28,14 +28,10 @@ import javax.transaction.Transactional;
 public class AthleteService {
 
     private final AthleteRepository athleteRepository;
-
-
+    
 
     public AthleteService(final AthleteRepository athleteRepository  ) {
         this.athleteRepository = athleteRepository;
-
-
-
     }
 
     public List<AthleteDTO> findAll() {
@@ -85,20 +81,5 @@ public class AthleteService {
         athlete.setTrackRecord(athleteDTO.getTrackRecord());
         return athlete;
     }
-
-    private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
-
-
-        applicationDTO.setApplicationCode(application.getApplicationCode());
-        applicationDTO.setName(application.getApplicationAthlete().getName());
-        applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
-        applicationDTO.setRaceName(application.getApplicationRace().getName());
-        applicationDTO.setDate(application.getApplicationRace().getDate());
-        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
-
-
-        return applicationDTO;
-    }
-
 
 }

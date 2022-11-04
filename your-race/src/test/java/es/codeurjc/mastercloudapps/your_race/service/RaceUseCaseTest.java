@@ -1,11 +1,11 @@
-package es.codeurjc.mastercloudapps.your_race.acceptance;
+package es.codeurjc.mastercloudapps.your_race.service;
 
 
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
-import es.codeurjc.mastercloudapps.your_race.model.*;
+
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,15 +21,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @AutoConfigureMockMvc
 @SpringBootTest
 @ActiveProfiles("postgres")
-public class TrackUseCaseTest {
-
+public class RaceUseCaseTest {
     @Autowired
     private MockMvc mvc;
 
@@ -85,47 +88,29 @@ public class TrackUseCaseTest {
 
     }
 
-    @DisplayName("An athlete with application should register to race (ByOrder registration)")
+
+
+    @DisplayName("Get list of open races (not celebrated yet)")
     @Test
-    void athleteShouldRegisterToRace() throws Exception
-    {
+    void shouldGetListOpenRaces() throws Exception{
 
-        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
+        TestDataBuilder.setDateInPast(raceList.get(0));
+        TestDataBuilder.setDateInFuture(raceList.get(1));
+        TestDataBuilder.setDateInFuture(raceList.get(2));
 
-        mvc.perform(post("/api/tracks/byorder/")
+        raceRepository.saveAll(raceList);
+
+        mvc.perform(get("/api/races")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
-                .andExpect(status().isCreated());
+                        .param("open","true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
+
+        mvc.perform(get("/api/races")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("open","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
 
     }
-
-    @DisplayName("An athlete with non existing application code should not register to race (ByOrder registration)")
-    @Test
-    void athleteShouldNotRegisterToRace() throws Exception
-    {
-        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
-        applicationDTO.setApplicationCode("APPLICATION_CODE_TEST");
-
-        mvc.perform(post("/api/tracks/byorder/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
-                .andExpect(status().isBadRequest());
-
-    }
-
-
-    @DisplayName("An organizer should register an athlete who has applied to a race (ByDraw registration)")
-    @Test
-    void organizerShouldRegisterAthleteToRace() throws Exception
-    {
-
-        ApplicationDTO applicationDTO = TestDataBuilder.athleteApplyToRace(mvc, athleteList.get(0),raceList.get(0));
-
-        mvc.perform(post("/api/tracks/bydraw/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestDataBuilder.generateRegistrationByDrawBodyRequest(athleteList.get(0),raceList.get(0))))
-                .andExpect(status().isCreated());
-    }
-
-
 }

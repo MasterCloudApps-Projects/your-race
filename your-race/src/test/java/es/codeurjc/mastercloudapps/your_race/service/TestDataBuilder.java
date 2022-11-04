@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.your_race.acceptance;
+package es.codeurjc.mastercloudapps.your_race.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;

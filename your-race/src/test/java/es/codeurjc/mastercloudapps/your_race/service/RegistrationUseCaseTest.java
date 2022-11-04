@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.your_race.acceptance;
+package es.codeurjc.mastercloudapps.your_race.service;
 
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
