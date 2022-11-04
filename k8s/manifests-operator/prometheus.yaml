@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: your-race
+  labels:
+    release: metrics
+spec:
+  selector:
+    matchLabels:
+      app: your-race
+  endpoints:
+  - port: web
+    path: '/actuator/prometheus'
+    interval: 10s
+    honorLabels: true
