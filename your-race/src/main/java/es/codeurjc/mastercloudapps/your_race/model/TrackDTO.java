@@ -1,11 +1,11 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
-import java.time.LocalDateTime;
+import lombok.*;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import lombok.*;
+import java.time.LocalDateTime;
 
 
 @Getter

@@ -1,13 +1,13 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.Set;
-import javax.persistence.*;
-
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.Set;
 
 
 @Entity

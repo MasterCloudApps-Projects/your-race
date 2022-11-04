@@ -17,7 +17,7 @@ public class RestExceptionHandler {
     public ResponseEntity<YourRaceErrorResponse> handleThrowable(final Throwable exception) {
 
         final YourRaceErrorResponse errorResponse = YourRaceErrorResponse.builder()
-                        .exception(exception.getClass().getSimpleName().toString())
+                        .exception(exception.getClass().getSimpleName())
                         .message(exception.getMessage())
                         .build();
 
@@ -28,7 +28,7 @@ public class RestExceptionHandler {
     public ResponseEntity<YourRaceErrorResponse> handleThrowableNotFound(final Throwable exception) {
 
         final YourRaceErrorResponse errorResponse = YourRaceErrorResponse.builder()
-                .exception(exception.getClass().getSimpleName().toString())
+                .exception(exception.getClass().getSimpleName())
                 .message(exception.getMessage())
                 .build();
 

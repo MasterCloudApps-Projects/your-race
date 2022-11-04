@@ -1,8 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
-import javax.persistence.*;
-
 import lombok.*;
+
+import javax.persistence.*;
 
 
 @Entity

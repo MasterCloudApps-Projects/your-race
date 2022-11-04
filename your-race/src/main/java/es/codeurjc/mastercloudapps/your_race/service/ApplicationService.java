@@ -7,7 +7,6 @@ import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodI
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationRequestDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
-
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -18,7 +17,6 @@ import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -81,8 +79,7 @@ public class ApplicationService {
                 .toList();
 
     }
-
-
+    
     public List<ApplicationDTO> getRaceApplications(final Long id) {
         return applicationRepository.findAll().stream()
                .filter(application -> application.getApplicationRace().getId().equals(id))
@@ -91,16 +88,16 @@ public class ApplicationService {
     }
 
     private ApplicationDTO mapToDTO(final Application application, final ApplicationDTO applicationDTO) {
-
-       applicationDTO.setApplicationCode(application.getApplicationCode());
+        
+        applicationDTO.setApplicationCode(application.getApplicationCode());
 
         applicationDTO.setName(application.getApplicationAthlete().getName());
         applicationDTO.setSurname(application.getApplicationAthlete().getSurname());
 
         applicationDTO.setRaceName(application.getApplicationRace().getName());
-       // applicationDTO.setDate(application.getApplicationRace().getDate());
-       // applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
-
+        /*applicationDTO.setDate(application.getApplicationRace().getDate());
+        applicationDTO.setRaceRegistrationDate(application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+        */
 
         return applicationDTO;
     }

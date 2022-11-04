@@ -4,26 +4,28 @@ import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
-import es.codeurjc.mastercloudapps.your_race.domain.exception.*;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.AthleteNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.RaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceNotFoundException;
-import es.codeurjc.mastercloudapps.your_race.model.*;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 
 @Transactional
@@ -118,8 +120,6 @@ public class TrackService {
     }
 
 
-
-
     public void update(final Long id, final TrackDTO trackDTO) {
         final Track track = trackRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -150,7 +150,6 @@ public class TrackService {
                 .filter(track -> track.getRace().isOpen())
                 .map(track -> mapToDTO(track,new TrackDTO()))
                 .toList();
-
     }
 
     public List<TrackDTO> findAllByRace(Long id){
@@ -160,7 +159,6 @@ public class TrackService {
                 .filter(track -> track.getRace().getId().equals(id))
                 .map(track -> mapToDTO(track,new TrackDTO()))
                 .toList();
-
     }
 
     public List<TrackDTO> findByAthleteAndRace(Long athleteId,Long raceId){
@@ -171,10 +169,7 @@ public class TrackService {
                 .filter(track -> track.getRace().getId().equals(raceId))
                 .map(track -> mapToDTO(track,new TrackDTO()))
                 .toList();
-
     }
-
-
 
     private TrackDTO mapToDTO(final Track track, final TrackDTO trackDTO) {
         trackDTO.setId(track.getId());
@@ -184,9 +179,8 @@ public class TrackService {
 
         trackDTO.setRaceId(track.getRace() == null ? null : track.getRace().getId());
         trackDTO.setRaceName(track.getRace() == null ? null : track.getRace().getName());
-       // trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
-
-      // trackDTO.setRegistrationDate(track.getRegistrationDate());
+        /*trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
+        trackDTO.setRegistrationDate(track.getRegistrationDate());*/
 
         trackDTO.setStatus(track.getStatus());
         trackDTO.setScore(track.getScore());

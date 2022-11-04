@@ -4,15 +4,19 @@ import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNot
 import es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceNotFoundException;
-import es.codeurjc.mastercloudapps.your_race.model.*;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackRequestDTO;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.util.List;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController

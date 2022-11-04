@@ -2,8 +2,6 @@ package es.codeurjc.mastercloudapps.your_race.model;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
