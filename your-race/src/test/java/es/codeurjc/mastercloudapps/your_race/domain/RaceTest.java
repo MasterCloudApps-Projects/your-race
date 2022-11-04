@@ -5,16 +5,13 @@ package es.codeurjc.mastercloudapps.your_race.domain;
 
 import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 
-
+@Disabled
 @SpringBootTest
 class RaceTest {
 
