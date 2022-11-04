@@ -1,11 +1,9 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
 
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,9 +38,6 @@ class RaceResourceTestMocked {
 
     @MockBean
     private RaceService raceService;
-
-    @ClassRule
-    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     @Test
     void getRacesTest() throws Exception {

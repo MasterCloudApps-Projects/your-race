@@ -1,14 +1,12 @@
 package es.codeurjc.mastercloudapps.your_race.acceptance;
 
 
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
 
 import es.codeurjc.mastercloudapps.your_race.repos.*;
-import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 
@@ -32,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
+@ActiveProfiles("postgres")
 public class RaceUseCaseTest {
     @Autowired
     private MockMvc mvc;
@@ -56,9 +56,6 @@ public class RaceUseCaseTest {
     List<Race> raceList;
     List<Athlete> athleteList;
     List<Track> tracksList;
-
-    @ClassRule
-    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     @BeforeEach
     public void initEach(){
