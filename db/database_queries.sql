@@ -32,3 +32,16 @@ drop table athlete cascade;
 drop table registration;
 drop table application;
 drop table track
+
+
+select count(*) from track
+
+select count(*) from application a 
+
+select max(registration_date) , min (registration_date)from track 
+where race_id >10000
+
+select age (max(registration_date) , min (registration_date)) from track 
+where race_id >10000
+
+
