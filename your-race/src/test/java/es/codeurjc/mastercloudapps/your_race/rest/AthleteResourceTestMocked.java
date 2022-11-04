@@ -35,8 +35,6 @@ class AthleteResourceTestMocked  {
     @MockBean
     private AthleteService athleteService;
 
-    @ClassRule
-    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     @Test
     void getAthletesTest() throws Exception {

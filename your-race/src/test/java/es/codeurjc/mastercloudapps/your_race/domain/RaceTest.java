@@ -20,9 +20,6 @@ import java.time.Month;
 @SpringBootTest
 class RaceTest {
 
-    @ClassRule
-    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
-
     Faker faker;
     @BeforeEach
     public void initEach(){

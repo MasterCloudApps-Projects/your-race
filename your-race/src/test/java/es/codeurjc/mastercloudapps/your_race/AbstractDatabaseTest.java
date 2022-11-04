@@ -1,37 +1,32 @@
 package es.codeurjc.mastercloudapps.your_race;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers
-public class AbstractDatabaseTest extends PostgreSQLContainer<AbstractDatabaseTest> {
+@ContextConfiguration(initializers = AbstractDatabaseTest.Initializer.class)
+public abstract class AbstractDatabaseTest {
 
+    @Container
+    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:14.5")
+            .withDatabaseName("test")
+            .withUsername("admin")
+            .withPassword("admin");
 
-    private static final String IMAGE_VERSION = "postgres:14.5";
-    private static AbstractDatabaseTest container;
-
-    private AbstractDatabaseTest() {
-        super(IMAGE_VERSION);
-    }
-
-    public static AbstractDatabaseTest getInstance() {
-        if (container == null) {
-            container = new AbstractDatabaseTest();
+    static class Initializer
+            implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+        public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+            TestPropertyValues.of(
+                    "spring.datasource.url=" + postgreSQLContainer.getJdbcUrl()
+            ).applyTo(configurableApplicationContext.getEnvironment());
         }
-        return container;
     }
-
-    @Override
-    public void start(){
-        super.start();
-        System.setProperty("DB_URL", container.getJdbcUrl());
-        System.setProperty("DB_USERNAME", container.getUsername());
-        System.setProperty("DB_PASSWORD", container.getPassword());
-    }
-
-    @Override
-    public void stop(){}
 
 }

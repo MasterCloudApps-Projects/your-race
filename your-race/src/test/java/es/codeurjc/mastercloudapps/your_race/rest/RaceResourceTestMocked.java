@@ -41,9 +41,6 @@ class RaceResourceTestMocked {
     @MockBean
     private RaceService raceService;
 
-    @ClassRule
-    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
-
     @Test
     void getRacesTest() throws Exception {
 

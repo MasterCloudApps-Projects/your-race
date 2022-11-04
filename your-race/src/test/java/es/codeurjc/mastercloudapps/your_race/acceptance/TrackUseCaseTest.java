@@ -10,6 +10,7 @@ import es.codeurjc.mastercloudapps.your_race.model.*;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@Disabled
 @AutoConfigureMockMvc
 @SpringBootTest
-public class TrackUseCaseTest {
+public class TrackUseCaseTest extends AbstractDatabaseTest {
 
     @Autowired
     private MockMvc mvc;
@@ -53,9 +54,6 @@ public class TrackUseCaseTest {
     List<Race> raceList;
     List<Athlete> athleteList;
     List<Track> tracksList;
-
-    @ClassRule
-    public static AbstractDatabaseTest postgreSQLContainer = AbstractDatabaseTest.getInstance();
 
     @BeforeEach
     public void initEach(){
