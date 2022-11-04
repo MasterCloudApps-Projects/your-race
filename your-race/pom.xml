@@ -168,52 +168,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.ethlo.zally</groupId>
-                <artifactId>zally-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <configuration>
-                    <!--Configure severities that fail the build. Default is MUST, SHOULD -->
-                    <!--<failOn>MUST</failOn>-->
-                    <!-- The input file to validate -->
-                    <source>your-race/api-docs.yaml</source>
-                    <!--Ignore certain rules. Default is none -->
-                    <skipRules>
-                        <skipRule>CommonFieldTypesRule</skipRule>
-                        <skipRule>SecureAllEndpointsWithScopesRule</skipRule>
-                        <skipRule>NoVersionInUriRule</skipRule>
-                        <skipRule>ApiMetaInformationRule</skipRule>
-                    </skipRules>
-                    <!--<ruleConfig>
-                        &lt;!&ndash; NOTE: The rule elements' content can be written in JSON or YAML &ndash;&gt;
-                        <PluralizeResourceNamesRule>
-                            whitelist:
-                            - current
-                            - self
-                        </PluralizeResourceNamesRule>
-                    </ruleConfig>-->
-                    <!-- Alternatively rules can be configured with configuration file -->
-                    <!--<rulesConfigLocation>reference.conf</rulesConfigLocation>-->
-                    <!-- Write the result of the validation to file. Optional-->
-                    <resultFile>target/api_validation_result.yaml</resultFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>report</goal>
-                            <goal>validate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <!-- The pluggable rule-set you want to run -->
-                        <groupId>org.zalando</groupId>
-                        <artifactId>zally-ruleset-zalando</artifactId>
-                        <version>2.1.0</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+
         </plugins>
     </build>
 </project>
