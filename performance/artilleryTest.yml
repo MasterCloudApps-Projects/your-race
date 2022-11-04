@@ -1,5 +1,7 @@
 config:
-  target: "http://localhost:8080"
+  target: "http://192.168.49.2:31660"
+  #"http://192.168.49.2:31660"
+  #192.168.49.2:31097
 #  payload:
 #      # path relativo a la localización del script de test
 #      path: "users.csv"
@@ -7,8 +9,8 @@ config:
 #        - "username"
 #        - "password"
   phases:
-    - duration: 10
-      arrivalRate: 5000
+    - duration: 30
+      arrivalRate: 1000
 #  environments:
 #    production:
 #      target: "http://wontresolve.prod:44321"
@@ -24,7 +26,7 @@ config:
 scenarios:
   - flow:
       - get:
-          url: "/api/athletes"
+          url: "/api/races"
 #        - log: "Realizamos el login"
 #        - post:
 #            url: "/auth"
