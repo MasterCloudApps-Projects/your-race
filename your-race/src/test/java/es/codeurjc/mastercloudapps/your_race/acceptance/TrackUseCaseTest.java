@@ -28,12 +28,11 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@Disabled
+
 @AutoConfigureMockMvc
 @SpringBootTest
-//@DataJpaTest
 @ActiveProfiles("postgres")
-public class TrackUseCaseTest { //} extends AbstractDatabaseTest {
+public class TrackUseCaseTest {
 
     @Autowired
     private MockMvc mvc;

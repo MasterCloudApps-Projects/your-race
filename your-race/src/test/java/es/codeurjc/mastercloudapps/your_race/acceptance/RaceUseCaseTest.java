@@ -32,12 +32,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@Disabled
+
 @AutoConfigureMockMvc
 @SpringBootTest
-//@DataJpaTest
 @ActiveProfiles("postgres")
-public class RaceUseCaseTest {//extends AbstractDatabaseTest {
+public class RaceUseCaseTest {
     @Autowired
     private MockMvc mvc;
 

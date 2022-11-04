@@ -32,12 +32,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.assertj.core.api.Assertions.assertThat;
-//@Disabled
+
 @AutoConfigureMockMvc
 @SpringBootTest
-//@DataJpaTest
 @ActiveProfiles("postgres")
-public class RegistrationUseCaseTest { //} extends AbstractDatabaseTest {
+public class RegistrationUseCaseTest {
 
     @Autowired
     MockMvc mvc;
