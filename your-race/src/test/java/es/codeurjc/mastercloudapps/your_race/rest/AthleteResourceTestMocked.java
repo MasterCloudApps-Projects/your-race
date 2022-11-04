@@ -1,9 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.service.AthleteService;
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

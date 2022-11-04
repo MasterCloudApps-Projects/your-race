@@ -4,9 +4,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import com.github.javafaker.Faker;
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
