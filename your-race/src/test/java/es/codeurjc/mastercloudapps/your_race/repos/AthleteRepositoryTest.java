@@ -19,7 +19,6 @@ class AthleteRepositoryTest {
     private AthleteRepository athleteRepository;
 
     @Test
-    @Ignore
     void test() throws InterruptedException {
         Athlete createAthlete = athleteRepository.save(Athlete.builder().name("Perico").build());
         Optional<Athlete> findAthlete = athleteRepository.findById(createAthlete.getId());
