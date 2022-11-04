@@ -7,12 +7,13 @@ import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 
-@Disabled
 @SpringBootTest
+@ActiveProfiles("postgres")
 class RaceTest {
 
     Faker faker;
