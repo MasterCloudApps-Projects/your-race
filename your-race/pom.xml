@@ -164,7 +164,7 @@
                     <!--Configure severities that fail the build. Default is MUST, SHOULD -->
                     <!--<failOn>MUST</failOn>-->
                     <!-- The input file to validate -->
-                    <source>api-docs.yaml</source>
+                    <source>your-race/api-docs.yaml</source>
                     <!--Ignore certain rules. Default is none -->
                     <skipRules>
                         <skipRule>CommonFieldTypesRule</skipRule>
