@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: your-race
+  name: your-race
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: your-race
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: your-race
+    spec:
+      containers:
+        - env:
+            - name: JDBC_DATABASE_PASSWORD
+              value: admin
+            - name: JDBC_DATABASE_URL
+              value: jdbc:postgresql://pgdb:5432/racedb
+            - name: JDBC_DATABASE_USERNAME
+              value: admin
+          image: rafarex70/your-race
+          name: your-race
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 700m
+              memory: 768Mi
+      restartPolicy: Always
+status: {}
