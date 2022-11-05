@@ -37,5 +37,4 @@ build/
 
 /k8s/istio-1.15.2
 *.log
-
 /k8s/manifests-operator/kube-prometheus/

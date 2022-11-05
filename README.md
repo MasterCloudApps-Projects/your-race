@@ -25,7 +25,11 @@ jmeter > Test Plan.jmx
 
 ### Grafana
 
-Importar Dashboard 9628 para Postgres
+Importar Dashboard: 
+- 9628 para Postgres
+- 4701 Micrometer JVM
+- 6417 K8s Cluster
+- 
 
 
 ## Services
@@ -77,28 +81,43 @@ Para ejecutar el conjunto de servicios se ha creado un paquete de manifiestos Ku
 Es necesario tener levantado Minikube:
 
 ```sh
-minikube start --cpus 6 --memory 16384
+minikube start --cpus 6 --memory 16g
+```
+
+```sh
+kubectl apply -f k8s/manifests/
+```
+
+## K8s Setup + prometheus helm
+
+```sh
+minikube delete && minikube start \
+--cpus 6 --memory 16g \
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+helm install prometheus prometheus-community/prometheus
+```
+https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
+
+```sh
+kubectl apply -f k8s/manifests-operator/
+```
+
+## Instalación de istio:
+
+```sh
 minikube addons enable metrics-server
 minikube addons enable istio
 minikube addons enable istio-provisioner
-```
 
-Instalación de istio:
-
-```sh
 cd k8s
 curl -L https://istio.io/downloadIstio | sh -
 cd istio-1.15.2
 export PATH=$PWD/bin:$PATH
 istioctl install --set profile=demo -y
 kubectl label namespace default istio-injection=enabled
-```
-
-
-## K8s Deploy
-
-```sh
-kubectl apply -f k8s/manifests/
 ```
 
 Despliegue Istio gateway
