@@ -171,7 +171,7 @@ You can set the number of applicant athletes and the race capacity by editing th
 
 ### Massive calls generation step by step
 
-### [Optional] Remove generated test data if you have run previously the scripts
+#### [Optional] Remove generated test data if you have run previously the scripts
 ```
 docker cp db/gererate_registration_calls/_delete_basic_data.sql k8s_pgdb_1:/var/lib/postgresql/_delete_basic_data.sql 
 docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/_delete_basic_data.sql 
