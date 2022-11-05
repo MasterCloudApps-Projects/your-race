@@ -1,8 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
-import java.util.List;
-
 import lombok.*;
+
+import java.util.List;
 
 
 @Getter

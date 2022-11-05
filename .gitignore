@@ -32,6 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
+## Database data
+/k8s/postgresdb/
+
 /k8s/istio-1.15.2
 *.log
-/k8s/manifests-operator/kube-prometheus
+/k8s/manifests-operator/kube-prometheus/

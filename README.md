@@ -7,8 +7,6 @@ https://github.com/MasterCloudApps-Projects/your-race
 Your Race is a scalable platform for managing entry assignment in highly demanded races, like the New York City Marathon or _101 Km de Ronda_ (Spain).
 
 
-
-
 ### Artillery
 
 ```sh
@@ -27,7 +25,53 @@ jmeter > Test Plan.jmx
 
 ### Grafana
 
-Importar Dashboard 9628 para Postgres
+Importar Dashboard: 
+- 9628 para Postgres
+- 4701 Micrometer JVM
+- 6417 K8s Cluster
+- 
+
+
+## Services
+### Athlete race application
+```
+POST {{baseUrl}}/api/athletes/{idAthlete}}/applications/{idRace}}
+
+E.g: http://localhost:8080/api/athletes/12210/applications/12191 
+```
+
+### Race registration By Order (with Application code)
+```
+POST {{baseUrl}}/api/tracks/byorder
+
+Body
+{
+    "applicationCode": "{applicationCode}"
+
+}
+```
+
+### Race registration By Draw (by Organizer) (Pendiente de implementar)
+```
+POST {{baseUrl}}/api/tracks/bydraw
+
+Body
+{
+    "athleteId": {athleteId},
+    "raceId": {raceId}
+
+}
+```
+
+## Massive calls generation
+
+Run this script to send massive calls for register athletes to a race with previous application: [generate_and_send_registration_calls.bash](/db/gererate_registration_calls/generate_and_send_registration_calls.bash)
+
+```
+bash /db/gererate_registration_calls/generate_and_send_registration_calls.bash
+``` 
+
+You can set the number of applicant athletes and the race capacity editing the script [1.prepare_basic_data.psql](/db/gererate_registration_calls/1.prepare_basic_data.psql).
 
 
 ## K8s Setup
@@ -38,49 +82,42 @@ Es necesario tener levantado Minikube:
 
 ```sh
 minikube start --cpus 6 --memory 16g
-minikube addons enable metrics-server
-minikube addons enable istio
-minikube addons enable istio-provisioner
 ```
-
-Instalación de istio:
-
-```sh
-curl -L https://istio.io/downloadIstio | sh -
-cd istio-1.15.2
-export PATH=$PWD/bin:$PATH
-istioctl install --set profile=demo -y
-kubectl label namespace default istio-injection=enabled
-```
-
-## K8s Setup + prometheus operator
-
-```sh
-minikube delete && minikube start \
---cpus 6 --memory 16g \
---bootstrapper=kubeadm \
---extra-config=kubelet.authentication-token-webhook=true \
---extra-config=kubelet.authorization-mode=Webhook \
---extra-config=scheduler.bind-address=0.0.0.0 \
---extra-config=controller-manager.bind-address=0.0.0.0
-
-cd k8s/manifests-operator
-git clone https://github.com/prometheus-operator/kube-prometheus.git
-cd kube-prometheus
-kubectl apply --server-side -f manifests/setup
-until kubectl get servicemonitors --all-namespaces ; \
-do date; sleep 1; echo ""; done
-kubectl create -f manifests/
-```
-
-## K8s Deploy
 
 ```sh
 kubectl apply -f k8s/manifests/
 ```
 
+## K8s Setup + prometheus helm
+
+```sh
+minikube delete && minikube start \
+--cpus 6 --memory 16g \
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+helm install prometheus prometheus-community/prometheus
+```
+https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
+
 ```sh
 kubectl apply -f k8s/manifests-operator/
+```
+
+## Instalación de istio:
+
+```sh
+minikube addons enable metrics-server
+minikube addons enable istio
+minikube addons enable istio-provisioner
+
+cd k8s
+curl -L https://istio.io/downloadIstio | sh -
+cd istio-1.15.2
+export PATH=$PWD/bin:$PATH
+istioctl install --set profile=demo -y
+kubectl label namespace default istio-injection=enabled
 ```
 
 Despliegue Istio gateway
@@ -100,7 +137,15 @@ export INGRESS_HOST=$(minikube ip)
 echo "http://$INGRESS_HOST:$INGRESS_PORT"
 ```
 
+## How to populate some data for local exploratory testing
 
+Copy initializer script to docker container and run script over it:
+```
+docker cp db/populate_initial_data.sql k8s_pgdb_1:/var/lib/postgresql 
+docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial_data.sql
+```
+
+Check out generated ids in file [database_initial_ids.txt](/db/database_initial_ids.txt).
 
 ___
 ## :es: Documentación de Entrega

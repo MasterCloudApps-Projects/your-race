@@ -20,6 +20,9 @@ spec:
       annotations:
         kompose.cmd: kompose convert -f docker-compose.yml
         kompose.version: 1.26.1 (a9d05d509)
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
       creationTimestamp: null
       labels:
         app: your-race

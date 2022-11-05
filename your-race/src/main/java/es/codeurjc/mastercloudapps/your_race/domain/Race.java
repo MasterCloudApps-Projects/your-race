@@ -1,12 +1,13 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
+import lombok.*;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
-import javax.persistence.*;
-
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
-import lombok.*;
 
 
 @Entity
@@ -53,23 +54,28 @@ public class Race {
     @Column
     private Integer athleteCapacity;
 
-    @OneToMany(mappedBy = "race")
+    @ToString.Exclude
+    @OneToMany(mappedBy = "race", fetch = FetchType.EAGER)
     private Set<Track> raceTracks;
 
+    @ToString.Exclude
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "application_period_id")
     private ApplicationPeriod applicationPeriod;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "applicationRace")
     private Set<Application> applicationRaceApplications;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
+    @ToString.Exclude
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "race_registration_id")
-    private Registration raceRegistration;
+    @JoinColumn(name = "race_registration_info_id")
+    private RegistrationInfo raceRegistrationInfo;
 
 
     private boolean nameIsPresent(){
@@ -79,13 +85,13 @@ public class Race {
         return Optional.ofNullable(this.location).isPresent();
     }
     private boolean raceRegistrationIsValid(){
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationType()).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo.getRegistrationType()).isEmpty())
             return true;
-        if (this.raceRegistration.getRegistrationType().equals(RegistrationType.BYORDER))
+        if (this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYORDER))
             return true;
-        return this.raceRegistration.getRegistrationType().equals(RegistrationType.BYDRAWING);
+        return this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYDRAW);
 
 
     }
@@ -102,19 +108,19 @@ public class Race {
     }
     private boolean concurrentThresholdIsValid()
     {
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
             return true;
-        if (Optional.ofNullable(this.raceRegistration.getConcurrentRequestThreshold()).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo.getConcurrentRequestThreshold()).isEmpty())
             return true;
-        return this.raceRegistration.getConcurrentRequestThreshold() > 1;
+        return this.raceRegistrationInfo.getConcurrentRequestThreshold() > 1;
     }
 
     private boolean registrationDateIsValid(){
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
                 return true;
-        if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo.getRegistrationDate()).isEmpty())
             return true;
-        return this.raceRegistration.getRegistrationDate().isAfter(LocalDateTime.now());
+        return this.raceRegistrationInfo.getRegistrationDate().isAfter(LocalDateTime.now());
     }
 
     private boolean applicationPeriodIsValid(){
@@ -129,16 +135,16 @@ public class Race {
     }
     private boolean datesAreValid(){
 
-        if (Optional.ofNullable(this.raceRegistration).isEmpty())
+        if (Optional.ofNullable(this.raceRegistrationInfo).isEmpty())
             return true;
         if (Optional.ofNullable(this.applicationPeriod).isEmpty())
             return true;
-       if (Optional.ofNullable(this.raceRegistration.getRegistrationDate()).isEmpty())
+       if (Optional.ofNullable(this.raceRegistrationInfo.getRegistrationDate()).isEmpty())
             return true;
         if (Optional.ofNullable(this.applicationPeriod.getInitialDate()).isEmpty()
                 && Optional.ofNullable(this.applicationPeriod.getLastDate()).isEmpty())
             return true;
-        return this.raceRegistration.getRegistrationDate().isAfter(this.applicationPeriod.getLastDate());
+        return this.raceRegistrationInfo.getRegistrationDate().isAfter(this.applicationPeriod.getLastDate());
     }
     public boolean isValid() {
         return  nameIsPresent()
@@ -150,5 +156,24 @@ public class Race {
                 && registrationDateIsValid()
                 && applicationPeriodIsValid()
                 && datesAreValid();
+    }
+
+    public boolean isOpen(){
+      return LocalDateTime.now().isBefore(this.date);
+    }
+
+    public int getRaceTracks(){
+        return this.raceTracks.size();
+    }
+    public int getNextDorsal() throws RaceFullCapacityException {
+        if (this.athleteCapacity!= null && this.raceTracks.size()+1 <= this.athleteCapacity)
+            return this.raceTracks.size()+1;
+
+        throw new RaceFullCapacityException("Race capacity has been reached. There's no more dorsals available for this race.");
+
+    }
+
+    public Integer getAvailableCapacity(){
+        return athleteCapacity - this.raceTracks.size();
     }
 }

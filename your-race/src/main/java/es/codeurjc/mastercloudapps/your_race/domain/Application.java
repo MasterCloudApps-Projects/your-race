@@ -1,16 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-
 import lombok.*;
+
+import javax.persistence.*;
 
 
 @Entity
@@ -36,15 +28,17 @@ public class Application {
     )
     private Long id;
 
-    @Column
+    @Column(unique=true)
     private String applicationCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_race_id")
+    @ToString.Exclude
     private Race applicationRace;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_athlete_id")
+    @ToString.Exclude
     private Athlete applicationAthlete;
 
 }

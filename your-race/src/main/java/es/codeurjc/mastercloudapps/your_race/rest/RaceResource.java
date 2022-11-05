@@ -3,15 +3,13 @@ package es.codeurjc.mastercloudapps.your_race.rest;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -22,6 +20,7 @@ public class RaceResource {
 
     public RaceResource(final RaceService raceService) {
         this.raceService = raceService;
+
     }
 
     @GetMapping
@@ -36,6 +35,7 @@ public class RaceResource {
     public ResponseEntity<RaceDTO> getRace(@PathVariable final Long id) {
         return ResponseEntity.ok(raceService.get(id));
     }
+
 
     @PostMapping
     @ApiResponse(responseCode = "201")

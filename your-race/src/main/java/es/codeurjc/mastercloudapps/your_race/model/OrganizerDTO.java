@@ -1,8 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
-import javax.validation.constraints.Size;
-
 import lombok.*;
+
+import javax.validation.constraints.Size;
 
 
 @Getter

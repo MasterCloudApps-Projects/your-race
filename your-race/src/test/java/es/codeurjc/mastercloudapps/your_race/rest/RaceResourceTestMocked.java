@@ -1,16 +1,16 @@
 package es.codeurjc.mastercloudapps.your_race.rest;
 
-import com.github.javafaker.Faker;
-import es.codeurjc.mastercloudapps.your_race.AbstractDatabaseTest;
+
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.service.RaceService;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -27,9 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class RaceResourceTest extends AbstractDatabaseTest {
+@ActiveProfiles("postgres")
+class RaceResourceTestMocked {
 
     @Autowired
     ObjectMapper objectMapper;
@@ -58,9 +60,9 @@ class RaceResourceTest extends AbstractDatabaseTest {
     @Test
     void createRaceTest() throws Exception {
 
-        RaceDTO race = RaceDTO.builder().name("Ronda").location("Ficticia").organizer(1L).build();
+       RaceDTO race = RaceDTO.builder().name("Ronda").location("Ficticia").organizerName("La Legión").build();
 
-        when(raceService.create(any(RaceDTO.class))).thenReturn(1L);
+         when(raceService.create(any(RaceDTO.class))).thenReturn(1L);
 
         mvc.perform(post("/api/races")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -1,10 +1,10 @@
 package es.codeurjc.mastercloudapps.your_race.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.math.BigDecimal;
-import javax.validation.constraints.Digits;
-
 import lombok.*;
+
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
 
 
 @Getter
