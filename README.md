@@ -39,7 +39,7 @@ Para ejecutar el conjunto de servicios se ha creado un paquete de manifiestos Ku
 Es necesario tener levantado Minikube:
 
 ```sh
-minikube start --cpus 6 --memory 16g
+minikube start --cpus 4 --memory 16g
 ```
 
 ```sh
@@ -50,14 +50,14 @@ kubectl apply -f k8s/manifests/
 
 ```sh
 minikube delete && minikube start \
---cpus 6 --memory 16g \
+--cpus 4 --memory 16g \
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add stable https://charts.helm.sh/stable
 helm repo update
 helm install prometheus prometheus-community/prometheus
 ```
-https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
+Reference: [1] 
 
 ```sh
 kubectl apply -f k8s/manifests-operator/
@@ -215,6 +215,12 @@ docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial
 ```
 
 Check out generated ids in file [database_initial_ids.txt](/db/database_initial_ids.txt).
+
+
+# References
+
+[1] https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
+https://jschmitz.dev/posts/testcontainers_how_to_use_them_in_your_spring_boot_integration_tests/
 
 ___
 ## :es: Documentación de Entrega

@@ -16,12 +16,12 @@ After starting the application it is accessible under `localhost:8080`.
 
 Jib:
 ```sh
-mvn compile jib:build -f your-race -Dimage=raquetelio/your-race:$TAG
+mvn compile jib:build -f your-race -Dimage=rafarex/your-race:$TAG
 ```
 
 DockerFile:
 ```sh
-docker build -f .Dockerfile -t raquetelio/your-race .
+docker build -f .Dockerfile -t rafarex/your-race .
 ```
 
 ## Build
