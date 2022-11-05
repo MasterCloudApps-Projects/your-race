@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: racedb
   your-race:
-    image: raquetelio/your-race
+    image: rafarex70/your-race:1.1.0
     ports:
       - "8080:8080"
     environment:

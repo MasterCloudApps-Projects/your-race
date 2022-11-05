@@ -16,7 +16,7 @@ After starting the application it is accessible under `localhost:8080`.
 
 Jib:
 ```sh
-mvn compile jib:build -Dimage=rafarex70/your-race
+mvn compile jib:build -f your-race -Dimage=rafarex70/your-race:$TAG
 ```
 
 DockerFile:

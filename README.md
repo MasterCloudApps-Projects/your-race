@@ -86,6 +86,7 @@ minikube addons enable istio-provisioner
 Instalación de istio:
 
 ```sh
+cd k8s
 curl -L https://istio.io/downloadIstio | sh -
 cd istio-1.15.2
 export PATH=$PWD/bin:$PATH
