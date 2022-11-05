@@ -1,6 +1,13 @@
-
-INSERT INTO public.application_period (id,initial_date,last_date) VALUES
+	 
+ INSERT INTO public.organizer (id,"name") VALUES
+ (10000,'Test Organizer');
+ INSERT INTO public.application_period (id,initial_date,last_date) VALUES
 	 (10001,'2022-01-01 00:00:00','2022-12-31 23:59:00');
+ INSERT INTO public.registration_info (id,concurrent_request_threshold,registration_cost,registration_date,registration_type) VALUES
+ (10002,20,50.0,'2023-01-01 09:00:00','BYORDER');
+INSERT INTO public.race (id,athlete_capacity,"date",description,distance,"location","name","type",application_period_id,organizer_id,race_registration_info_id) VALUES
+	 (10003,8000,'2023-02-01 09:00:00','Test race',42.195,'Madrid','Test Race Marathon','Running',10001,10000,10002);
+
 INSERT INTO public.athlete (id,"name",surname,track_record) VALUES
 	 (10004,'Test athlete 10004','Test10004',NULL),
 	 (10006,'Test athlete 10006','Test10006',NULL),
@@ -33001,17 +33008,11 @@ INSERT INTO public.athlete (id,"name",surname,track_record) VALUES
 	 (69998,'Test athlete 69998','Test69998',NULL),
 	 (70000,'Test athlete 70000','Test70000',NULL),
 	 (70002,'Test athlete 70002','Test70002',NULL);
-INSERT INTO public.organizer (id,"name") VALUES
-	 (10000,'Test Organizer');
-INSERT INTO public.race (id,athlete_capacity,"date",description,distance,"location","name","type",application_period_id,organizer_id,race_registration_info_id) VALUES
-	 (10003,8000,'2023-02-01 09:00:00','Test race',42.195,'Madrid','Test Race Marathon','Running',10001,10000,10002);
-INSERT INTO public.registration (id,concurrent_request_threshold,registration_cost,registration_date,registration_type) VALUES
-	 (10242,NULL,500.0,'2022-10-31 09:00:00','BYDRAWING'),
-	 (10246,NULL,150.0,'2023-01-15 09:00:00','BYORDER'),
-	 (10249,NULL,150.0,'2023-01-16 09:00:00','BYORDER'),
-	 (10252,NULL,150.0,'2023-01-17 09:00:00','BYORDER');
-INSERT INTO public.registration_info (id,concurrent_request_threshold,registration_cost,registration_date,registration_type) VALUES
-	 (10002,20,50.0,'2023-01-01 09:00:00','BYORDER');
+	 
+	 
+	 
+
+
 	 
 	 
 	 
