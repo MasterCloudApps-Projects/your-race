@@ -73,7 +73,7 @@ minikube addons enable istio
 
 cd k8s
 curl -L https://istio.io/downloadIstio | sh -
-cd istio-1.15.2
+cd istio-1.15.3
 export PATH=$PWD/bin:$PATH
 istioctl install --set profile=demo -y
 kubectl label namespace default istio-injection=enabled
