@@ -196,7 +196,7 @@ bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRA
 
 #### 3. Run the resulting script with the registration calls.
 
-Run the sript and track the time spent in the process of the file through 'SECONDS' shell variable. Results are saved in the '*result.txt' file.
+Run the script and track the time spent in the process of the file through 'SECONDS' shell variable. Results are saved in the '*result.txt' file.
 
 
 ```
