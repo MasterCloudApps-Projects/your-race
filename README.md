@@ -67,8 +67,9 @@ kubectl apply -f k8s/manifests-operator/
 
 ```sh
 minikube addons enable metrics-server
-minikube addons enable istio
 minikube addons enable istio-provisioner
+minikube addons enable istio
+
 
 cd k8s
 curl -L https://istio.io/downloadIstio | sh -
