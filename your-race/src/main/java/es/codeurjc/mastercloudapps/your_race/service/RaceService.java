@@ -7,6 +7,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,15 @@ public class RaceService {
 
     private final RaceRepository raceRepository;
     private final OrganizerRepository organizerRepository;
+    private final TrackRepository trackRepository;
 
 
     public RaceService(final RaceRepository raceRepository,
-            final OrganizerRepository organizerRepository) {
+                       final OrganizerRepository organizerRepository,
+                       final TrackRepository trackRepository) {
         this.raceRepository = raceRepository;
         this.organizerRepository = organizerRepository;
+        this.trackRepository = trackRepository;
     }
 
     public List<RaceDTO> findAll() {
@@ -51,6 +55,10 @@ public class RaceService {
         return raceRepository.findById(id)
                 .map(race -> mapToDTO(race, new RaceDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public int getCapacity(final Race race) {
+        return trackRepository.countByRace(race);
     }
 
     public Long create(final RaceDTO raceDTO) {
@@ -88,7 +96,7 @@ public class RaceService {
         raceDTO.setRaceRegistrationDate (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationDate());
         raceDTO.setRegistrationType (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationType());
         raceDTO.setRegistrationCost (race.getRaceRegistrationInfo() == null ? null : race.getRaceRegistrationInfo().getRegistrationCost());
-        raceDTO.setAvailableCapacity(race.getAvailableCapacity());
+        raceDTO.setAvailableCapacity(getCapacity(race));
         return raceDTO;
     }
 
