@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
+@Table(indexes = @Index(name = "track_athleteRaceIndex", columnList = "athlete_id, race_id", unique = true))
 public class Track {
 
     @Id
