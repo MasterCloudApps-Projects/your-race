@@ -8,7 +8,7 @@ config:
   phases:
 
     - duration: 30
-      arrivalRate: 10
+      arrivalRate: 100
 
   payload:
 
