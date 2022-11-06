@@ -4,10 +4,10 @@ config:
   #192.168.49.2:31097
   http:
     # Responses have to be sent within 10 seconds, or an `ETIMEDOUT` error gets raised.
-    timeout: 40
+    timeout: 35
   phases:
     - duration: 30
-      arrivalRate: 100
+      arrivalRate: 500
 
   payload:
     path: "application_202211061120.csv"
