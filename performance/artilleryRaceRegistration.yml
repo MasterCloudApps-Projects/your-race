@@ -5,7 +5,7 @@ config:
       arrivalRate: 5      
       name: Warm up
 
-    - duration: 180
+    - duration: 60
       arrivalRate: 5000
       maxVusers: 30000
       name: Sustained load
