@@ -10,12 +10,14 @@ config:
 #        - "password"
   phases:
     - duration: 10
-      arrivalRate: 6
+      arrivalRate: 100
 
   payload:
-    path: "aplicationId.csv"
+    path: "application_202211061120.csv"
     fields:
         - "applicationCode"
+        - "athleteId"
+        - "raceId"
 
 scenarios:
   - name: "Search and buy"
@@ -24,6 +26,8 @@ scenarios:
           url: "/api/tracks/byorder"
           json:
             applicationCode: "{{ applicationCode }}"
+            athleteId: "{{ athleteId }}"
+            raceId: "{{ raceId }}"
           capture:
             - json: "$.id"
               as: "trackId"

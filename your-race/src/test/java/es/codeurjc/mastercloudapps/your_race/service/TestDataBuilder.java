@@ -99,8 +99,6 @@ class TestDataBuilder  {
     private static RegistrationByOrderDTO produceRegistrationByOrder(String applicationCode, Long athleteId, Long raceId){
         return RegistrationByOrderDTO.builder()
                 .applicationCode(applicationCode)
-                .raceId(raceId)
-                .athleteId(athleteId)
                 .build();
     }
 

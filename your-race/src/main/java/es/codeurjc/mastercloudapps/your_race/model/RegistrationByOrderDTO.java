@@ -19,8 +19,4 @@ public class RegistrationByOrderDTO {
     @NotNull
     @Size(max = 10)
     private String applicationCode;
-    @NotNull
-    private Long raceId;
-    @NotNull
-    private Long athleteId;
 }

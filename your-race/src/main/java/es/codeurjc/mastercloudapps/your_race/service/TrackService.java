@@ -63,16 +63,12 @@ public class TrackService {
 
 
     public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        Optional<Race> race = raceRepository.findById(registrationByOrderDTO.getRaceId());
-        Optional<Athlete> athlete = athleteRepository.findById(registrationByOrderDTO.getAthleteId());
+        Optional<Application> application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
         
-        if (!athlete.isPresent())
-            throw new ApplicationCodeNotValidException("Application code is invalid. Athlete was not found.");
+        if (!application.isPresent())
+            throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
 
-        if (!race.isPresent())
-            throw new ApplicationCodeNotValidException("Application code is invalid. Race was not found.");
-
-        return registerToRace(athlete.get(),race.get());
+        return registerToRace(application.get().getApplicationAthlete(),application.get().getApplicationRace());
 
     }
     public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException, AthleteAlreadyRegisteredToRace {
@@ -109,13 +105,9 @@ public class TrackService {
     }
 
     private boolean findAthleteTrackInRace(Athlete athlete, Race race){
-       Optional<Track> optionalTrack = trackRepository.findAll().stream()
-                .filter(track -> track.getRace().getId().equals(race.getId())
-                                && track.getAthlete().getId().equals(athlete.getId()))
-                .findAny();
+       Optional<Track> optionalTrack = trackRepository.findByAthleteAndRace(athlete,race);
 
         return optionalTrack.isPresent();
-
     }
 
 
