@@ -55,7 +55,7 @@ public class Race {
     private Integer athleteCapacity;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "race", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "race")
     private Set<Track> raceTracks;
 
     @ToString.Exclude
@@ -165,15 +165,11 @@ public class Race {
     public int getRaceTracks(){
         return this.raceTracks.size();
     }
-    public int getNextDorsal() throws RaceFullCapacityException {
-        if (this.athleteCapacity!= null && this.raceTracks.size()+1 <= this.athleteCapacity)
-            return this.raceTracks.size()+1;
+    public int getNextDorsal(int raceTracksSize) throws RaceFullCapacityException {
+        if (this.athleteCapacity!= null && raceTracksSize+1 <= this.athleteCapacity)
+            return raceTracksSize+1;
 
         throw new RaceFullCapacityException("Race capacity has been reached. There's no more dorsals available for this race.");
 
-    }
-
-    public Integer getAvailableCapacity(){
-        return athleteCapacity - this.raceTracks.size();
     }
 }
