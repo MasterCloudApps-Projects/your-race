@@ -1,5 +1,5 @@
 config:
-  target: "http://192.168.49.2:32002"
+  target: "http://192.168.49.2:31522"
   #"http://192.168.49.2:31660"
   #192.168.49.2:31097
 #  payload:
@@ -10,24 +10,21 @@ config:
 #        - "password"
   phases:
     - duration: 10
-      arrivalRate: 100
+      arrivalRate: 5000
 
   payload:
-    path: "application_202211061120.csv"
+
+    path: "applicationId.csv"
     fields:
         - "applicationCode"
-        - "athleteId"
-        - "raceId"
 
 scenarios:
-  - name: "Search and buy"
+  - name: "Register in Race by Order"
     flow:
       - post:
           url: "/api/tracks/byorder"
           json:
             applicationCode: "{{ applicationCode }}"
-            athleteId: "{{ athleteId }}"
-            raceId: "{{ raceId }}"
           capture:
-            - json: "$.id"
+            - json: "$.results.id"
               as: "trackId"
