@@ -1,17 +1,19 @@
 config:
   target: "http://192.168.49.2:31522"
-  #"http://192.168.49.2:31660"
-  #192.168.49.2:31097
-#  payload:
-#      # path relativo a la localización del script de test
-#      path: "users.csv"
-#      fields:
-#        - "username"
-#        - "password"
   phases:
+    - duration: 60
+      arrivalRate: 5      
+      name: Warm up
+
     - duration: 180
       arrivalRate: 5000
       maxVusers: 30000
+      name: Sustained load
+
+    - duration: 300
+      arrivalRate: 100
+      maxVusers: 30000
+      name: Load down  
 
   payload:
 
