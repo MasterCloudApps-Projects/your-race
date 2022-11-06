@@ -9,7 +9,7 @@ Your Race is a scalable platform for managing entry assignment in highly demande
 ## K8s Setup + prometheus helm
 
 ```sh
-minikube delete && minikube start \
+minikube start \
 --cpus 4 --memory 16g \
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts

@@ -7,7 +7,7 @@ config:
     timeout: 40
   phases:
     - duration: 30
-      arrivalRate: 10
+      arrivalRate: 100
 
   payload:
     path: "application_202211061120.csv"
@@ -23,8 +23,6 @@ scenarios:
           url: "/api/tracks/byorder"
           json:
             applicationCode: "{{ applicationCode }}"
-            athleteId: "{{ athleteId }}"
-            raceId: "{{ raceId }}"
           capture:
             - json: "$.id"
               as: "trackId"
