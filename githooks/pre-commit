@@ -5,5 +5,5 @@ exec 1>&2
 # Run test before each commit.
 git pull
 export SONAR_TOKEN=
-exec mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -f your-race/ -Dsonar.projectKey=es.codeurjc.mastercloudapps:your-race
+exec mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -f your-race/ -Dsonar.projectKey=es.codeurjc.mastercloudapps:your-race -Dsonar.qualitygate.wait=true
 

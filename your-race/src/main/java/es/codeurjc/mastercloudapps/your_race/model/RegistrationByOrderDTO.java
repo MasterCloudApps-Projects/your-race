@@ -17,6 +17,10 @@ import javax.validation.constraints.Size;
 public class RegistrationByOrderDTO {
 
     @NotNull
-    @Size(max = 50)
+    @Size(max = 10)
     private String applicationCode;
+    @NotNull
+    private Long raceId;
+    @NotNull
+    private Long athleteId;
 }

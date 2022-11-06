@@ -6,46 +6,6 @@ https://github.com/MasterCloudApps-Projects/your-race
 ### Overview
 Your Race is a scalable platform for managing entry assignment in highly demanded races, like the New York City Marathon or _101 Km de Ronda_ (Spain).
 
-
-### Artillery
-
-```sh
-cd performance
-artillery run artilleryTest.yml
-```
-
-### JMeter
-
-```sh
-cd performance
-```
-jmeter > Test Plan.jmx
-
-### Prometheus
-
-### Grafana
-
-Importar Dashboard: 
-- 9628 para Postgres
-- 4701 Micrometer JVM
-- 6417 K8s Cluster
-- 
-
-
-## K8s Setup
-
-Para ejecutar el conjunto de servicios se ha creado un paquete de manifiestos Kubernetes que se encarga de levantar todo el stack, Bases de datos, RabbitMQ y las 4 aplicaciones, pasándose las rutas de acceso y credenciales como variables de entorno.
-
-Es necesario tener levantado Minikube:
-
-```sh
-minikube start --cpus 4 --memory 16g
-```
-
-```sh
-kubectl apply -f k8s/manifests/
-```
-
 ## K8s Setup + prometheus helm
 
 ```sh
@@ -96,6 +56,24 @@ export INGRESS_HOST=$(minikube ip)
 echo "http://$INGRESS_HOST:$INGRESS_PORT"
 ```
 
+### Artillery
+
+```sh
+cd performance
+artillery run artillery{XXX}Test.yml
+```
+
+### JMeter
+
+jmeter > [Test Plan.jmx](/performance/Test%20Plan.jmx)
+
+### Grafana
+
+Importar Dashboard:
+- 9628 para Postgres
+- 4701 Micrometer JVM
+- 6417 K8s Cluster
+- import [Personalized Dashboard](/grafana/personalized.json)
 
 ## Services
 
@@ -216,6 +194,9 @@ docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial
 ```
 
 Check out generated ids in file [database_initial_ids.txt](/db/database_initial_ids.txt).
+
+## Postman Collection
+[Postman Collection](/your-race/your-race.postman_collection.json).
 
 
 # References

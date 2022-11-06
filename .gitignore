@@ -33,8 +33,10 @@ build/
 .vscode/
 
 ## Database data
-/k8s/postgresdb/
+/docker-compose/postgresdb/
 
 /k8s/istio-1.15.2
 *.log
 /k8s/manifests-operator/kube-prometheus/
+/docker-compose/grafana/provisioning/
+/performance/test/

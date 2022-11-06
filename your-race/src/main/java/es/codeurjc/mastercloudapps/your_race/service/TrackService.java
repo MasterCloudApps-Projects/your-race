@@ -63,17 +63,16 @@ public class TrackService {
 
 
     public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        Race race = getRace(registrationByOrderDTO);
-        Athlete athlete = getAthlete(registrationByOrderDTO);
-
-
-        if (athlete==null)
+        Optional<Race> race = raceRepository.findById(registrationByOrderDTO.getRaceId());
+        Optional<Athlete> athlete = athleteRepository.findById(registrationByOrderDTO.getAthleteId());
+        
+        if (!athlete.isPresent())
             throw new ApplicationCodeNotValidException("Application code is invalid. Athlete was not found.");
 
-        if (race==null)
+        if (!race.isPresent())
             throw new ApplicationCodeNotValidException("Application code is invalid. Race was not found.");
 
-        return registerToRace(athlete,race);
+        return registerToRace(athlete.get(),race.get());
 
     }
     public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException, AthleteAlreadyRegisteredToRace {
@@ -204,26 +203,6 @@ public class TrackService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "athlete not found"));
         track.setAthlete(athlete);
         return track;
-    }
-
-
-
-    private Race getRace(RegistrationByOrderDTO registrationByOrderDTO){
-
-        return applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
-                .findAny()
-                .map(Application::getApplicationRace).orElse(null) ;
-
-    }
-
-    private Athlete getAthlete(RegistrationByOrderDTO registrationByOrderDTO){
-
-        return applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationCode().equals(registrationByOrderDTO.getApplicationCode()))
-                .findAny()
-                .map(Application::getApplicationAthlete).orElse(null);
-
     }
 
     private Race getRace(RegistrationByDrawDTO registrationByDrawDTO){
