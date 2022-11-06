@@ -45,3 +45,10 @@ select age (max(registration_date) , min (registration_date)) from track
 where race_id >10000
 
 
+PARA ENCONTRAR ATLETAS DUPLICADOS EN LA CARRERA
+select *
+from (
+select COUNT(*)  as total,race_id, athlete_id  from track
+group by race_id, athlete_id 
+) as tracks_repetidos where total>1
+
