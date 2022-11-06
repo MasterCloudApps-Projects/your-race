@@ -31,7 +31,7 @@ spec:
               value: jdbc:postgresql://pgdb:5432/racedb
             - name: JDBC_DATABASE_USERNAME
               value: admin
-          image: rafarex70/your-race:1.1.0
+          image: rafarex70/your-race:1.1.1
           name: your-race
           ports:
             - containerPort: 8080
