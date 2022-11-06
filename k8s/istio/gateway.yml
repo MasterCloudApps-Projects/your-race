@@ -33,4 +33,4 @@ spec:
         host: your-race
     retries:
       attempts: 3
-      perTryTimeout: 10s
+      perTryTimeout: 40s
