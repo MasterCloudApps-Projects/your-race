@@ -130,7 +130,7 @@ public class RegistrationUseCaseTest {
 
         mvc.perform(post("/api/tracks/byorder/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO)))
+                        .content(TestDataBuilder.generateRegistrationByOrderBodyRequest(applicationDTO.getApplicationCode(),athleteList.get(3).getId(),raceList.get(0).getId())))
                 .andExpect(status().isBadRequest());
 
 
