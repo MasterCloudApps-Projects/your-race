@@ -35,7 +35,6 @@ public class TrackService {
     private final TrackRepository trackRepository;
     private final RaceRepository raceRepository;
     private final AthleteRepository athleteRepository;
-
     private final ApplicationRepository applicationRepository;
 
 
@@ -87,11 +86,12 @@ public class TrackService {
     }
 
     private TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-
+        
+        int dorsal = race.getNextDorsal(trackRepository.countByRace(race));
+        
         if(findAthleteTrackInRace(athlete,race))
             throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
-
-        int dorsal = race.getNextDorsal();
+        
         Track track = Track.builder()
                 .race(race)
                 .athlete(athlete)

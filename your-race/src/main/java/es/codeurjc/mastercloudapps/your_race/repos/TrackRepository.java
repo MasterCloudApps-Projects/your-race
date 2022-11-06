@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface TrackRepository extends JpaRepository<Track, Long> {
     Optional<Track> findByAthleteAndRace(Athlete athlete, Race race);
+    int countByRace(Race race);
 }
