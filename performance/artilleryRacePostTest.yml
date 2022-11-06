@@ -6,14 +6,9 @@ config:
     # Responses have to be sent within 10 seconds, or an `ETIMEDOUT` error gets raised.
     timeout: 40
   phases:
-<<<<<<< HEAD
-    - duration: 180
-      arrivalRate: 5000
-      maxVusers: 30000
-=======
+
     - duration: 30
       arrivalRate: 10
->>>>>>> main
 
   payload:
 

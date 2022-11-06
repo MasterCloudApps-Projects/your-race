@@ -1,18 +1,17 @@
 config:
   target: "http://192.168.49.2:31522"
   phases:
-    - duration: 60
-      arrivalRate: 5      
+    - duration: 30
+      arrivalRate: 10      
       name: Warm up
 
     - duration: 60
-      arrivalRate: 5000
+      arrivalRate: 1000
       maxVusers: 30000
       name: Sustained load
 
-    - duration: 300
-      arrivalRate: 100
-      maxVusers: 30000
+    - duration: 30
+      arrivalRate: 10     
       name: Load down  
 
   payload:
