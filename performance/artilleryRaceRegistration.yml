@@ -1,18 +1,22 @@
 config:
-  target: "http://192.168.49.2:31522"
+  target: "http://192.168.49.2:32350"
   phases:
     - duration: 30
-      arrivalRate: 10      
+      arrivalRate: 1    
+      maxVusers: 30  
       name: Warm up
 
-    - duration: 60
-      arrivalRate: 1000
-      maxVusers: 30000
-      name: Sustained load
-
     - duration: 30
-      arrivalRate: 10     
-      name: Load down  
+      arrivalRate: 500
+      maxVusers: 40000
+      name: Massive load
+
+ #   - duration: 30
+ #     arrivalRate: 10     
+ #     name: Load down  
+
+  http:
+    timeout: 35
 
   payload:
 
@@ -27,6 +31,6 @@ scenarios:
           url: "/api/tracks/byorder"
           json:
             applicationCode: "{{ applicationCode }}"
-          capture:
-            - json: "$.results.id"
-              as: "trackId"
+     #     capture:
+     #       - json: "$.results.id"
+     #         as: "trackId"

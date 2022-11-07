@@ -39,5 +39,4 @@ build/
 *.log
 /k8s/manifests-operator/kube-prometheus/
 /docker-compose/grafana/provisioning/
-/performance/test/
-performance/results/
+
