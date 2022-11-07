@@ -16,7 +16,7 @@ config:
  #     name: Load down  
 
   http:
-    timeout: 35
+    timeout: 80
 
   payload:
 
