@@ -23,6 +23,7 @@ config:
     path: "applicationId.csv"
     fields:
         - "applicationCode"
+    order: sequence
 
 scenarios:
   - name: "Register in Race by Order"
