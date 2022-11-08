@@ -36,6 +36,8 @@ spec:
               value: jdbc:postgresql://pgdb:5432/racedb
             - name: JDBC_DATABASE_USERNAME
               value: admin
+            - name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
+              value: "20"
           image: rafarex70/your-race:1.1.4
           name: your-race
           ports:

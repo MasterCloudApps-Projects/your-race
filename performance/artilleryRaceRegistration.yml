@@ -20,10 +20,11 @@ config:
 
   payload:
 
-    path: "applicationId.csv"
+    path: "application_202211082353.csv"
     fields:
         - "applicationCode"
     order: sequence
+    skipHeader: true
 
 scenarios:
   - name: "Register in Race by Order"
