@@ -3,7 +3,7 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: http://localhost:8080
+- url: http://192.168.49.2
   description: Generated server url
 paths:
   /api/tracks/{id}:
@@ -19,12 +19,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -49,12 +43,6 @@ paths:
               $ref: '#/components/schemas/TrackDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
     delete:
@@ -69,83 +57,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "204":
-          description: No Content
-  /api/registrations/{id}:
-    get:
-      tags:
-      - registration-resource
-      operationId: getRegistration
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegistrationDTO'
-    put:
-      tags:
-      - registration-resource
-      operationId: updateRegistration
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RegistrationDTO'
-        required: true
-      responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "200":
-          description: OK
-    delete:
-      tags:
-      - registration-resource
-      operationId: deleteRegistration
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "204":
           description: No Content
   /api/races/{id}:
@@ -161,12 +72,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -191,12 +96,6 @@ paths:
               $ref: '#/components/schemas/RaceDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
     delete:
@@ -211,12 +110,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "204":
           description: No Content
   /api/organizers/{id}:
@@ -232,12 +125,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -262,12 +149,6 @@ paths:
               $ref: '#/components/schemas/OrganizerDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
     delete:
@@ -282,12 +163,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "204":
           description: No Content
   /api/athletes/{id}:
@@ -303,12 +178,6 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -333,12 +202,6 @@ paths:
               $ref: '#/components/schemas/AthleteDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
     delete:
@@ -353,102 +216,44 @@ paths:
           type: integer
           format: int64
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "204":
           description: No Content
-  /api/tracks:
-    get:
-      tags:
-      - track-resource
-      operationId: getAllTracks
-      responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TrackDTO'
+  /api/tracks/byorder:
     post:
       tags:
       - track-resource
-      operationId: createTrack
+      operationId: createRegistrationByOrder
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TrackDTO'
+              $ref: '#/components/schemas/RegistrationByOrderDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "201":
           description: Created
           content:
             application/json:
               schema:
-                type: integer
-                format: int64
-  /api/registrations:
-    get:
-      tags:
-      - registration-resource
-      operationId: getAllRegistrations
-      responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RegistrationDTO'
+                $ref: '#/components/schemas/TrackDTO'
+  /api/tracks/bydraw:
     post:
       tags:
-      - registration-resource
-      operationId: createRegistration
+      - track-resource
+      operationId: createRegistrationByDraw
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegistrationDTO'
+              $ref: '#/components/schemas/RegistrationByDrawDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "201":
           description: Created
           content:
             application/json:
               schema:
-                type: integer
-                format: int64
+                $ref: '#/components/schemas/TrackDTO'
   /api/races:
     get:
       tags:
@@ -461,12 +266,6 @@ paths:
         schema:
           type: boolean
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -486,12 +285,6 @@ paths:
               $ref: '#/components/schemas/RaceDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "201":
           description: Created
           content:
@@ -505,12 +298,6 @@ paths:
       - organizer-resource
       operationId: getAllOrganizers
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -530,12 +317,6 @@ paths:
               $ref: '#/components/schemas/OrganizerDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "201":
           description: Created
           content:
@@ -549,12 +330,6 @@ paths:
       - athlete-resource
       operationId: getAllAthletes
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "200":
           description: OK
           content:
@@ -574,12 +349,6 @@ paths:
               $ref: '#/components/schemas/AthleteDTO'
         required: true
       responses:
-        "4xx/5xx":
-          description: Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
         "201":
           description: Created
           content:
@@ -587,29 +356,98 @@ paths:
               schema:
                 type: integer
                 format: int64
+  /api/applications:
+    post:
+      tags:
+      - application-resource
+      operationId: createApplication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRequestDTO'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationDTO'
+  /api/tracks:
+    get:
+      tags:
+      - track-resource
+      operationId: getTracks
+      parameters:
+      - name: open
+        in: query
+        required: true
+        schema:
+          type: boolean
+      - name: trackDTO
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/TrackRequestDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrackDTO'
+  /api/applications/races/{id}:
+    get:
+      tags:
+      - application-resource
+      operationId: getRaceApplications
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationDTO'
+  /api/applications/athletes/{id}:
+    get:
+      tags:
+      - application-resource
+      operationId: getAthleteApplicationRaces
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: open
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationDTO'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        httpStatus:
-          type: integer
-          format: int32
-        exception:
-          type: string
-        message:
-          type: string
-        fieldErrors:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldError'
-    FieldError:
-      type: object
-      properties:
-        field:
-          type: string
-        errorCode:
-          type: string
     Score:
       type: object
       properties:
@@ -619,14 +457,36 @@ components:
           type: integer
           format: int32
     TrackDTO:
+      required:
+      - athleteId
+      - raceId
       type: object
       properties:
         id:
           type: integer
           format: int64
+        athleteId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        raceId:
+          type: integer
+          format: int64
+        raceName:
+          type: string
+        raceDate:
+          type: string
+          format: date-time
         registrationDate:
           type: string
           format: date-time
+        paymentInfo:
+          maxLength: 255
+          minLength: 0
+          type: string
         status:
           maxLength: 255
           minLength: 0
@@ -636,41 +496,10 @@ components:
         dorsal:
           type: integer
           format: int32
-        paymentInfo:
-          maxLength: 255
-          minLength: 0
-          type: string
-        race:
-          type: integer
-          format: int64
-        athlete:
-          type: integer
-          format: int64
-    RegistrationDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        registrationType:
-          type: string
-          enum:
-          - BYDRAWING
-          - BYORDER
-        registrationDate:
-          type: string
-          format: date-time
-        registrationCost:
-          type: number
-          format: double
-        concurrentRequestThreshold:
-          type: integer
-          format: int32
     RaceDTO:
       required:
       - location
       - name
-      - organizer
       type: object
       properties:
         id:
@@ -701,15 +530,28 @@ components:
         athleteCapacity:
           type: integer
           format: int32
-        applicationPeriod:
+        availableCapacity:
           type: integer
-          format: int64
-        organizer:
-          type: integer
-          format: int64
-        raceRegistration:
-          type: integer
-          format: int64
+          format: int32
+        applicationInitialDate:
+          type: string
+          format: date-time
+        applicationLastDate:
+          type: string
+          format: date-time
+        organizerName:
+          type: string
+        raceRegistrationDate:
+          type: string
+          format: date-time
+        registrationType:
+          type: string
+          enum:
+          - BYDRAW
+          - BYORDER
+        registrationCost:
+          type: number
+          format: double
     OrganizerDTO:
       type: object
       properties:
@@ -750,3 +592,59 @@ components:
         date:
           type: string
           format: date
+    RegistrationByOrderDTO:
+      required:
+      - applicationCode
+      type: object
+      properties:
+        applicationCode:
+          maxLength: 10
+          minLength: 0
+          type: string
+    RegistrationByDrawDTO:
+      required:
+      - athleteId
+      - raceId
+      type: object
+      properties:
+        athleteId:
+          type: integer
+          format: int64
+        raceId:
+          type: integer
+          format: int64
+    ApplicationRequestDTO:
+      type: object
+      properties:
+        athleteId:
+          type: integer
+          format: int64
+        raceId:
+          type: integer
+          format: int64
+    ApplicationDTO:
+      type: object
+      properties:
+        applicationCode:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        raceName:
+          type: string
+        date:
+          type: string
+          format: date-time
+        raceRegistrationDate:
+          type: string
+          format: date-time
+    TrackRequestDTO:
+      type: object
+      properties:
+        athleteId:
+          type: integer
+          format: int64
+        raceId:
+          type: integer
+          format: int64
