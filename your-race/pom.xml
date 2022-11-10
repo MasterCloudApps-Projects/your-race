@@ -121,6 +121,18 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
             <version>1.9.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-spring-boot-starter</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-console</artifactId>
+            <version>2.9.0</version>
+        </dependency>
     </dependencies>
 
     <build>
