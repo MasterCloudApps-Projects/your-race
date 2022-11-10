@@ -4,6 +4,9 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import com.github.javafaker.Faker;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.ApplicationPeriod;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;

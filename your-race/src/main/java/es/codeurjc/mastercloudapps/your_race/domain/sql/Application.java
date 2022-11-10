@@ -1,9 +1,8 @@
-package es.codeurjc.mastercloudapps.your_race.domain;
+package es.codeurjc.mastercloudapps.your_race.domain.sql;
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 @Entity
@@ -13,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Organizer {
+public class Application {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -29,10 +28,17 @@ public class Organizer {
     )
     private Long id;
 
-    @Column
-    private String name;
+    @Column(unique=true)
+    private String applicationCode;
 
-    @OneToMany(mappedBy = "organizer")
-    private Set<Race> organizerRaces;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_race_id")
+    @ToString.Exclude
+    private Race applicationRace;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_athlete_id")
+    @ToString.Exclude
+    private Athlete applicationAthlete;
 
 }

@@ -1,7 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.repos;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
-import org.junit.Ignore;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

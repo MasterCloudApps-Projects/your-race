@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.repos;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Application;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

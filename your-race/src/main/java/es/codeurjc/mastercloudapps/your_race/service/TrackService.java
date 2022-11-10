@@ -1,9 +1,9 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Application;
-import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.Track;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Application;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Track;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;

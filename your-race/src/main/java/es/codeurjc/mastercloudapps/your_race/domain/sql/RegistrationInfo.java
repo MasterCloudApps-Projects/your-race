@@ -1,8 +1,10 @@
-package es.codeurjc.mastercloudapps.your_race.domain;
+package es.codeurjc.mastercloudapps.your_race.domain.sql;
 
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Application {
+public class RegistrationInfo {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -28,17 +30,17 @@ public class Application {
     )
     private Long id;
 
-    @Column(unique=true)
-    private String applicationCode;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private RegistrationType registrationType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_race_id")
-    @ToString.Exclude
-    private Race applicationRace;
+    @Column
+    private LocalDateTime registrationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_athlete_id")
-    @ToString.Exclude
-    private Athlete applicationAthlete;
+    @Column
+    private Double registrationCost;
+
+    @Column
+    private Integer concurrentRequestThreshold;
 
 }

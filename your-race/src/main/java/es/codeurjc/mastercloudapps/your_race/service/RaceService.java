@@ -1,9 +1,9 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.ApplicationPeriod;
-import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
-import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.ApplicationPeriod;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Organizer;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;

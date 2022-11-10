@@ -1,6 +1,5 @@
-package es.codeurjc.mastercloudapps.your_race.domain;
+package es.codeurjc.mastercloudapps.your_race.domain.sql;
 
-import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class RegistrationInfo {
+public class ApplicationPeriod {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -31,16 +30,26 @@ public class RegistrationInfo {
     private Long id;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private RegistrationType registrationType;
+    private LocalDateTime initialDate;
 
     @Column
-    private LocalDateTime registrationDate;
+    private LocalDateTime lastDate;
 
-    @Column
-    private Double registrationCost;
+    @OneToOne(
+            mappedBy = "applicationPeriod",
+            fetch = FetchType.LAZY
+    )
+    private Race race;
 
-    @Column
-    private Integer concurrentRequestThreshold;
+    public boolean isOpen(){
+        return isValid() && initialDate.isBefore(LocalDateTime.now())
+                && LocalDateTime.now().isBefore(lastDate);
+
+    }
+
+    private boolean isValid(){
+      return this.initialDate.isBefore(this.lastDate);
+    }
 
 }
+

@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import org.springframework.data.domain.Sort;

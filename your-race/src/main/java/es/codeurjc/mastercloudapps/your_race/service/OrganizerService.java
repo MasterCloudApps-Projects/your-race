@@ -1,6 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Organizer;
 import es.codeurjc.mastercloudapps.your_race.model.OrganizerDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import org.springframework.data.domain.Sort;

@@ -1,6 +1,9 @@
 package es.codeurjc.mastercloudapps.your_race.repos;
 
-import es.codeurjc.mastercloudapps.your_race.domain.*;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Application;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Organizer;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.your_race.domain;
+package es.codeurjc.mastercloudapps.your_race.domain.sql;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import es.codeurjc.mastercloudapps.your_race.model.Score;

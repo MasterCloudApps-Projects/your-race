@@ -1,8 +1,8 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.domain.Application;
-import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
-import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Application;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
+import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodIsClosedException;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationRequestDTO;

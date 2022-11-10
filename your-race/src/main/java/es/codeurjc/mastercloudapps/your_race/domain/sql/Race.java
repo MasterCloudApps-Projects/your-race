@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.your_race.domain;
+package es.codeurjc.mastercloudapps.your_race.domain.sql;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
