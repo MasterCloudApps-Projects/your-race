@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class Application {
 
     @MongoId
-    Long id;
+    String id;
 
     private String applicationCode;
 

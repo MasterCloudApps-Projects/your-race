@@ -18,7 +18,7 @@ public class RegistrationInfo {
 
 
     @MongoId
-    private Long id;
+    private String id;
 
 
     private RegistrationType registrationType;

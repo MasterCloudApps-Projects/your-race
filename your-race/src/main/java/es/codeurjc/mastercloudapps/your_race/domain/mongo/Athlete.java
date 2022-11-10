@@ -20,7 +20,7 @@ import java.util.Set;
 public class Athlete {
 
     @MongoId
-    private Long id;
+    private String id;
 
 
     private String name;

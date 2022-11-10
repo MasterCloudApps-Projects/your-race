@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class Track {
 
     @MongoId
-    private Long id;
+    private String id;
 
 
     private LocalDateTime registrationDate;
