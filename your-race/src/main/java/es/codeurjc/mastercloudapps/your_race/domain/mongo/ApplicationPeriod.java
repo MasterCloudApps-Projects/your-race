@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class ApplicationPeriod {
 
     @MongoId
-    String String id;
+    private String id;
 
 
     private LocalDateTime initialDate;
