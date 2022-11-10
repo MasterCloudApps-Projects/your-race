@@ -13,10 +13,10 @@ import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceN
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
-import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.ApplicationRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.AthleteRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.RaceRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.TrackRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

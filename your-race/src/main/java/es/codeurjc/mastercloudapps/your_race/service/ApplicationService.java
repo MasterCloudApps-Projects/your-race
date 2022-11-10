@@ -6,9 +6,9 @@ import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodIsClosedException;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationRequestDTO;
-import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
-import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.ApplicationRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.AthleteRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.RaceRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 

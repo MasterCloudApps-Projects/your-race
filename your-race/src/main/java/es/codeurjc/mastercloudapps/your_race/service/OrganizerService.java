@@ -2,7 +2,7 @@ package es.codeurjc.mastercloudapps.your_race.service;
 
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Organizer;
 import es.codeurjc.mastercloudapps.your_race.model.OrganizerDTO;
-import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.OrganizerRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

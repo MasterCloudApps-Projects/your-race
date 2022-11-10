@@ -6,7 +6,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.sql.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Track;
 import es.codeurjc.mastercloudapps.your_race.model.*;
-import es.codeurjc.mastercloudapps.your_race.repos.*;
+import es.codeurjc.mastercloudapps.your_race.repos.sql.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
