@@ -4,20 +4,24 @@ import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.AthleteRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
-
+@Disabled
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class AthleteServiceTest {
 
@@ -55,10 +59,10 @@ class AthleteServiceTest {
         System.out.println(athleteService);
 
         // when -  action or the behaviour that we are going test
-        Long id = athleteService.create(athleteDTO);
+        Optional<Long> id = athleteService.create(athleteDTO);
         
         // then - verify the output
-        assertThat(id).isNotNull();
+        assertThat(id).isPresent();
 
     }
 }

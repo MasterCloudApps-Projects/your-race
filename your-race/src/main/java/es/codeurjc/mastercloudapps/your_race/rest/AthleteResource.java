@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -35,7 +36,7 @@ public class AthleteResource {
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createAthlete(@RequestBody @Valid final AthleteDTO athleteDTO) {
+    public ResponseEntity<Optional<Long>> createAthlete(@RequestBody @Valid final AthleteDTO athleteDTO) {
         return new ResponseEntity<>(athleteService.create(athleteDTO), HttpStatus.CREATED);
     }
 
