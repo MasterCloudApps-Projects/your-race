@@ -1,9 +1,12 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 import org.junit.jupiter.api.Test;
@@ -27,6 +30,8 @@ class TrackServiceTest {
 
     @Mock
     private TrackRepository trackRepository;
+    @Mock
+    private ApplicationRepository applicationRepository;
 
     @InjectMocks
     private TrackService trackService;
@@ -57,4 +62,21 @@ class TrackServiceTest {
         // then - verify the output
         assertThat(trackDTOList.get(0).getId()).isEqualTo(1L);
     }
+
+    @Test
+    void findByApplicationCode() {
+        given(applicationRepository.findByApplicationCode(any(String.class))).willReturn(Optional.of(Application.builder()
+                .id(1L)
+                .build()));
+
+        // when -  action or the behaviour that we are going test
+        Optional<Application> application = trackService.findByApplicationCode(RegistrationByOrderDTO.builder()
+                .applicationCode("")
+                .build());
+
+        // then - verify the output
+        assertThat(application).isNotEmpty();
+    }
+
+    
 }
