@@ -45,4 +45,8 @@ java -Dspring.profiles.active=production -jar ./target/your-race-0.0.1-SNAPSHOT.
 * [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)  
 
 
+Consola Togglez
+=/togglz-console
 
+Levantar BBDD Mongo:
+sudo docker run --rm -p 27017:27017 -d mongo:latest   
