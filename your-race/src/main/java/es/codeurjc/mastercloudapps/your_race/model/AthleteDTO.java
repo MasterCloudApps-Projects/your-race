@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Builder
 public class AthleteDTO {
 
-    private Long id;
+    private String id;
 
     @NotNull
     @Size(max = 255)

@@ -29,7 +29,7 @@ public class AthleteResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AthleteDTO> getAthlete(@PathVariable final Long id) {
+    public ResponseEntity<AthleteDTO> getAthlete(@PathVariable final String id) {
         return ResponseEntity.ok(athleteService.get(id));
     }
 

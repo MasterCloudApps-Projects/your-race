@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 
 
 
-@TypeDefs(@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class))
+//@TypeDefs(@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,12 +23,16 @@ import java.time.LocalDateTime;
 @ToString
 public class Track {
 
-    @MongoId
+    @Id
     private String id;
 
+    private String raceId;
+    private String athleteId;
+
+    private String raceName;
+    private String athleteName;
 
     private LocalDateTime registrationDate;
-
 
     private String status;
 
@@ -40,10 +45,5 @@ public class Track {
 
     private String paymentInfo;
 
-    @ToString.Exclude
-    private Race race;
-
-    @ToString.Exclude
-    private Athlete athlete;
 
 }

@@ -1,12 +1,11 @@
 package es.codeurjc.mastercloudapps.your_race.domain.mongo;
 
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+
 import es.codeurjc.mastercloudapps.your_race.model.TrackRecord;
 import lombok.*;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import org.springframework.data.annotation.Id;
+
 
 import java.util.Set;
 
@@ -17,11 +16,11 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @ToString
+
 public class Athlete {
 
-    @MongoId
+    @Id
     private String id;
-
 
     private String name;
 

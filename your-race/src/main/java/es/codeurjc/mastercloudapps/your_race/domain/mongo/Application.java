@@ -1,7 +1,7 @@
 package es.codeurjc.mastercloudapps.your_race.domain.mongo;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.data.annotation.Id;
 
 
 
@@ -14,15 +14,16 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @ToString
 public class Application {
 
-    @MongoId
-    String id;
+    @Id
+    private String id;
+
+    private String raceId;
+    private String athleteId;
+
+    private String raceName;
+    private String athleteName;
 
     private String applicationCode;
 
-    @ToString.Exclude
-    private Race applicationRace;
-
-    @ToString.Exclude
-    private Athlete applicationAthlete;
 
 }
