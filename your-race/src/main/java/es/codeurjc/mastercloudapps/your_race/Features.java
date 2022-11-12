@@ -6,5 +6,5 @@ import org.togglz.core.annotation.Label;
 public enum Features  implements Feature {
 
     @Label("Use CircuitBreakers")
-    USECB
+    usecb
 }

@@ -19,6 +19,7 @@ import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.Sort;
@@ -34,7 +35,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-
+@Slf4j
 @Transactional
 @Service
 public class TrackService {
@@ -77,7 +78,7 @@ public class TrackService {
     public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
         Optional<Application> application;
 
-        if(featureManager.isActive(Features.USECB)) {
+        if(featureManager.isActive(Features.usecb)) {
             application = findByApplicationCode(registrationByOrderDTO);
         } else {
             application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
@@ -105,21 +106,19 @@ public class TrackService {
     }
 
     private TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        
-        int dorsal = race.getNextDorsal(trackRepository.countByRace(race));
-        
+
         if(findAthleteTrackInRace(athlete,race))
             throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
-        
-        Track track = Track.builder()
+
+        Track track = trackRepository.save(Track.builder()
                 .race(race)
                 .athlete(athlete)
-                .dorsal(dorsal)
+                .dorsal(race.getNextDorsal(trackRepository.countByRace(race)))
                 .registrationDate(LocalDateTime.now())
                 .paymentInfo("Pending")
                 .status("Registered")
-                .build();
-        track = trackRepository.save(track);
+                .build());
+        
         return mapToDTO(track, new TrackDTO());
     }
 
