@@ -5,7 +5,6 @@ import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
 import es.codeurjc.mastercloudapps.your_race.model.AthleteDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.mongo.AthleteMongoRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.AthleteRepository;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -50,8 +49,6 @@ public class AthleteService {
 
     public AthleteDTO get(final String id) {
 
-        Optional<es.codeurjc.mastercloudapps.your_race.domain.mongo.Athlete> athleteMongo;
-
         if (this.featureManager.isActive(Features.USEMONGO)) {
             return athleteMongoRepository.findById(id)
                     .map(athlete -> mapMongoToDTO(athlete, new AthleteDTO()))
@@ -78,18 +75,29 @@ public class AthleteService {
         }
     }
 
+    public void update(final String id, final AthleteDTO athleteDTO) {
 
+        if (this.featureManager.isActive(Features.USEMONGO)){
+            final es.codeurjc.mastercloudapps.your_race.domain.mongo.Athlete athlete = athleteMongoRepository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            mapToMongoEntity(athleteDTO, athlete);
+            athleteMongoRepository.save(athlete);
 
-
-    public void update(final Long id, final AthleteDTO athleteDTO) {
-        final Athlete athlete = athleteRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        mapToEntity(athleteDTO, athlete);
-        athleteRepository.save(athlete);
+        }
+        else
+        {
+            final Athlete athlete = athleteRepository.findById(Long.valueOf(id))
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            mapToEntity(athleteDTO, athlete);
+            athleteRepository.save(athlete);
+        }
     }
 
-    public void delete(final Long id) {
-        athleteRepository.deleteById(id);
+    public void delete(final String id) {
+        if (this.featureManager.isActive(Features.USEMONGO))
+          athleteMongoRepository.deleteById(id);
+        else
+         athleteRepository.deleteById(Long.valueOf(id));
     }
 
 

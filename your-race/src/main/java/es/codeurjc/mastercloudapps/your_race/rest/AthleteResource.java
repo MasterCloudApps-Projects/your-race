@@ -41,7 +41,7 @@ public class AthleteResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateAthlete(@PathVariable final Long id,
+    public ResponseEntity<Void> updateAthlete(@PathVariable final String id,
             @RequestBody @Valid final AthleteDTO athleteDTO) {
         athleteService.update(id, athleteDTO);
         return ResponseEntity.ok().build();
@@ -49,7 +49,7 @@ public class AthleteResource {
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteAthlete(@PathVariable final Long id) {
+    public ResponseEntity<Void> deleteAthlete(@PathVariable final String id) {
         athleteService.delete(id);
         return ResponseEntity.noContent().build();
     }
