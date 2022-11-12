@@ -1,13 +1,14 @@
 config:
-  target: "http://192.168.49.2:32002"
+  target: "http://localhost:8080"
+  #"http://192.168.49.2:32002"
   #"http://192.168.49.2:31660"
   #192.168.49.2:31097
   http:
     # Responses have to be sent within 10 seconds, or an `ETIMEDOUT` error gets raised.
     timeout: 40
   phases:
-    - duration: 30
-      arrivalRate: 10
+    - duration: 10
+      arrivalRate: 10000
 
   payload:
     path: "application_202211061120.csv"
@@ -23,8 +24,6 @@ scenarios:
           url: "/api/tracks/byorder"
           json:
             applicationCode: "{{ applicationCode }}"
-            athleteId: "{{ athleteId }}"
-            raceId: "{{ raceId }}"
           capture:
             - json: "$.id"
               as: "trackId"

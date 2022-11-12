@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.Features;
 import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
@@ -17,15 +18,21 @@ import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.togglz.core.manager.FeatureManager;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 
 @Transactional
@@ -36,15 +43,17 @@ public class TrackService {
     private final RaceRepository raceRepository;
     private final AthleteRepository athleteRepository;
     private final ApplicationRepository applicationRepository;
+    private final FeatureManager featureManager;
 
 
     public TrackService(final TrackRepository trackRepository, final RaceRepository raceRepository,
-                        final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository) {
+                        final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository,
+                        final FeatureManager featureManager) {
         this.trackRepository = trackRepository;
         this.raceRepository = raceRepository;
         this.athleteRepository = athleteRepository;
-
         this.applicationRepository = applicationRepository;
+        this.featureManager = featureManager;
     }
 
     public List<TrackDTO> findAll() {
@@ -60,9 +69,19 @@ public class TrackService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-
+    @CircuitBreaker(name = "CBfindByApplicationCode")
+    public Optional<Application> findByApplicationCode(final RegistrationByOrderDTO registrationByOrderDTO){
+        return applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
+    }
+    
     public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        Optional<Application> application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
+        Optional<Application> application;
+
+        if(featureManager.isActive(Features.USECB)) {
+            application = findByApplicationCode(registrationByOrderDTO);
+        } else {
+            application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
+        }
         
         if (!application.isPresent())
             throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
