@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 @Table(indexes = {
         @Index(name = "track_RaceIndex", columnList = "race_id"),
         @Index(name = "track_athleteRaceIndex", columnList = "athlete_id, race_id", unique = true)
+/*
+        @Index(name = "track_dorsalRaceIndex", columnList = "dorsal, race_id", unique = true)
+*/
 })
 public class Track {
 
