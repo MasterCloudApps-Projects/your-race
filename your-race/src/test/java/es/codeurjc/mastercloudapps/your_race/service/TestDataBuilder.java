@@ -111,8 +111,8 @@ class TestDataBuilder  {
 
     public static ApplicationDTO athleteApplyToRace(MockMvc mvc, Athlete athlete, Race race) throws Exception{
        String  request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(athlete.getId())
-                .raceId(race.getId()).build());
+                .athleteId(athlete.getId().toString())
+                .raceId(race.getId().toString()).build());
 
 
        MvcResult result =  mvc.perform(post("/api/applications")

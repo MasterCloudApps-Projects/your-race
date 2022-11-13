@@ -91,8 +91,8 @@ public class AthleteUseCaseTest {
 
         ObjectMapper mapper = new ObjectMapper();
         String request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(athleteList.get(0).getId())
-                .raceId(raceList.get(0).getId()).build());
+                .athleteId(athleteList.get(0).getId().toString())
+                .raceId(raceList.get(0).getId().toString()).build());
 
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -101,8 +101,8 @@ public class AthleteUseCaseTest {
                 .andExpect(jsonPath("$.applicationCode").isNotEmpty());
 
         request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(0L)
-                .raceId(0L).build());
+                .athleteId("0")
+                .raceId("0").build());
 
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -117,8 +117,8 @@ public class AthleteUseCaseTest {
 
         ObjectMapper mapper = new ObjectMapper();
         String request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(0L)
-                .raceId(raceList.get(0).getId()).build());
+                .athleteId("0")
+                .raceId(raceList.get(0).getId().toString()).build());
 
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -126,8 +126,8 @@ public class AthleteUseCaseTest {
                 .andExpect(status().isNotFound());
 
         request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(athleteList.get(0).getId())
-                .raceId(0L).build());
+                .athleteId(athleteList.get(0).getId().toString())
+                .raceId("0").build());
 
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -135,8 +135,8 @@ public class AthleteUseCaseTest {
                 .andExpect(status().isNotFound());
 
         request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(0L)
-                .raceId(0L).build());
+                .athleteId("0")
+                .raceId("0").build());
 
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -198,8 +198,8 @@ public class AthleteUseCaseTest {
 
         ObjectMapper mapper = new ObjectMapper();
         String  request = mapper.writeValueAsString(ApplicationRequestDTO.builder()
-                .athleteId(athleteList.get(0).getId())
-                .raceId(raceList.get(0).getId()).build());
+                .athleteId(athleteList.get(0).getId().toString())
+                .raceId(raceList.get(0).getId().toString()).build());
 
         mvc.perform(post("/api/applications")
                         .contentType(MediaType.APPLICATION_JSON)

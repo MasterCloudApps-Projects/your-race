@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class ApplicationRequestDTO {
 
-   private Long athleteId;
-   private Long raceId;
+   private String athleteId;
+   private String raceId;
 }
 
