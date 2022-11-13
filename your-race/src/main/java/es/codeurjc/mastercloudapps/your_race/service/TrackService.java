@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.Features;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
@@ -13,6 +14,8 @@ import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceN
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
+import es.codeurjc.mastercloudapps.your_race.repos.mongo.ApplicationMongoRepository;
+import es.codeurjc.mastercloudapps.your_race.repos.mongo.TrackMongoRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.RaceRepository;
@@ -21,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.togglz.core.manager.FeatureManager;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -36,15 +40,22 @@ public class TrackService {
     private final RaceRepository raceRepository;
     private final AthleteRepository athleteRepository;
     private final ApplicationRepository applicationRepository;
+    private final ApplicationMongoRepository applicationMongoRepository;
+    private final TrackMongoRepository trackMongoRepository;
+
+    private final FeatureManager featureManager;
 
 
     public TrackService(final TrackRepository trackRepository, final RaceRepository raceRepository,
-                        final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository) {
+                        final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository, ApplicationMongoRepository applicationMongoRepository, TrackMongoRepository trackMongoRepository, FeatureManager featureManager) {
         this.trackRepository = trackRepository;
         this.raceRepository = raceRepository;
         this.athleteRepository = athleteRepository;
 
         this.applicationRepository = applicationRepository;
+        this.applicationMongoRepository = applicationMongoRepository;
+        this.trackMongoRepository = trackMongoRepository;
+        this.featureManager = featureManager;
     }
 
     public List<TrackDTO> findAll() {
@@ -61,7 +72,7 @@ public class TrackService {
     }
 
 
-    public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
+  /*  public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
         Optional<Application> application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
         
         if (!application.isPresent())
@@ -69,7 +80,29 @@ public class TrackService {
 
         return registerToRace(application.get().getApplicationAthlete(),application.get().getApplicationRace());
 
+    }*/
+
+    public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
+
+        if (this.featureManager.isActive(Features.USEMONGO)) {
+
+            Optional<es.codeurjc.mastercloudapps.your_race.domain.mongo.Application> application = applicationMongoRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
+            if (application.isEmpty())
+                throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
+            return registerToMongoRace(application.get().getAthlete(),application.get().getRace());
+        }
+        else
+        {
+            Optional<Application> application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
+            if (application.isEmpty())
+                throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
+            return registerToRace(application.get().getApplicationAthlete(),application.get().getApplicationRace());
+        }
+
     }
+
+
+
     public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException, AthleteAlreadyRegisteredToRace {
         Race race = getRace(registrationByDrawDTO);
         Athlete athlete = getAthlete(registrationByDrawDTO);
@@ -104,8 +137,34 @@ public class TrackService {
         return mapToDTO(track, new TrackDTO());
     }
 
+    private TrackDTO registerToMongoRace( es.codeurjc.mastercloudapps.your_race.domain.mongo.Athlete athlete,
+                                          es.codeurjc.mastercloudapps.your_race.domain.mongo.Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
+
+        int dorsal = race.getNextDorsal(trackMongoRepository.countByRace(race));
+
+        if(findAthleteTrackInMongoRace(athlete,race))
+            throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
+
+        es.codeurjc.mastercloudapps.your_race.domain.mongo.Track track = es.codeurjc.mastercloudapps.your_race.domain.mongo.Track.builder()
+                .race(race)
+                .athlete(athlete)
+                .dorsal(dorsal)
+                .registrationDate(LocalDateTime.now())
+                .paymentInfo("Pending")
+                .status("Registered")
+                .build();
+        track = trackMongoRepository.save(track);
+        return mapMongoToDTO(track, new TrackDTO());
+    }
+
     private boolean findAthleteTrackInRace(Athlete athlete, Race race){
        Optional<Track> optionalTrack = trackRepository.findByAthleteAndRace(athlete,race);
+
+        return optionalTrack.isPresent();
+    }
+
+    private boolean findAthleteTrackInMongoRace(es.codeurjc.mastercloudapps.your_race.domain.mongo.Athlete athlete, es.codeurjc.mastercloudapps.your_race.domain.mongo.Race race){
+        Optional<es.codeurjc.mastercloudapps.your_race.domain.mongo.Track> optionalTrack = trackMongoRepository.findByAthleteAndRace(athlete,race);
 
         return optionalTrack.isPresent();
     }
@@ -163,6 +222,25 @@ public class TrackService {
     }
 
     private TrackDTO mapToDTO(final Track track, final TrackDTO trackDTO) {
+        trackDTO.setId(track.getId().toString());
+        trackDTO.setAthleteId(track.getAthlete() == null ? null : track.getAthlete().getId().toString());
+        trackDTO.setName(track.getAthlete() == null ? null : track.getAthlete().getName());
+        trackDTO.setSurname(track.getAthlete() == null ? null : track.getAthlete().getSurname());
+
+        trackDTO.setRaceId(track.getRace() == null ? null : track.getRace().getId().toString());
+        trackDTO.setRaceName(track.getRace() == null ? null : track.getRace().getName());
+        /*trackDTO.setRaceDate(track.getRace() == null ? null : track.getRace().getDate());
+        trackDTO.setRegistrationDate(track.getRegistrationDate());*/
+
+        trackDTO.setStatus(track.getStatus());
+        trackDTO.setScore(track.getScore());
+        trackDTO.setDorsal(track.getDorsal());
+        trackDTO.setPaymentInfo(track.getPaymentInfo());
+
+        return trackDTO;
+    }
+
+    private TrackDTO mapMongoToDTO(final es.codeurjc.mastercloudapps.your_race.domain.mongo.Track track, final TrackDTO trackDTO) {
         trackDTO.setId(track.getId());
         trackDTO.setAthleteId(track.getAthlete() == null ? null : track.getAthlete().getId());
         trackDTO.setName(track.getAthlete() == null ? null : track.getAthlete().getName());
@@ -187,11 +265,11 @@ public class TrackService {
         track.setScore(trackDTO.getScore());
         track.setDorsal(trackDTO.getDorsal());
         track.setPaymentInfo(trackDTO.getPaymentInfo());
-        final Race race = trackDTO.getRaceId() == null ? null : raceRepository.findById(trackDTO.getRaceId())
+        final Race race = trackDTO.getRaceId() == null ? null : raceRepository.findById(Long.valueOf(trackDTO.getRaceId()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "race not found"));
 
         track.setRace(race);
-        final Athlete athlete = trackDTO.getAthleteId() == null ? null : athleteRepository.findById(trackDTO.getAthleteId())
+        final Athlete athlete = trackDTO.getAthleteId() == null ? null : athleteRepository.findById(Long.valueOf(trackDTO.getAthleteId()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "athlete not found"));
         track.setAthlete(athlete);
         return track;

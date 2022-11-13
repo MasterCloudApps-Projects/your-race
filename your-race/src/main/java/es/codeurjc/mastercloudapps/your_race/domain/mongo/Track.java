@@ -26,11 +26,8 @@ public class Track {
     @Id
     private String id;
 
-    private String raceId;
-    private String athleteId;
-
-    private String raceName;
-    private String athleteName;
+    private Race race;
+    private Athlete athlete;
 
     private LocalDateTime registrationDate;
 

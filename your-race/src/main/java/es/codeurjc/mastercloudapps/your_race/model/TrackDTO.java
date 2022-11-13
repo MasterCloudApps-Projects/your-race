@@ -15,15 +15,15 @@ import java.time.LocalDateTime;
 @Builder
 public class TrackDTO {
 
-    private Long id;
+    private String id;
 
     @NotNull
-    private Long athleteId;
+    private String athleteId;
     private String name;
     private String surname;
 
     @NotNull
-    private Long raceId;
+    private String raceId;
     private String raceName;
 
     private LocalDateTime raceDate;
