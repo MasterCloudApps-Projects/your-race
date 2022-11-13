@@ -36,7 +36,13 @@ spec:
               value: jdbc:postgresql://pgdb:5432/racedb
             - name: JDBC_DATABASE_USERNAME
               value: admin
-          image: rafarex70/your-race:1.1.4
+            - name: SPRING_DATA_MONGODB_HOST
+              value: mongodb   
+            - name: SPRING_DATA_MONGODB.PORT
+              value: 27017
+            - name: SPRING_DATA_MONGODB_DATABASE
+              value: racedb
+          image: raquetelio/your-race:v20221113
           name: your-race
           ports:
             - name: web
