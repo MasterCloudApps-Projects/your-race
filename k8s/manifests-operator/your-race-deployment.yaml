@@ -36,12 +36,18 @@ spec:
               value: jdbc:postgresql://pgdb:5432/racedb
             - name: JDBC_DATABASE_USERNAME
               value: admin
+            - name: SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE
+              value: admin          
             - name: SPRING_DATA_MONGODB_HOST
               value: mongodb   
             - name: SPRING_DATA_MONGODB.PORT
               value: "27017"
+            - name: SPRING_DATA_MONGODB_USERNAME
+              value: "root"    
+            - name: SPRING_DATA_MONGODB_PASSWORD
+              value: "password"
             - name: SPRING_DATA_MONGODB_DATABASE
-              value: racedb         
+              value: racedb      
             #- name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
             #  value: "20"
           image: raquetelio/your-race:v20221113
