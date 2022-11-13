@@ -39,7 +39,7 @@ spec:
             - name: SPRING_DATA_MONGODB_HOST
               value: mongodb   
             - name: SPRING_DATA_MONGODB.PORT
-              value: 27017
+              value: "27017"
             - name: SPRING_DATA_MONGODB_DATABASE
               value: racedb
           image: raquetelio/your-race:v20221113
