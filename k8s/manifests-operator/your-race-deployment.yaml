@@ -41,7 +41,9 @@ spec:
             - name: SPRING_DATA_MONGODB.PORT
               value: "27017"
             - name: SPRING_DATA_MONGODB_DATABASE
-              value: racedb
+              value: racedb         
+            #- name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
+            #  value: "20"
           image: raquetelio/your-race:v20221113
           name: your-race
           ports:
