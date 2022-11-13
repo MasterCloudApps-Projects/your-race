@@ -39,7 +39,7 @@ public class RaceResource {
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createRace(@RequestBody @Valid final RaceDTO raceDTO) {
+    public ResponseEntity<String> createRace(@RequestBody @Valid final RaceDTO raceDTO) {
         return new ResponseEntity<>(raceService.create(raceDTO), HttpStatus.CREATED);
     }
 

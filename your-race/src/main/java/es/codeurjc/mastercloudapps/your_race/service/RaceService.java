@@ -1,10 +1,12 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
+import es.codeurjc.mastercloudapps.your_race.Features;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.ApplicationPeriod;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.sql.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.repos.mongo.RaceMongoRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.sql.TrackRepository;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.togglz.core.manager.FeatureManager;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,14 +26,20 @@ public class RaceService {
     private final RaceRepository raceRepository;
     private final OrganizerRepository organizerRepository;
     private final TrackRepository trackRepository;
+    private final FeatureManager featureManager;
+
+    private final RaceMongoRepository raceMongoRepository;
+
 
 
     public RaceService(final RaceRepository raceRepository,
                        final OrganizerRepository organizerRepository,
-                       final TrackRepository trackRepository) {
+                       final TrackRepository trackRepository, FeatureManager featureManager, RaceMongoRepository raceMongoRepository) {
         this.raceRepository = raceRepository;
         this.organizerRepository = organizerRepository;
         this.trackRepository = trackRepository;
+        this.featureManager = featureManager;
+        this.raceMongoRepository = raceMongoRepository;
     }
 
     public List<RaceDTO> findAll() {
@@ -61,10 +70,17 @@ public class RaceService {
         return trackRepository.countByRace(race);
     }
 
-    public Long create(final RaceDTO raceDTO) {
-        final Race race = new Race();
-        mapToEntity(raceDTO, race);
-        return raceRepository.save(race).getId();
+    public String create(final RaceDTO raceDTO) {
+        if (this.featureManager.isActive(Features.USEMONGO)) {
+            final es.codeurjc.mastercloudapps.your_race.domain.mongo.Race race = new es.codeurjc.mastercloudapps.your_race.domain.mongo.Race();
+            mapToMongoEntity(raceDTO, race);
+            return raceMongoRepository.save(race).getId();
+        }
+        else {
+            final Race race = new Race();
+            mapToEntity(raceDTO, race);
+            return raceRepository.save(race).getId().toString();
+        }
     }
 
 
@@ -143,5 +159,25 @@ public class RaceService {
                 .filter(organizer -> organizer.getName().equals(name))
                 .findAny();
 
+    }
+
+
+    private es.codeurjc.mastercloudapps.your_race.domain.mongo.Race mapToMongoEntity(final RaceDTO raceDTO, final es.codeurjc.mastercloudapps.your_race.domain.mongo.Race race) {
+        race.setName(raceDTO.getName());
+        race.setDescription(raceDTO.getDescription());
+        race.setDate(raceDTO.getDate());
+        race.setLocation(raceDTO.getLocation());
+        race.setDistance(raceDTO.getDistance());
+        race.setType(raceDTO.getType());
+        race.setAthleteCapacity(raceDTO.getAthleteCapacity());
+        race.setApplicationPeriodInitialDate( raceDTO.getApplicationInitialDate());
+        race.setApplicationPeriodLastDate( raceDTO.getApplicationLastDate());
+        race.setOrganizer(raceDTO.getOrganizerName());
+
+        race.setRegistrationDate(raceDTO.getRaceRegistrationDate());
+        race.setRegistrationType(raceDTO.getRegistrationType());
+        race.setRegistrationCost(raceDTO.getRegistrationCost());
+
+        return race;
     }
 }

@@ -62,7 +62,7 @@ class RaceResourceTestMocked {
 
        RaceDTO race = RaceDTO.builder().name("Ronda").location("Ficticia").organizerName("La Legión").build();
 
-         when(raceService.create(any(RaceDTO.class))).thenReturn(1L);
+         when(raceService.create(any(RaceDTO.class))).thenReturn("1L");
 
         mvc.perform(post("/api/races")
                         .contentType(MediaType.APPLICATION_JSON)
