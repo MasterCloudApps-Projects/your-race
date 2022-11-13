@@ -2,10 +2,11 @@
 #!/bin/bash
 
 db=$1
-out_dir=$2
 
-for file in export/*.json;
+cd db/mongo/export
+for file in *.json;
  do c=${file#*exp_$db_}; 
     c=${c%.json}; 
-    mongoimport --db $db --collection "${c}" --file "${file}";
+    mongoimport --uri mongodb://root:password@192.168.49.2:27017/$db --collection "${c}" --file "${file}";
  done
+
