@@ -45,8 +45,7 @@ race_id = result.insertedId;
 
 //race_id = "6370da98bc4dcb717418bdb3"
 
-  //for (let counter=1; counter<=athlete_applications; counter++)
-  for (let counter=1; counter<=2; counter++)
+  for (let counter=1; counter<=athlete_applications; counter++)  
   {
     let athlete_id;
     let application_id;
