@@ -20,11 +20,8 @@ import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.togglz.core.manager.FeatureManager;
@@ -33,7 +30,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 @Slf4j
 @Transactional
