@@ -104,9 +104,9 @@ mongosh -f --username root --password password -f   delete_and_generate_basic_da
 ```
 
 ### Run tests:
-artillery run artilleryRaceRegistration.yml > results/artilleryRaceRegistration_result_TestX_$(date +"%Y-%m-%d-%H-%M-%s".txt) 
+artillery run performance/raquetelio/artilleryRaceRegistration.yml > performance/raquetelio/results/artilleryRaceRegistration_result_TestX_$(date +"%Y-%m-%d-%H-%M-%s".txt) 
 
-[File with application codes](/performance/application_code_mongo_20221113.csv "File with application codes")
+[File with application codes](/performance/raquetelio/application_code_mongo_20221113.csv "File with application codes")
 
 
 ## Results:
@@ -117,7 +117,7 @@ artillery run artilleryRaceRegistration.yml > results/artilleryRaceRegistration_
 
 ### Graphic
 
-[Tests graphic postgres-mongo](/performance/raquetelio/results/tests-graphic-postgres-mongo.jpg "Tests graphic postgres-mongo")
+![Tests graphic postgres-mongo](/performance/raquetelio/results/tests-graphic-postgres-mongo.jpg "Tests graphic postgres-mongo")
 
 
 
