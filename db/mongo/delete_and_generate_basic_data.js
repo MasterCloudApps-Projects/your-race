@@ -21,12 +21,13 @@ let athlete_applications = 30000;
 let athlete_capacity = 8000;
 let concurrent_request_treshold = 20;
 let race_id=0;
-let result;
+let resultRace;
+let resultAthlete;
 
 let race = {
     "name": "Test race",
     "description": "Test Race Marathon",
-    "date": "2023-02-01 09:00:00",
+   // "date": "2023-02-01 09:00:00",
     "location": "Madrid",
     "distance": 42.195,
     "type": "Running",
@@ -42,6 +43,13 @@ let race = {
 
 result = await db.race.insertOne(race);
 race_id = result.insertedId;
+
+resultRace = race;
+resultRace.id=race_id;
+
+//resultRace = db.race.find({"id":race_id});
+
+
 
 //race_id = "6370da98bc4dcb717418bdb3"
 
@@ -60,14 +68,17 @@ race_id = result.insertedId;
 
     result = await db.athlete.insertOne(athlete);
 
+    
+    athlete_id = result.insertedId;
 
-   athlete_id = result.insertedId;
+    resultAthlete = athlete;
+    resultAthlete.id=athlete_id;
 
-  
+   // resultAthlete = db.athlete.find({"id":athlete_id});
 
     application = {
-        "athleteId": athlete_id,
-        "raceId": race_id,
+        "athlete": resultAthlete,
+        "race": resultRace,
         "applicationCode": getApplicationCode(10)
     }
    result = await db.application.insertOne(application);
@@ -84,3 +95,6 @@ function getApplicationCode(length) {
     }
     return result;
 }
+
+
+

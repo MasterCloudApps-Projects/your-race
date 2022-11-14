@@ -48,8 +48,8 @@ spec:
               value: "password"
             - name: SPRING_DATA_MONGODB_DATABASE
               value: racedb      
-            #- name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
-            #  value: "20"
+            - name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
+              value: "40"
           image: raquetelio/your-race:v20221113
           name: your-race
           ports:
