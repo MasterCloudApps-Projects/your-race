@@ -58,7 +58,7 @@ Finally, test with Postman or Artillery for massive calls.
 ## How to test in Kubernetes cluster
 
 ### Docker Image
-raquetelio/20221113
+raquetelio/your-race:v20221113
 
 ### Feature Toggle 
 
@@ -111,7 +111,7 @@ artillery run artilleryRaceRegistration.yml > results/artilleryRaceRegistration_
 
 ## Results:
 
-![Results older](/performance/raquetelio/results/mongo "Results folder")
+![Results folder](/performance/raquetelio/results/mongo)
 
 ![Full detail of test cases (from 1 to 24)](https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262 "Full detail of test cases (from 1 to 24)")
 
