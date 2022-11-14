@@ -76,6 +76,16 @@ Importar Dashboard:
 - import [Personalized Dashboard](/grafana/personalized.json)
 
 
+### Feature Toggle 
+
+Console:
+```
+http://localhost/togglz-console/index
+``` 
+Feature toggle list:
+- "Use MongoDB".
+- ...
+
 
 ## Postman Collection
 [Postman Collection](/your-race/your-race.postman_collection.json).
