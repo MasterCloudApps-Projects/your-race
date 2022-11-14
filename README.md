@@ -88,16 +88,28 @@ Importar Dashboard:
 ### Import data for testing 
 [Import data for testing](/db/export_test_data_20221104/export_202211041741.sql). Generates a set of data for Race, Athlete and Applications are populated.
 
-### Application_code list
-
 This list is the source of the massive tests: 
  [Application code list of data imported](/db/export_test_data_20221104/application_code_list_202211052018.csv)
 
-### How to generate data for testing
 If you want to find out the details of how this data has been generated, check out the documentation in [How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the Postgres database.
 
-## Artillery
-[Artillery scripts and data]](/performance/)
+## Performance tests executed
+
+[Artillery scripts and data](/performance/)
+
+### Mongo experiment
+
+An experiment has been run to compare the peformance between Postgres and MongoDB. The result were very close to the performance provided with Postgres, and this line of investigation has been descarted so far.
+Details are included in [Performance-testing-Postgres-Mongo](/docs/Performance-testing-Postgres-Mongo.md)
+
+### Test Results
+
+Tests results and configuration parameters used are gathered in:
+https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262
+
+#### Graphic
+[Tests graphic postgres-mongo](/performance/raquetelio/results/tests-graphic-postgres-mongo.jpg "Tests graphic postgres-mongo")
+
 
 # References
 
