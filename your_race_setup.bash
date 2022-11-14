@@ -38,16 +38,6 @@ kubectl port-forward service/grafana 3000:3000 &
 psql postgresql://admin:admin@localhost:5555/racedb -f db/postgres/export_test_data_20221104/export_202211041741.sql
 
 
-# BBDD Mongo
-kubectl apply -f k8s/manifests-mongo/
-# Portforward para la BBDD Mongo
-kubectl port-forward service/mongodb 27017:27017 &
-# Importar los datos de test performance a la BBDD Mongo:
-#sh db/mongo/mongo_import.bash racedb
-# Generar los datos:
-mongosh -f --username root --password password -f   delete_and_generate_basic_data.js --shell
-
-
 
 
 #Descubrir ip Istio gateway:

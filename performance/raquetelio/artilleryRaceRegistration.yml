@@ -1,13 +1,13 @@
 config:
-  target: "http://192.168.49.2:30888"
+  target: "http://192.168.49.2:31107"
   phases:
     - duration: 30
       arrivalRate: 1    
       maxVusers: 30  
       name: Warm up
 
-    - duration: 300
-      arrivalRate: 100
+    - duration: 30
+      arrivalRate: 500
       maxVusers: 40000
       name: Massive load
 
@@ -20,8 +20,7 @@ config:
 
   payload:
 
-   # path: "application_202211082353_postgres.csv"
-    path: "application_code_mongo_20221113.csv"
+    path: "application_202211082353_postgres.csv"   
     fields:
         - "applicationCode"
     order: sequence
