@@ -85,16 +85,16 @@ Importar Dashboard:
 
 ## Test data
 
-Import data for testing in XX. A set of data for Race, Athlete and Applications is populated:
-![Import data for testing](/db/export_test_data_20221104/export_202211041741.sql)
+Import data for testing in this file. A set of data for Race, Athlete and Applications is populated:
+[Import data for testing](/db/export_test_data_20221104/export_202211041741.sql)
 
 This file contains the application_code list generated and could be the source of the massive tests.
-![Application code list of data imported](/db/export_test_data_20221104/application_code_list_202211052018.csv)
+[Application code list of data imported](/db/export_test_data_20221104/application_code_list_202211052018.csv)
 
-If you want to find out the details of how this data has been generated, check out the documentation in ![How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the relational database.
+If you want to find out the details of how this data has been generated, check out the documentation in [How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the relational database.
 
 ## Artillery
-![Artillery scripts and data]](/performance/)
+[Artillery scripts and data]](/performance/)
 
 # References
 
