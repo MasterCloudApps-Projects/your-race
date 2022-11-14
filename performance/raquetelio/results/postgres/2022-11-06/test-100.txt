@@ -1,0 +1,10 @@
+replicas:1
+pod escalaron? No
+
+Mucho Athlete already registered to race
+
+2022-11-06 23:04:36.187  WARN 1 --- [o-8080-exec-197] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [es.codeurjc.mastercloudapps.your_race.domain.exception.AthleteAlreadyRegisteredToRace: Athlete already registered to race.]
+2022-11-06 23:04:36.192 ERROR 1 --- [o-8080-exec-248] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [track_athleteraceindex]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement] with root cause
+
+org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "track_athleteraceindex"
+  Detail: Key (athlete_id, race_id)=(13324, 10003) already exists.

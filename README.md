@@ -75,128 +75,58 @@ Importar Dashboard:
 - 6417 K8s Cluster
 - import [Personalized Dashboard](/grafana/personalized.json)
 
-## Services
 
-Find bellow the description of the most relevant services.
-You can import your-race.postman_collection.json to get the full list of implemented services. 
-### Get Races
+### Feature Toggle 
 
-Use 'open=true' parameter to get only open races (not celebrated yet).
-
+Console:
 ```
-GET {{baseUrl}}/api/races?open=true
-http://localhost:8080/api/races?open=true 
-```
-
-### Get Athletes
-```
-GET {{baseUrl}}/api/athletes
-http://localhost:8080/api/atheletes
-```
-
-### Athlete Race Application
-
-#### Create Application to a Race:
-```
-POST {{baseUrl}}/api/athletes/{idAthlete}}/applications/{idRace}}
-http://localhost:8080/api/athletes/10004/applications/10003 
-```
-
-#### Get Applications for a Race:
-
-```
-GET {{baseUrl}}/api/applications/races/{idRace}}
-http://localhost:8080/api/applications/races/10003
-```
-
-### Race Registrations
-#### Race Registration By Order (with Application code)
-```
-POST {{baseUrl}}/api/tracks/byorder
-Body: {"applicationCode": "{applicationCode}"}
-
-curl -X POST http://localhost:8080/api/tracks/byorder -H "content-type: application/json" -d '{ "applicationCode":  "d0f3529f4"}'
-```
-
-#### Race Registration By Draw (by Organizer)
-```
-POST {{baseUrl}}/api/tracks/bydraw
-Body: {"athleteId": {athleteId},"raceId": {raceId}}
-
-curl -X POST http://localhost:8080/api/tracks/bydraw -H "content-type: application/json" -d '{"athleteId": 10006,"raceId": 10003}'
-```
-
-#### Get Registrations for an open Race
-```
-GET {{baseUrl}}/api/tracks?open=true
-Body: {"raceId": {raceId}}
-
-curl -X GET Http://localhost:8080/api/races?open=true -H "content-type: application/json" -d '{"raceId": 10003}'
-```
-
-
-## How to generate data for Testing
-### Massive calls generation in one script
-
-Run script [generate_and_send_registration_calls.bash](/db/gererate_registration_calls/generate_and_send_registration_calls.bash) to send massive calls to register athletes to a race:
-
-```
-bash db/gererate_registration_calls/generate_and_send_registration_calls.bash
-```
-
-You can set the number of applicant athletes and the race capacity by editing the script [1.prepare_basic_data.psql](/db/gererate_registration_calls/1.prepare_basic_data.psql).
-
-
-
-### Massive calls generation step by step
-
-#### [Optional] Remove generated test data if you have previously run the scripts
-```
-docker cp db/gererate_registration_calls/_delete_basic_data.sql k8s_pgdb_1:/var/lib/postgresql/_delete_basic_data.sql 
-docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/_delete_basic_data.sql 
-```
-
-#### 1. Prepare basic data for race in database.
-
-This script creates an Organizer, a Race (with ApplicationPeriod, RegistrationRace and the capacity set in the parameter 'athlete_capacity') and as many Ahtletes and Applications to the race as set in parameter 'athlete_applications'.
-
-```
-docker cp db/gererate_registration_calls/1.prepare_basic_data.psql k8s_pgdb_1:/var/lib/postgresql/1.prepare_basic_data.psql 
-docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/1.prepare_basic_data.psql 
+http://localhost/togglz-console/index
 ``` 
+Feature toggle list:
+- "Use MongoDB".
+- ...
 
-#### 2. Generate the registration calls.
-
-This script generates a file with the calls to the endpoint for register the Athletes in the Race (ByOrder) with their applicationCodes. 
-```
-REGISTRATION_CALLS_FILE_NAME="performance/test/massive_registration_calls-"$(date +"%Y-%m-%d-%H-%M-%s".bash)
-bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRATION_CALLS_FILE_NAME
-```
-
-#### 3. Run the resulting script with the registration calls.
-
-Run the script and track the time spent in the process of the file through 'SECONDS' shell variable. Results are saved in the '*result.txt' file.
-
-
-```
-SECONDS=0
-bash $REGISTRATION_CALLS_FILE_NAME
-echo "Duration: $SECONDS seconds ("$(( SECONDS / 60 )) "minutes)("$(( SECONDS / 3060 )) "hours)" > ${REGISTRATION_CALLS_FILE_NAME}_result.txt
-echo `cat ${REGISTRATION_CALLS_FILE_NAME}_result.txt`
-```
-
-### How to populate some data for local exploratory testing
-
-Copy initializer script to docker container and run script over it:
-```
-docker cp db/populate_initial_data.sql k8s_pgdb_1:/var/lib/postgresql 
-docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial_data.sql
-```
-
-Check out generated ids in file [database_initial_ids.txt](/db/database_initial_ids.txt).
 
 ## Postman Collection
 [Postman Collection](/your-race/your-race.postman_collection.json).
+
+
+# Performance Testing
+
+## Test data
+
+### Import data for testing 
+Import this script: [/db/export_test_data_20221104/export_202211041741.sql](/db/export_test_data_20221104/export_202211041741.sql). 
+
+Generates a set of data for Race, Athlete and Applications are populated.
+
+This list is the source of Application codes for the massive tests: 
+ [/db/export_test_data_20221104/application_code_list_202211052018.csv](/db/export_test_data_20221104/application_code_list_202211052018.csv)
+
+If you want to find out the details of how this data has been generated, check out the documentation in docs [How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the Postgres database.
+
+## Performance tests executed
+
+Artillery scripts and data folder: [/performance/](/performance/)
+
+How to run a test and collect results:
+```
+artillery run performance/raquetelio/artilleryRaceRegistration.yml > performance/raquetelio/results/artilleryRaceRegistration_result_TestX_$(date +"%Y-%m-%d-%H-%M-%s".txt) 
+```
+
+### Mongo experiment
+
+An experiment has been run to compare the peformance between Postgres and MongoDB. It didn't provide any improvement on the results, so this line of investigation has been descarted so far.
+Details are included in docs [Performance-testing-Postgres-Mongo](/docs/Performance-testing-Postgres-Mongo.md)
+
+### Test Results
+
+Tests results and configuration parameters used are gathered in:
+https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262
+
+#### Graphic
+
+![Tests graphic postgres-mongo](/performance/raquetelio/results/tests-graphic-postgres-mongo.jpg "Tests graphic postgres-mongo")
 
 
 # References
