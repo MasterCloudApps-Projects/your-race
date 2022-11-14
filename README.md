@@ -96,7 +96,7 @@ This list is the source of the massive tests.
  [Application code list of data imported](/db/export_test_data_20221104/application_code_list_202211052018.csv)
 
 ### How to generate data for testing
-If you want to find out the details of how this data has been generated, check out the documentation in [How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the relational database.
+If you want to find out the details of how this data has been generated, check out the documentation in [How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the Postgres database.
 
 ## Artillery
 [Artillery scripts and data]](/performance/)
