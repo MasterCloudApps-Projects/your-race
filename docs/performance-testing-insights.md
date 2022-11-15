@@ -6,7 +6,7 @@ Full detail of results and parameters:
 https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262
 
 ### Graphic
-![TestResults_1_to_49.png](TestResults_1_to_49.png)
+![your-race-graphics-performance-test-1-49.drawio.png](your-race-graphics-performance-test-1-49.drawio.png)
 
 ### Contributors
 
