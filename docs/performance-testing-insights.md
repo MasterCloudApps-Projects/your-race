@@ -5,6 +5,9 @@
 Full detail of results and parameters:
 https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262
 
+### Graphic
+![TestResults_1_to_49.png](TestResults_1_to_49.png)
+
 ### Contributors
 
 For a Minikube cluster with 4 CPUs and 8GB of Memory, this parameters have been investigated and have an impact on the results improvement:
