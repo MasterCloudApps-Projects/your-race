@@ -35,7 +35,7 @@ kubectl port-forward service/pgdb 5555:5432 &
 kubectl port-forward service/grafana 3000:3000 &
 
 # Importar los datos de test performance a la BBDD:
-psql postgresql://admin:admin@localhost:5555/racedb -f db/postgres/export_test_data_20221104/export_202211041741.sql
+psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221104/export_202211041741.sql
 
 
 
@@ -47,7 +47,7 @@ echo "Istio gateway ingress port:"
 echo "http://$INGRESS_HOST:$INGRESS_PORT"
 
 # Watch cluster deployments, services,..
-watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice &
+#watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice &
 
 
 echo "done"

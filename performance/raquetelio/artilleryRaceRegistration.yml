@@ -6,7 +6,7 @@ config:
       maxVusers: 30  
       name: Warm up
 
-    - duration: 30
+    - duration: 40
       arrivalRate: 500
       maxVusers: 40000
       name: Massive load
