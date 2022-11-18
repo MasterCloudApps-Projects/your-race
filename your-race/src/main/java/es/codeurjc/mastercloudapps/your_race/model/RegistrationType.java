@@ -11,9 +11,4 @@ public enum RegistrationType {
     BYORDER("BYORDER");
 
     public final String label;
-
-
-
-
-
 }

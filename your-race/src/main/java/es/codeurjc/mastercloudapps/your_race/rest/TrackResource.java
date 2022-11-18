@@ -9,7 +9,6 @@ import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackRequestDTO;
-import es.codeurjc.mastercloudapps.your_race.service.RaceByOrderService;
 import es.codeurjc.mastercloudapps.your_race.service.TrackService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
@@ -27,12 +26,10 @@ import java.util.List;
 public class TrackResource {
 
     private final TrackService trackService;
-    private final RaceByOrderService raceByOrderService;
     private final FeatureManager featureManager;
 
-    public TrackResource(final TrackService trackService, RaceByOrderService raceByOrderService, FeatureManager featureManager) {
+    public TrackResource(final TrackService trackService,  FeatureManager featureManager) {
         this.trackService = trackService;
-        this.raceByOrderService = raceByOrderService;
         this.featureManager = featureManager;
     }
 
@@ -69,7 +66,7 @@ public class TrackResource {
             throws ApplicationCodeNotValidException, RaceFullCapacityException
             ,AthleteAlreadyRegisteredToRace {
         if(featureManager.isActive(Features.rabbitproducer)) {
-            raceByOrderService.createNewRaceByOrder(registrationByOrderDTO);
+            trackService.createByOrderAsync(registrationByOrderDTO);
             return new ResponseEntity<>(null, HttpStatus.CREATED);
         } else {
             TrackDTO trackDTO = trackService.createByOrder(registrationByOrderDTO);

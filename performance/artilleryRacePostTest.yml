@@ -8,7 +8,7 @@ config:
     timeout: 35
   phases:
     - duration: 10
-      arrivalRate: 1000
+      arrivalRate: 2000
 
   payload:
     path: "application_202211061120.csv"

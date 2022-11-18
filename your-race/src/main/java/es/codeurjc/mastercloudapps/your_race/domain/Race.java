@@ -1,8 +1,10 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
 import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
+import es.codeurjc.mastercloudapps.your_race.model.RaceStatus;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @ToString
+@Slf4j
 public class Race {
 
     @Id
@@ -53,6 +56,9 @@ public class Race {
 
     @Column
     private Integer athleteCapacity;
+
+    @Column
+    private RaceStatus raceStatus;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "race")
@@ -92,8 +98,6 @@ public class Race {
         if (this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYORDER))
             return true;
         return this.raceRegistrationInfo.getRegistrationType().equals(RegistrationType.BYDRAW);
-
-
     }
     private boolean athleteCapacityIsValid(){
         return Optional.ofNullable(this.athleteCapacity).isEmpty()
@@ -170,6 +174,9 @@ public class Race {
             return raceTracksSize+1;
 
         throw new RaceFullCapacityException("Race capacity has been reached. There's no more dorsals available for this race.");
+    }
 
+    public boolean isRegistrableStatus() throws RaceFullCapacityException {
+        return this.getRaceStatus().ordinal() < RaceStatus.REGISTRATION_CLOSE.ordinal();
     }
 }

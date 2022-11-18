@@ -21,4 +21,10 @@ public class YourRaceApplication {
         return QueueBuilder.durable("raceByOrderCreationProgressNotifications")
                 .build();
     }
+    /*@Bean
+    public Queue myQueue() {
+        Map<String, Object> args = new HashMap<>();
+        args.put("x-queue-type", "stream");
+        return new Queue("raceByOrderCreationProgressNotifications", true, false, false, args);
+    }*/
 }
