@@ -32,11 +32,11 @@ class ApplicationServiceTest {
                 .build()));
 
         // when -  action or the behaviour that we are going test
-        Optional<Application> application = applicationService.findByApplicationCode(RegistrationByOrderDTO.builder()
+        Application application = applicationService.findByApplicationCode(RegistrationByOrderDTO.builder()
                 .applicationCode("")
                 .build());
 
         // then - verify the output
-        assertThat(application).isNotEmpty();
+        assertThat(application.getId()).isEqualTo(1L);
     }
 }

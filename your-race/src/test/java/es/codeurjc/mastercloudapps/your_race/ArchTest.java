@@ -26,11 +26,12 @@ public class ArchTest {
         layeredArchitecture()
                 .consideringAllDependencies()
                 .layer("RestController").definedBy("..rest..")
+                .layer("Component").definedBy("..component..")
                 .layer("Service").definedBy("..service..")
                 .layer("Repository").definedBy("..repos..")
 
                 .whereLayer("RestController").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Service").mayOnlyBeAccessedByLayers("RestController")
+                .whereLayer("Service").mayOnlyBeAccessedByLayers("RestController","Component")
                 .whereLayer("Repository").mayOnlyBeAccessedByLayers("Service")
                 .check(importedClasses);
     }

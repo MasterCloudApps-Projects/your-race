@@ -72,27 +72,27 @@ public class TrackService {
     
     
     public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        Optional<Application> application = getApplication(registrationByOrderDTO);
+        Application application = getApplication(registrationByOrderDTO);
 
-        return registerToRace(application.get().getApplicationAthlete(), application.get().getApplicationRace());
+        return registerToRace(application.getApplicationAthlete(), application.getApplicationRace());
 
     }
 
     public TrackDTO createByOrderAsync(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        Optional<Application> application = getApplication(registrationByOrderDTO);
+        Application application = getApplication(registrationByOrderDTO);
 
         log.info("New raceByOrderCreationProgressNotifications: " + registrationByOrderDTO.getApplicationCode());
         rabbitTemplate.convertAndSend("raceByOrderCreationProgressNotifications", registrationByOrderDTO);
-        return null;
+        return TrackDTO.builder().build();
     }
 
     @NotNull
-    private Optional<Application> getApplication(RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException {
-        Optional<Application> application = applicationService.findByApplicationCode(registrationByOrderDTO);
-        if (!application.get().getApplicationRace().isRegistrableStatus())
+    private Application getApplication(RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException {
+        Application application = applicationService.findByApplicationCode(registrationByOrderDTO);
+        if (!application.getApplicationRace().isRegistrableStatus())
             throw new RaceFullCapacityException("Race registration is full capacity status.");
-        if (!application.get().getApplicationRace().getRaceRegistrationInfo().isDateReadyToRegistration())
-            throw new RaceFullCapacityException("Race registration starts at: "+application.get().getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+        if (!application.getApplicationRace().getRaceRegistrationInfo().isDateReadyToRegistration())
+            throw new RaceFullCapacityException("Race registration starts at: "+application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
         return application;
     }
 

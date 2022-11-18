@@ -63,11 +63,11 @@ public class ApplicationService {
     }
 
     @CircuitBreaker(name = "CBfindByApplicationCode")
-    public Optional<Application> findByApplicationCode(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException {
+    public Application findByApplicationCode(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException {
         Optional<Application> application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
         if (application.isEmpty())
             throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
-        return application;
+        return application.get();
     }
 
     public List<ApplicationDTO> findAllApplication(Long id){

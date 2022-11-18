@@ -42,6 +42,7 @@ class TestDataBuilder  {
                             .build())
                     .date(LocalDateTime.now().plusMonths(6L))
                     .athleteCapacity(3)
+                    .raceStatus(RaceStatus.PRE_REGISTRATION_OPEN)
                     .build();
         }
 
@@ -133,9 +134,7 @@ class TestDataBuilder  {
                         .content(generateRegistrationByOrderBodyRequest(applicationDTO.getApplicationCode(),athlete.getId(),race.getId())))
                 .andExpect(status().isCreated()).andReturn();
 
-        return mapper.readValue(result.getResponse().getContentAsString(), TrackDTO.class);
-
-
+        return new TrackDTO();
 
     }
     }
