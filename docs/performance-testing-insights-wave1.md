@@ -6,7 +6,7 @@ Full detail of results and parameters:
 https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262
 
 ### Graphic
-![your-race-graphics-wave1-test-1-49.drawio.png](./your-race-graphics-wave1-test-1-49.drawio.jpg)
+![images/your-race-graphics-wave1-test-1-49.drawio.png](./images/your-race-graphics-wave1-test-1-49.drawio.jpg)
 
 ### Contributors
 
@@ -42,8 +42,8 @@ Test 30.
 - Ratio of error 504: 0%.
 
 
-Results: [artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.txt](artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.txt).
-Dashboard: ![artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.png](artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.png)
+Results: [tests/artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.txt](tests/artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.txt).
+Dashboard: ![images/artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.png](images/artilleryRaceRegistration_result_Test30_2022-11-14-23-06-1668463611.png)
 
 
 Question: Why I didn't get any exception about Full capacity of race reached?

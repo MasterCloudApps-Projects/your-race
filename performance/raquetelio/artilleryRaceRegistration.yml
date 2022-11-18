@@ -8,7 +8,7 @@ config:
 
     - duration: 40
       arrivalRate: 500
-      maxVusers: 40000
+      maxVusers: 30000
       name: Massive load
 
  #   - duration: 30
@@ -20,7 +20,7 @@ config:
 
   payload:
 
-    path: "application_202211082353_postgres.csv"   
+    path: "application_code_202211162257.csv"   
     fields:
         - "applicationCode"
     order: sequence

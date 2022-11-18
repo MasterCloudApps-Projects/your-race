@@ -44,4 +44,10 @@ where race_id >10000
 select age (max(registration_date) , min (registration_date)) from track 
 where race_id >10000
 
+select *  from application a 
 
+UPDATE application 
+SET application_code  = substring(application_code, 2,10)
+
+
+select substring(application_code, 2,10)  from application a 

@@ -23,6 +23,7 @@ kubectl label namespace default istio-injection=enabled
 cd ..
 kubectl apply -f k8s/istio/
 
+
 #Get the Prometheus server URL by running these commands in the same shell:
 export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}")
 #Portforward a Prometheus server:
@@ -34,8 +35,10 @@ kubectl port-forward service/pgdb 5555:5432 &
 # Portforward para Grafana:
 kubectl port-forward service/grafana 3000:3000 &
 
+# Portfo
+
 # Importar los datos de test performance a la BBDD:
-psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221104/export_202211041741.sql
+psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221116/export_202211162257.sql
 
 
 

@@ -129,7 +129,7 @@ https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJ
 ![Tests graphic postgres-mongo](/performance/raquetelio/results/tests-graphic-postgres-mongo.jpg "Tests graphic postgres-mongo")
 
 ### Insights
-Check out [performance-testing-insights](/docs/performance-testing-insights.md).
+Check out [performance-testing-insights-wave1](/docs/performance-testing-insights-wave1.md).
 
 # References
 
