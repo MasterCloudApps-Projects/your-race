@@ -1,5 +1,5 @@
 config:
-  target: "http://192.168.49.2:31107"
+  target: "http://192.168.49.2:31199"
   phases:
     - duration: 30
       arrivalRate: 1    
@@ -20,7 +20,7 @@ config:
 
   payload:
 
-    path: "application_code_202211162257.csv"   
+    path: "application_code_202211181836.csv"   
     fields:
         - "applicationCode"
     order: sequence

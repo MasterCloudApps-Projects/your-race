@@ -13,14 +13,13 @@ kubectl apply -f k8s/manifests-operator/
 
 cd k8s
 curl -L https://istio.io/downloadIstio | sh -
+cd ..
 
-
-cd istio-1.15.3
-export PATH=$PWD/bin:$PATH
+export PATH=$PWD/k8s/istio-1.15.3/bin:$PATH
 istioctl install --set profile=demo -y
 kubectl label namespace default istio-injection=enabled
 
-cd ..
+
 kubectl apply -f k8s/istio/
 
 
@@ -35,10 +34,11 @@ kubectl port-forward service/pgdb 5555:5432 &
 # Portforward para Grafana:
 kubectl port-forward service/grafana 3000:3000 &
 
-# Portfo
+# Portforward para RabbitMQ
+kubectl port-forward service/rabbitmq 5672:5672 &
 
 # Importar los datos de test performance a la BBDD:
-psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221116/export_202211162257.sql
+psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221116/export_202211162255.sql
 
 
 
