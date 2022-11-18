@@ -4,9 +4,7 @@ import org.togglz.core.Feature;
 import org.togglz.core.annotation.Label;
 
 public enum Features  implements Feature {
-
-    @Label("Use CircuitBreakers")
-    usecb,
+    
     @Label("Use RabbitMQ producer")
     rabbitproducer
 }

@@ -1,6 +1,5 @@
 package es.codeurjc.mastercloudapps.your_race.service;
 
-import es.codeurjc.mastercloudapps.your_race.Features;
 import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
@@ -11,15 +10,17 @@ import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityEx
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.AthleteNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.RaceNotFoundException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.notfound.YourRaceNotFoundException;
+import es.codeurjc.mastercloudapps.your_race.model.RaceStatus;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByDrawDTO;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
-import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -39,17 +40,20 @@ public class TrackService {
     private final TrackRepository trackRepository;
     private final RaceRepository raceRepository;
     private final AthleteRepository athleteRepository;
-    private final ApplicationRepository applicationRepository;
+    private final ApplicationService applicationService;
     private final FeatureManager featureManager;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
 
 
     public TrackService(final TrackRepository trackRepository, final RaceRepository raceRepository,
-                        final AthleteRepository athleteRepository, final ApplicationRepository applicationRepository,
+                        final ApplicationService applicationService, final AthleteRepository athleteRepository,
                         final FeatureManager featureManager) {
         this.trackRepository = trackRepository;
         this.raceRepository = raceRepository;
         this.athleteRepository = athleteRepository;
-        this.applicationRepository = applicationRepository;
+        this.applicationService = applicationService;
         this.featureManager = featureManager;
     }
 
@@ -65,57 +69,69 @@ public class TrackService {
                 .map(track -> mapToDTO(track, new TrackDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
-    @CircuitBreaker(name = "CBfindByApplicationCode")
-    public Optional<Application> findByApplicationCode(final RegistrationByOrderDTO registrationByOrderDTO){
-        return applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
-    }
+    
     
     public TrackDTO createByOrder(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
-        Optional<Application> application;
+        Application application = getApplication(registrationByOrderDTO);
 
-        if(featureManager.isActive(Features.usecb)) {
-            application = findByApplicationCode(registrationByOrderDTO);
-        } else {
-            application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
-        }
-        
-        if (!application.isPresent())
-            throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
-
-        return registerToRace(application.get().getApplicationAthlete(),application.get().getApplicationRace());
+        return registerToRace(application.getApplicationAthlete(), application.getApplicationRace());
 
     }
-    public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException, AthleteAlreadyRegisteredToRace {
-        Race race = getRace(registrationByDrawDTO);
-        Athlete athlete = getAthlete(registrationByDrawDTO);
 
-        if (race== null)
+    public TrackDTO createByOrderAsync(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
+        Application application = getApplication(registrationByOrderDTO);
+
+        log.info("New raceByOrderCreationProgressNotifications: " + registrationByOrderDTO.getApplicationCode());
+        rabbitTemplate.convertAndSend("raceByOrderCreationProgressNotifications", registrationByOrderDTO);
+        return TrackDTO.builder().build();
+    }
+
+    @NotNull
+    private Application getApplication(RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException {
+        Application application = applicationService.findByApplicationCode(registrationByOrderDTO);
+        if (!application.getApplicationRace().isRegistrableStatus())
+            throw new RaceFullCapacityException("Race registration is full capacity status.");
+        if (!application.getApplicationRace().getRaceRegistrationInfo().isDateReadyToRegistration())
+            throw new RaceFullCapacityException("Race registration starts at: "+application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
+        return application;
+    }
+
+    public TrackDTO createByDraw(final RegistrationByDrawDTO registrationByDrawDTO) throws RaceFullCapacityException, YourRaceNotFoundException, AthleteAlreadyRegisteredToRace {
+
+        Optional<Race> race = raceRepository.findById(registrationByDrawDTO.getRaceId());
+        Optional<Athlete> athlete = athleteRepository.findById(registrationByDrawDTO.getAthleteId());
+
+        if (race.isEmpty())
             throw new RaceNotFoundException("Race not found.");
-        if (athlete==null)
+        if (athlete.isEmpty())
            throw new AthleteNotFoundException("Athlete not found.");
 
 
-        return registerToRace(athlete,race);
-
-
+        return registerToRace(athlete.get(),race.get());
     }
-
-    private TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
+    
+    
+    public TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
 
         if(findAthleteTrackInRace(athlete,race))
             throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
 
-        Track track = trackRepository.save(Track.builder()
-                .race(race)
-                .athlete(athlete)
-                .dorsal(race.getNextDorsal(trackRepository.countByRace(race)))
-                .registrationDate(LocalDateTime.now())
-                .paymentInfo("Pending")
-                .status("Registered")
-                .build());
-        
-        return mapToDTO(track, new TrackDTO());
+        try {
+            Track track = trackRepository.save(Track.builder()
+                    .race(race)
+                    .athlete(athlete)
+                    .dorsal(race.getNextDorsal(trackRepository.countByRace(race)))
+                    .registrationDate(LocalDateTime.now())
+                    .paymentInfo("Pending")
+                    .status("Registered")
+                    .build());
+
+            return mapToDTO(track, new TrackDTO());
+        } catch (RaceFullCapacityException e){
+            race.setRaceStatus(RaceStatus.REGISTRATION_CLOSE);
+            raceRepository.save(race);
+            throw e;
+        }
     }
 
     private boolean findAthleteTrackInRace(Athlete athlete, Race race){
@@ -210,25 +226,6 @@ public class TrackService {
         track.setAthlete(athlete);
         return track;
     }
-
-    private Race getRace(RegistrationByDrawDTO registrationByDrawDTO){
-
-        return applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationRace().getId().equals(registrationByDrawDTO.getRaceId()))
-                .findAny()
-                .map(Application::getApplicationRace).orElse(null);
-
-    }
-
-    private Athlete getAthlete(RegistrationByDrawDTO registrationByDrawDTO){
-
-        return applicationRepository.findAll().stream()
-                .filter(application -> application.getApplicationAthlete().getId().equals(registrationByDrawDTO.getAthleteId()))
-                .findAny()
-                .map(Application::getApplicationAthlete).orElse(null);
-
-    }
-
-
+    
 }
 

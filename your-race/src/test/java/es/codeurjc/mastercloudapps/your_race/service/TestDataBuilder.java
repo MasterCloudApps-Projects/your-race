@@ -5,15 +5,12 @@ import com.github.javafaker.Faker;
 import es.codeurjc.mastercloudapps.your_race.domain.*;
 import es.codeurjc.mastercloudapps.your_race.model.*;
 import org.apache.commons.lang3.RandomUtils;
-import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,6 +42,7 @@ class TestDataBuilder  {
                             .build())
                     .date(LocalDateTime.now().plusMonths(6L))
                     .athleteCapacity(3)
+                    .raceStatus(RaceStatus.PRE_REGISTRATION_OPEN)
                     .build();
         }
 
@@ -136,9 +134,7 @@ class TestDataBuilder  {
                         .content(generateRegistrationByOrderBodyRequest(applicationDTO.getApplicationCode(),athlete.getId(),race.getId())))
                 .andExpect(status().isCreated()).andReturn();
 
-        return mapper.readValue(result.getResponse().getContentAsString(), TrackDTO.class);
-
-
+        return new TrackDTO();
 
     }
     }

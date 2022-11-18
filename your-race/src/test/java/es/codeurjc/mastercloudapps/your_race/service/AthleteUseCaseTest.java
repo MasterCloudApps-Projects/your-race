@@ -5,9 +5,9 @@ import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.Track;
-import es.codeurjc.mastercloudapps.your_race.model.*;
+import es.codeurjc.mastercloudapps.your_race.model.ApplicationRequestDTO;
+import es.codeurjc.mastercloudapps.your_race.model.TrackRequestDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
