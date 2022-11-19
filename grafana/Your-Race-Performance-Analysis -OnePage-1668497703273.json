@@ -24,14 +24,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -110,7 +110,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "avg(avg_over_time(process_cpu_usage{application=\"\"}[1m])) by (instance)",
@@ -129,7 +129,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "description": "Average user and system CPU time spent in seconds.",
       "fieldConfig": {
@@ -180,7 +180,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "avg(rate(process_cpu_seconds_total{}[5m]) * 1000) by (instance)",
@@ -224,7 +224,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -302,7 +302,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "builder",
           "expr": "sum by(status, exception) (http_server_requests_seconds_max{app=\"your-race\", status=~\"500\"})",
@@ -318,7 +318,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -427,7 +427,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "max(max_over_time(http_server_requests_seconds_max{status!~\"^2\\\\d+$\"}[1m])) by (method,uri,outcome,status)",
@@ -442,7 +442,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -519,7 +519,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "sum by(status) (http_server_requests_seconds_max{app=\"your-race\"})",
@@ -535,7 +535,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -587,23 +587,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "{exception=\"DataIntegrityViolationException\", status=\"500\"}"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 17,
@@ -630,7 +614,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "sum by(status, exception) (http_server_requests_seconds_max{app=\"your-race\", status!=\"201\"})",
@@ -646,7 +630,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -724,7 +708,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "max(max_over_time(http_server_requests_seconds_max{status=~\"^2\\\\d+$\"}[1m])) by (method,uri,outcome,status)",
@@ -744,7 +728,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "xKMwOFdVz"
+        "uid": "VemJLFO4z"
       },
       "fieldConfig": {
         "defaults": {
@@ -795,7 +779,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "xKMwOFdVz"
+            "uid": "VemJLFO4z"
           },
           "editorMode": "code",
           "expr": "pg_stat_activity_count{ state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
@@ -865,7 +849,7 @@
       "type": "row"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
@@ -873,13 +857,13 @@
     "list": []
   },
   "time": {
-    "from": "2022-11-19T18:37:41.885Z",
-    "to": "2022-11-19T18:44:08.505Z"
+    "from": "now-15m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Your-Race-Performance-Analysis -OnePage Copy",
-  "uid": "Loc8KKd4z",
+  "title": "Your-Race-Performance-Analysis -OnePage",
+  "uid": "2-laX6D4z",
   "version": 1,
   "weekStart": "monday"
 }
