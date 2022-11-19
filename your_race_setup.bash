@@ -50,7 +50,7 @@ echo "Istio gateway ingress port:"
 echo "http://$INGRESS_HOST:$INGRESS_PORT"
 
 # Watch cluster deployments, services,..
-#watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice &
+#watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice 
 
 
 echo "done"
