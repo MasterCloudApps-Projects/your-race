@@ -38,7 +38,7 @@ kubectl port-forward service/grafana 3000:3000 &
 kubectl port-forward service/rabbitmq 5672:5672 &
 
 # Importar los datos de test performance a la BBDD:
-psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221116/export_202211162255.sql
+psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221118/export_202211181943.sql
 
 
 
