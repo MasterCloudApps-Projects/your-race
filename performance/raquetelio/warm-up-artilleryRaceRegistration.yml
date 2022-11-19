@@ -1,0 +1,16 @@
+config:
+  target: "http://192.168.49.2:31966"
+  phases:
+    - duration: 600
+      arrivalRate: 3  
+      #maxVusers: 200  
+      name: Warm up
+
+  http:
+    timeout: 80
+
+scenarios:
+  - name: "Get open races"
+    flow:
+      - get:
+          url: "/api/races?open=true"
