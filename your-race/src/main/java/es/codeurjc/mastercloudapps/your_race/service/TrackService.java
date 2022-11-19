@@ -104,7 +104,7 @@ public class TrackService {
     private TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
 
         if(findAthleteTrackInRace(athlete,race))
-            throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
+            throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race. Race: " + race.getName() + ". Athlete: " + athlete.getName());
 
         Track track = trackRepository.save(Track.builder()
                 .race(race)
