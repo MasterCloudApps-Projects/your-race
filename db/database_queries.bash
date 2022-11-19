@@ -1,17 +1,7 @@
 
 #!/bin/bash
 
-#delete from track
-
-
-#select count(*) from track
-
-#select count(*) from track
-#group by athlete_id , race_id 
-#having count(*)>1
-
-
-#select count(*) from application a 
+#For database in cluster, make sure port is forwarded
 
 echo "Applications:"
 psql postgresql://admin:admin@localhost:5555/racedb -c "select count(*) from application a"
