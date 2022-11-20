@@ -8,6 +8,7 @@ import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.TrackDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -91,6 +90,7 @@ public class RegistrationUseCaseTest {
     }
 
     @Test
+    @Disabled("Deberia ser un test unitario")
     @DisplayName("An athlete should get a dorsal when sucessfully registrated in a Race")
         public void assignDorsalNumber() throws Exception{
 
@@ -103,6 +103,7 @@ public class RegistrationUseCaseTest {
     }
 
     @Test
+    @Disabled("Deberia ser un test unitario")
     @DisplayName("Dorsals are provided in a consecutive order of registration")
     public void checkDorsalAssignation () throws Exception{
 
@@ -118,6 +119,7 @@ public class RegistrationUseCaseTest {
     }
 
     @Test
+    @Disabled("Deberia ser un test unitario")
     @DisplayName("An athlete should be sucessfully registrated only if there's capacity in the Race")
     public void checkRaceCapacity () throws Exception{
 

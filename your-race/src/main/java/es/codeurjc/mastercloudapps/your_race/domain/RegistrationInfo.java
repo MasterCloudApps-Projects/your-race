@@ -1,5 +1,6 @@
 package es.codeurjc.mastercloudapps.your_race.domain;
 
+import es.codeurjc.mastercloudapps.your_race.domain.exception.RaceFullCapacityException;
 import es.codeurjc.mastercloudapps.your_race.model.RegistrationType;
 import lombok.*;
 
@@ -43,4 +44,7 @@ public class RegistrationInfo {
     @Column
     private Integer concurrentRequestThreshold;
 
+    public boolean isDateReadyToRegistration() throws RaceFullCapacityException {
+        return this.getRegistrationDate().isAfter(LocalDateTime.now());
+    }
 }

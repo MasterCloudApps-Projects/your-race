@@ -35,6 +35,7 @@ public class RaceDTO {
     private String type;
 
     private Integer athleteCapacity;
+    private RaceStatus raceStatus;
     private Integer availableCapacity;
 
     private LocalDateTime applicationInitialDate;

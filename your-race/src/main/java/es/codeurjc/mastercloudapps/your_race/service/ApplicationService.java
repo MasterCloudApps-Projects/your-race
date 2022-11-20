@@ -3,12 +3,15 @@ package es.codeurjc.mastercloudapps.your_race.service;
 import es.codeurjc.mastercloudapps.your_race.domain.Application;
 import es.codeurjc.mastercloudapps.your_race.domain.Athlete;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
+import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationCodeNotValidException;
 import es.codeurjc.mastercloudapps.your_race.domain.exception.ApplicationPeriodIsClosedException;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationDTO;
 import es.codeurjc.mastercloudapps.your_race.model.ApplicationRequestDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RegistrationByOrderDTO;
 import es.codeurjc.mastercloudapps.your_race.repos.ApplicationRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.AthleteRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +59,15 @@ public class ApplicationService {
             throw new ApplicationPeriodIsClosedException("Application Period is closed");
         }
         return Optional.empty();
+        
+    }
 
-
+    @CircuitBreaker(name = "CBfindByApplicationCode")
+    public Application findByApplicationCode(final RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException {
+        Optional<Application> application = applicationRepository.findByApplicationCode(registrationByOrderDTO.getApplicationCode());
+        if (application.isEmpty())
+            throw new ApplicationCodeNotValidException("Application code is invalid. ApplicationCode was not found.");
+        return application.get();
     }
 
     public List<ApplicationDTO> findAllApplication(Long id){

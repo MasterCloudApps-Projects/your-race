@@ -5,6 +5,7 @@ import es.codeurjc.mastercloudapps.your_race.domain.Organizer;
 import es.codeurjc.mastercloudapps.your_race.domain.Race;
 import es.codeurjc.mastercloudapps.your_race.domain.RegistrationInfo;
 import es.codeurjc.mastercloudapps.your_race.model.RaceDTO;
+import es.codeurjc.mastercloudapps.your_race.model.RaceStatus;
 import es.codeurjc.mastercloudapps.your_race.repos.OrganizerRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.RaceRepository;
 import es.codeurjc.mastercloudapps.your_race.repos.TrackRepository;
@@ -40,7 +41,6 @@ public class RaceService {
                 .toList();
     }
 
-
     public List<RaceDTO> findOpenRaces() {
        return raceRepository.findAll(Sort.by("id"))
                 .stream()
@@ -48,8 +48,6 @@ public class RaceService {
                 .map(race -> mapToDTO(race, new RaceDTO()))
                 .toList();
     }
-
-
 
     public RaceDTO get(final Long id) {
         return raceRepository.findById(id)
@@ -64,6 +62,7 @@ public class RaceService {
     public Long create(final RaceDTO raceDTO) {
         final Race race = new Race();
         mapToEntity(raceDTO, race);
+        race.setRaceStatus(RaceStatus.PRE_REGISTRATION_OPEN);
         return raceRepository.save(race).getId();
     }
 
