@@ -4,7 +4,7 @@
 
 ### 1.1. Start minikube
 
-Start minikube (from a new cluster or a stopped cluster).
+Start minikube (from a new cluster or a stopped one).
 ```
 minikube start --cpus 4 --memory 8g
 ```
@@ -93,6 +93,10 @@ watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,
 - Click on Data source Prometheus + Run queries.
 - Apply and save.
 
+Important
+
+If a Dashboard has been saved with the uid information, the imported won't run  unless you do the following:
+
 - Goto Configruation in the Dashboard and copy JSON Model.
 - Find the uid for Prometheus in the first widget:
 
@@ -130,7 +134,9 @@ artillery run performance/raquetelio/artilleryRaceRegistration.yml > performance
 
 ```
 
-## 4. Check results in database
+## 4. Check results.
+
+### Registrations in database
 Execute script:
 ```
 sh db/database_queries.bash
@@ -140,3 +146,5 @@ Remeber to delete the registrations before executing a new test.
 ```
 psql postgresql://admin:admin@localhost:5555/racedb -c \"delete from track\""
 ```
+### Grafana Dashboard
+### Pod log 
