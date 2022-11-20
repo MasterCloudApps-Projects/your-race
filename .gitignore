@@ -36,6 +36,7 @@ build/
 /docker-compose/postgresdb/
 
 /k8s/istio-1.15.2
+/k8s/istio-1.15.3
 *.log
 /k8s/manifests-operator/kube-prometheus/
 /docker-compose/grafana/provisioning/
