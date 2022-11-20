@@ -1,26 +1,16 @@
 config:
-  target: "http://192.168.49.2:30793"
+  target: "http://192.168.49.2:32193"
   phases:
     - duration: 30
-      arrivalRate: 1    
-      maxVusers: 30  
-      name: Warm up
-
-    - duration: 30
-      arrivalRate: 800
+      arrivalRate: 1000
       maxVusers: 30000
       name: Massive load
-
- #   - duration: 30
- #     arrivalRate: 10     
- #     name: Load down  
-
   http:
     timeout: 80
 
   payload:
 
-    path: "application_code_202211181836.csv"   
+    path: "db/export_test_data_20221118/application_code_202211181836.csv"   
     fields:
         - "applicationCode"
     order: sequence
@@ -33,6 +23,3 @@ scenarios:
           url: "/api/tracks/byorder"
           json:
             applicationCode: "{{ applicationCode }}"
-     #     capture:
-     #       - json: "$.results.id"
-     #         as: "trackId"
