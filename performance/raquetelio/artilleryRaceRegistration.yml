@@ -1,5 +1,5 @@
 config:
-  target: "http://192.168.49.2:32108"
+  target: "http://192.168.49.2:32519"
   phases:
     - duration: 30
       arrivalRate: 1000
@@ -10,7 +10,7 @@ config:
 
   payload:
 
-    path: "db/export_test_data_20221118/application_code_202211181836.csv"   
+    path: "../../db/export_test_data_20221118/application_code_202211181836.csv"   
     fields:
         - "applicationCode"
     order: sequence
