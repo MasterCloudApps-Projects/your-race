@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: warm-up
+  name: your-race-warm-up
   annotations:
       kompose.cmd: kompose convert -f docker-compose.yml
       kompose.version: 1.26.1 (a9d05d509)
