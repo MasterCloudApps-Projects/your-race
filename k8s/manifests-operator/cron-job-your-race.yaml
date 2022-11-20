@@ -13,7 +13,7 @@ spec:
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
 # │ │ │ │ │
 # * * * * *
-  schedule: "* * * * *"
+  schedule: "00 14 20 11 *"
   jobTemplate:
     metadata:
       annotations:
