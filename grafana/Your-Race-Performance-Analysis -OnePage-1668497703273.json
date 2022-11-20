@@ -30,8 +30,7 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -109,8 +108,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "avg(avg_over_time(process_cpu_usage{application=\"\"}[1m])) by (instance)",
@@ -128,8 +126,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "description": "Average user and system CPU time spent in seconds.",
       "fieldConfig": {
@@ -179,8 +176,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "avg(rate(process_cpu_seconds_total{}[5m]) * 1000) by (instance)",
@@ -223,8 +219,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -301,8 +296,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "builder",
           "expr": "sum by(status, exception) (http_server_requests_seconds_max{app=\"your-race\", status=~\"500\"})",
@@ -317,8 +311,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -426,8 +419,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "max(max_over_time(http_server_requests_seconds_max{status!~\"^2\\\\d+$\"}[1m])) by (method,uri,outcome,status)",
@@ -441,8 +433,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -518,8 +509,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum by(status) (http_server_requests_seconds_max{app=\"your-race\"})",
@@ -534,8 +524,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -613,8 +602,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum by(status, exception) (http_server_requests_seconds_max{app=\"your-race\", status!=\"201\"})",
@@ -629,8 +617,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -707,8 +694,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "max(max_over_time(http_server_requests_seconds_max{status=~\"^2\\\\d+$\"}[1m])) by (method,uri,outcome,status)",
@@ -727,8 +713,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "RJ31jKO4k"
+        "type": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -778,8 +763,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "RJ31jKO4k"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "pg_stat_activity_count{ state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
