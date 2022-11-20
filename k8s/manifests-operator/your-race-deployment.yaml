@@ -10,7 +10,7 @@ metadata:
     io.kompose.service: your-race
   name: your-race
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       io.kompose.service: your-race
