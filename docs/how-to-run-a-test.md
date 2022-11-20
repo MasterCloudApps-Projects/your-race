@@ -38,7 +38,7 @@ cd ..
 ```
 Install Istio. This action takes a little bit of more time
 ```
-export PATH=$PWD/k8s/istio-1.15.3/bin:$PATH
+export PATH=$PWD/k8s/istio-1.16.0/bin:$PATH
 istioctl install --set profile=demo -y
 kubectl label namespace default istio-injection=enabled
 ```
@@ -73,6 +73,10 @@ kubectl port-forward service/grafana 3000:3000 &
 # Portforward para RabbitMQ
 kubectl port-forward service/rabbitmq 5672:5672 &
 ```
+
+#Portforward para el pod y usar togglz-console
+kubectl port-forward service/your-race 8080:8080 &
+
 
 ## Observability and Monitoring
 
@@ -128,6 +132,12 @@ artillery run performance/raquetelio/warm-up-artilleryRaceRegistration.yml
 
 ## 3.3. Performance test
 
+### Set Feature Flag 
+
+- Use RabbitMQ producer	
+- usecb	
+
+### Run test
 Update the number of test for documenting the results in the output file:
 ```
 artillery run performance/raquetelio/artilleryRaceRegistration.yml > performance/raquetelio/results/artilleryRaceRegistration_result_TestXX_$(date +"%Y-%m-%d-%H-%M-%s".txt)
