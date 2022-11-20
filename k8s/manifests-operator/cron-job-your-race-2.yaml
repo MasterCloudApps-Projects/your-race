@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: your-race-warm-up
+  name: your-race-warm-up-2
 spec:
 # ┌───────────── minute (0 - 59)
 # │ ┌───────────── hour (0 - 23)
@@ -24,12 +24,7 @@ spec:
         app: your-race
         io.kompose.service: your-race
       name: your-race
-    spec:
-      replicas: 2
-      selector:
-        matchLabels:
-          io.kompose.service: your-race
-      strategy: {}
+    spec:        
       template:
         metadata:
           annotations:
@@ -75,5 +70,5 @@ spec:
                 requests:
                   cpu: 700m
                   memory: 768Mi
-          restartPolicy: Always
-    status: {}
+          restartPolicy: OnFailure
+       

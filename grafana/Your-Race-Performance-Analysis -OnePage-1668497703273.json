@@ -612,7 +612,7 @@
           "refId": "D"
         }
       ],
-      "title": "http_server_requests_seconds_sum- your race - KO",
+      "title": "http_server_requests_seconds_sum- your race ",
       "type": "timeseries"
     },
     {
@@ -724,7 +724,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
+        "h": 11,
         "w": 5,
         "x": 19,
         "y": 17
@@ -812,7 +812,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 28
       },
       "id": 14,
       "panels": [],
@@ -825,7 +825,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 12,
       "panels": [],
@@ -848,6 +848,6 @@
   "timezone": "browser",
   "title": "Your-Race-Performance-Analysis -OnePage",
   "uid": "2-laX6D4z",
-  "version": 1,
+  "version": 2,
   "weekStart": "monday"
 }
