@@ -139,12 +139,12 @@ artillery run performance/raquetelio/artilleryRaceRegistration.yml > performance
 ### Registrations in database
 Execute script:
 ```
-sh db/database_queries.bash
+sh db/database_test_queries.bash
 ```
-Remeber to delete the registrations before executing a new test.
+Remember to delete the registrations and set the race status to open before executing a new test.
 
 ```
-psql postgresql://admin:admin@localhost:5555/racedb -c \"delete from track\""
+sh db/database_test_delete_data.bash
 ```
 ### Grafana Dashboard
 ### Pod log 

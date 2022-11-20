@@ -9,8 +9,8 @@ psql postgresql://admin:admin@localhost:5555/racedb -c "select count(*) from app
 echo "Registrations:"
 psql postgresql://admin:admin@localhost:5555/racedb -c "select count(*) from track"
 
-echo "Duplicated registratios:"
+echo "Duplicated registrations:"
 psql postgresql://admin:admin@localhost:5555/racedb -c "select count(*) from track group by athlete_id , race_id having count(*)>1"
 
-echo "Execute this command to delete registrations:"
-echo "psql postgresql://admin:admin@localhost:5555/racedb -c \"delete from track\""
+echo "Execute this script to delete registrations and reset race status to open:"
+echo "sh db/database_test_delete_data.bash"
