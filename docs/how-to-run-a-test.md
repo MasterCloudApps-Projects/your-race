@@ -47,6 +47,15 @@ Apply the istio manifest:
 kubectl apply -f k8s/istio/
 ```
 
+##### Find out Istio gateway
+
+```
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+export INGRESS_HOST=$(minikube ip)
+echo "Istio gateway ingress port:"
+echo "http://$INGRESS_HOST:$INGRESS_PORT"
+```
+
 ## 1.3. Portforwards.
 
 ```
@@ -65,29 +74,20 @@ kubectl port-forward service/grafana 3000:3000 &
 kubectl port-forward service/rabbitmq 5672:5672 &
 ```
 
-## 1.4. Find out Istio gateway
+## Observability and Monitoring
 
-Find out ip Istio gateway. 
-```
-export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
-export INGRESS_HOST=$(minikube ip)
-echo "Istio gateway ingress port:"
-echo "http://$INGRESS_HOST:$INGRESS_PORT"
-```
-
-## 1.5 Watch cluster deployments, services,..
+### Watch cluster deployments, services,..
 Use Lens or command line:
 ```
 watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice 
 ```
-
-## Monitoring
+### Grafana
 
 - Open Grafana Dashboard in http://localhost:3000/login.
 - Add data source Prometheus. URL: http://prometheus-server.
 - Save and test.
 
-### Dashboard
+#### Dashboard
 - Import Json file [grafana/Your-Race-Performance-Analysis%20-OnePage-1668497703273.json](../grafana/Your-Race-Performance-Analysis%20-OnePage-1668497703273.json)
 - Edit a widget.
 - Click on Data source Prometheus + Run queries.
@@ -106,7 +106,6 @@ watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,
 
  - Update the rest of prometheus uid in the script.  
  - Click save.  
-
 
 
 ## 3. Test
@@ -138,3 +137,6 @@ sh db/database_queries.bash
 ```
 Remeber to delete the registrations before executing a new test.
 
+```
+psql postgresql://admin:admin@localhost:5555/racedb -c \"delete from track\""
+```
