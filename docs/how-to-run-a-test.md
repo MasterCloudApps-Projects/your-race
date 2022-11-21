@@ -94,7 +94,7 @@ watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,
 - Save and test.
 
 #### Dashboard
-- Import Json file [grafana/Your-Race-Performance-Analysis%20-OnePage-1668497703273.json](../grafana/Your-Race-Performance-Analysis%20-OnePage-1668497703273.json)
+- Import Json file [grafana/Your-Race-Performance-Analysis%20-OnePage.json](../grafana/Your-Race-Performance-Analysis%20-OnePage.json)
 - Edit a widget.
 - Click on Data source Prometheus + Run queries.
 - Apply and save.
