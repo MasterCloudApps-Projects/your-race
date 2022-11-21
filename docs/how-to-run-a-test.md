@@ -56,7 +56,7 @@ echo "Istio gateway ingress port:"
 echo "http://$INGRESS_HOST:$INGRESS_PORT"
 ```
 
-## 1.3. Portforwards.
+## 1.3. Portforwards
 
 ```
 #Get the Prometheus server URL by running these commands in the same shell:
@@ -64,24 +64,26 @@ export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,compon
 #Portforward a Prometheus server:
 kubectl --namespace default port-forward $POD_NAME 9090 &
 
-#Portforward para la BBDD
+#Portforward for Database
 kubectl port-forward service/pgdb 5555:5432 &
 
-# Portforward para Grafana:
+# Portforward for Grafana:
 kubectl port-forward service/grafana 3000:3000 &
 
-# Portforward para RabbitMQ
+# Portforward for RabbitMQ
 kubectl port-forward service/rabbitmq 5672:5672 &
 ```
 
-#Portforward para el pod y usar togglz-console
+#Portforward for pod to check togglz-console
 kubectl port-forward service/your-race 8080:8080 &
 
 
 ## Observability and Monitoring
 
 ### Watch cluster deployments, services,..
-Use Lens or command line:
+#### Lens 
+
+#### Watch resources in command line:
 ```
 watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice 
 ```
