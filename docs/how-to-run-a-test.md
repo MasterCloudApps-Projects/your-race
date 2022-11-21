@@ -1,6 +1,6 @@
 # How to run a test
 
-## 1. Setup 
+## 1. Kubernetes Setup 
 
 ### 1.1. Start minikube
 
@@ -71,23 +71,23 @@ kubectl port-forward service/pgdb 5555:5432 &
 kubectl port-forward service/grafana 3000:3000 &
 
 # Portforward for RabbitMQ
-kubectl port-forward service/rabbitmq 5672:5672 &
+kubectl port-forward service/rabbitmq 15672:15672 &
 ```
 
 #Portforward for pod to check togglz-console
 kubectl port-forward service/your-race 8080:8080 &
 
 
-## Observability and Monitoring
+## 2. Observability and Monitoring
 
-### Watch cluster deployments, services,..
+### 2.1.  Watch cluster deployments, services,..
 #### Lens 
 
 #### Watch resources in command line:
 ```
 watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,destinationrule,virtualservice 
 ```
-### Grafana
+### 2.2. Grafana
 
 - Open Grafana Dashboard in http://localhost:3000/login.
 - Add data source Prometheus. URL: http://prometheus-server.

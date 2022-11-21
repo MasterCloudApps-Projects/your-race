@@ -142,6 +142,8 @@ Check out [performance-testing-insights-wave1](/docs/performance-testing-insight
 [1] https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
 https://jschmitz.dev/posts/testcontainers_how_to_use_them_in_your_spring_boot_integration_tests/
 
+
+https://www.rfc-editor.org/rfc/rfc7231#section-6.3.3
 ___
 ## :es: Documentación de Entrega
 
