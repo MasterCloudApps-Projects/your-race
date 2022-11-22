@@ -72,16 +72,19 @@ kubectl port-forward service/grafana 3000:3000 &
 
 # Portforward for RabbitMQ
 kubectl port-forward service/rabbitmq 15672:15672 &
-```
 
 #Portforward for pod to check togglz-console
 kubectl port-forward service/your-race 8080:8080 &
+```
+
+
 
 
 ## 2. Observability and Monitoring
 
 ### 2.1.  Watch cluster deployments, services,..
 #### Lens 
+https://k8slens.dev/
 
 #### Watch resources in command line:
 ```
@@ -99,11 +102,9 @@ watch -n 1 kubectl get pod,deployment,service,horizontalpodautoscaler,ingresses,
 - Click on Data source Prometheus + Run queries.
 - Apply and save.
 
-Important
+_NB_: If a Dashboard has been saved with the uid information, when it's imported doesn't run unless you do the following:
 
-If a Dashboard has been saved with the uid information, the imported won't run  unless you do the following:
-
-- Goto Configruation in the Dashboard and copy JSON Model.
+- Goto Configuration in the Dashboard and copy JSON Model.
 - Find the uid for Prometheus in the first widget:
 
 ```

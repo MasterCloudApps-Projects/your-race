@@ -44,10 +44,8 @@ spec:
               value: rabbitmq
             - name: SPRING_RABBITMQ_PORT
               value: "5672"
-            - name: TOGGLZ_FEATURES_USECB_ENABLED
-              value: "true"
             - name: TOGGLZ_FEATURES_RABBITPRODUCER_ENABLED
-              value: "true"
+              value: "true" 
           image: raquetelio/your-race:v1.3.1
           name: your-race
           ports:
