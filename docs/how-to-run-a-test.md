@@ -12,15 +12,19 @@ minikube start --cpus 4 --memory 8g
 ### 1.2. Additional installs for a new cluster
 #### Prometheus
 
-First time, install helm prometheus in your local
+First time, install Prometheus helm in your local
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add stable https://charts.helm.sh/stable
 ```
 
-Update and install helm prometheus:
+Update Prometheus helm:
 ```
 helm repo update
+```
+
+Install Prometheus helm in the cluster:
+```
 helm install prometheus prometheus-community/prometheus
 ```
 
