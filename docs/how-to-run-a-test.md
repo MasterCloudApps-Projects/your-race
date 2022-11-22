@@ -130,19 +130,11 @@ _NB_: If a Dashboard has been saved with the uid information, when it's imported
 psql postgresql://admin:admin@localhost:5555/racedb -f db/export_test_data_20221118/export_202211181943.sql
 ```
 
-## 3.2. Warm-up
-
-Update your Artillery script with the Istio gateway for a just started cluster.
-```
-artillery run performance/raquetelio/warm-up-artilleryRaceRegistration.yml 
-```
-
 ## 3.3. Performance test
 
 ### Set Feature Flag 
 
 - Use RabbitMQ producer	
-- usecb	
 
 ### Run test
 Update the number of test for documenting the results in the output file:
