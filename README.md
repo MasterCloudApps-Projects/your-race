@@ -148,7 +148,6 @@ ___
 ## :es: Documentación de Entrega
 
 ### Memoria
-[Trabajo Fin de Máster.](/docs/TFM-Memoria-Rafa-Raquel.odt)
 Enlace para [verlo en Google Docs.](https://docs.google.com/document/d/17cHzdHlvV2ujh2DzF1rlHlmz_qfKArxPLsnF-EycibQ/edit)
 
 ### Presentación
