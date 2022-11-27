@@ -95,6 +95,15 @@ Body: {"raceId": {raceId}}
 
 curl -X GET Http://localhost:8080/api/races?open=true -H "content-type: application/json" -d '{"raceId": 10003}'
 ```
+
+#### Get Registrations for an Athlete to a Race 
+```
+GET {{baseUrl}}/api/tracks?open=true
+Body: {"raceId": {raceId}, "athleteId": {athleteId}}
+
+curl -X GET Http://localhost:8080/api/races?open=true -H "content-type: application/json" -d '{"raceId": 10003, "athleteId": 10010}'
+```
+
 ## Further readings
 
 * [Maven docs](https://maven.apache.org/guides/index.html)  
