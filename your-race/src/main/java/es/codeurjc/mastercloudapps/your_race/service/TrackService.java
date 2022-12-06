@@ -90,7 +90,7 @@ public class TrackService {
     private Application getApplication(RegistrationByOrderDTO registrationByOrderDTO) throws ApplicationCodeNotValidException, RaceFullCapacityException {
         Application application = applicationService.findByApplicationCode(registrationByOrderDTO);
         if (!application.getApplicationRace().isRegistrableStatus())
-            throw new RaceFullCapacityException("Race registration is full capacity status.");
+            throw new RaceFullCapacityException("Race registration is in full capacity status.");
         if (!application.getApplicationRace().getRaceRegistrationInfo().isDateReadyToRegistration())
             throw new RaceFullCapacityException("Race registration starts at: "+application.getApplicationRace().getRaceRegistrationInfo().getRegistrationDate());
         return application;
@@ -114,7 +114,7 @@ public class TrackService {
     public TrackDTO registerToRace(Athlete athlete, Race race) throws RaceFullCapacityException, AthleteAlreadyRegisteredToRace {
 
         if(findAthleteTrackInRace(athlete,race))
-            throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race.");
+            throw new AthleteAlreadyRegisteredToRace("Athlete already registered to race. Race: " + race.getName() + ". Athlete: " + athlete.getName());
 
         try {
             Track track = trackRepository.save(Track.builder()
