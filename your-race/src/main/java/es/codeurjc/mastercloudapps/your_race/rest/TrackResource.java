@@ -67,7 +67,7 @@ public class TrackResource {
             ,AthleteAlreadyRegisteredToRace {
         if(featureManager.isActive(Features.rabbitproducer)) {
             trackService.createByOrderAsync(registrationByOrderDTO);
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
+            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
         } else {
             TrackDTO trackDTO = trackService.createByOrder(registrationByOrderDTO);
             return new ResponseEntity<>(trackDTO, HttpStatus.CREATED);
