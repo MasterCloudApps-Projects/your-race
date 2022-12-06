@@ -2,6 +2,7 @@
 # How to generate data for Testing
 
 ## Massive registration calls in One script
+(This is an Alternative to running an Artillery script)
 
 Run script [generate_and_send_registration_calls.bash](../db/gererate_registration_calls/generate_and_send_registration_calls.bash) to send massive calls to register athletes to a race:
 
@@ -13,7 +14,7 @@ You can set the number of applicant athletes and the race capacity by editing th
 
 
 
-## Massive registration calls in Step by step
+## Massive registration calls Step by step
 
 ### [Optional] Remove generated test data if you have previously run the scripts
 ```
@@ -39,6 +40,7 @@ bash db/gererate_registration_calls/2.generate_registration_calls.bash $REGISTRA
 ```
 
 ### 3. Run the resulting script with the registration calls.
+(This is an Alternative to running an Artillery script)
 
 Run the script and track the time spent in the process of the file through 'SECONDS' shell variable. Results are saved in the '*result.txt' file.
 
@@ -54,8 +56,8 @@ echo `cat ${REGISTRATION_CALLS_FILE_NAME}_result.txt`
 
 Copy initializer script to docker container and run script over it:
 ```
-docker cp db/populate_initial_data.sql k8s_pgdb_1:/var/lib/postgresql 
+docker cp db/smoke_testing_data/populate_initial_data.sql k8s_pgdb_1:/var/lib/postgresql 
 docker exec k8s_pgdb_1 psql racedb admin -f /var/lib/postgresql/populate_initial_data.sql
 ```
 
-Check out generated ids in file [database_initial_ids.txt](/db/database_initial_ids.txt).
+Check out generated ids in file [database_initial_ids.txt](/db/smoke_testing_data/database_initial_ids.txt).
