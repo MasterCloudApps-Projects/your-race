@@ -11,7 +11,9 @@ In this repository you will find:
 - Database scripts for generate testing data.
 - Scripts to run performance tests in [Artillery](artillery.io).
 
-![Your Race DevOps workflow](./docs/images/your-race-devops-workflow.png)
+### Workflow
+
+!["Your Race DevOps workflow"](./docs/images/your-race-devops-workflow.png)
 
 
 ## Setup
