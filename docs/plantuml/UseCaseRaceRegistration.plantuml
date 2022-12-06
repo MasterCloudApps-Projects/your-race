@@ -1,0 +1,13 @@
+@startuml
+title Use Case Race Registration
+
+actor Athlete
+
+usecase (Race Registration)
+note bottom of (Race Registration) : "ByOrder Registration"
+
+
+Athlete --> (Race Registration)
+
+
+@enduml
