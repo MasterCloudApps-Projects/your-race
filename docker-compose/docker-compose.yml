@@ -45,6 +45,11 @@ services:
     links:
       - pgdb
       - prometheus
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
 
 volumes:
   grafana-data:                         # Creamos y asignamos el volumen de docker
