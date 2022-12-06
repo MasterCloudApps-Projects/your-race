@@ -4,9 +4,24 @@ Rafael Gómez Olmedo, Raquel Toscano Marchena.
 https://github.com/MasterCloudApps-Projects/your-race
 
 ### Overview
-Your Race is a scalable platform for managing entry assignment in highly demanded races, like the New York City Marathon or _101 Km de Ronda_ (Spain).
+Your Race is a DevOps PoC (Proof of concept) for building an scalable platform for managing entry assignment in highly demanded races, like the New York City Marathon or _101 Km de Ronda_ (Spain).
 
-## K8s Setup + prometheus helm
+In this repository you will find:
+- The codebase.
+- Database scripts for generate testing data.
+- Scripts to run performance tests in [Artillery](artillery.io).
+
+![Your Race DevOps workflow](./docs/images/your-race-devops-workflow.png)
+
+
+## Setup
+
+### System requirements
+Java 17, Maven, npm, Artillery, Docker, Docker compose, kubectl, Minikube, Helm, PostgreSQL cli.
+
+Check out information in [Local Dev Setup](./docs/local-dev-setup.md) for local development setup.
+
+### K8s Setup + prometheus helm
 
 ```sh
 minikube start \
@@ -19,11 +34,12 @@ helm install prometheus prometheus-community/prometheus
 ```
 Reference: [1] 
 
+### Install your-race services
 ```sh
 kubectl apply -f k8s/manifests-operator/
 ```
 
-## Instalación de istio:
+### Install Istio:
 
 ```sh
 minikube addons enable metrics-server
@@ -39,16 +55,13 @@ istioctl install --set profile=demo -y
 kubectl label namespace default istio-injection=enabled
 ```
 
-Despliegue Istio gateway
+#### Istio gateway deployment
 
 ```sh
 kubectl apply -f k8s/istio/
 ```
 
-
-## How to test
-
-Descubrir ip Istio gateway:
+#### Find out Istio gateway
 
 ```sh
 export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
@@ -69,8 +82,8 @@ jmeter > [Test Plan.jmx](/performance/Test%20Plan.jmx)
 
 ### Grafana
 
-Importar Dashboard:
-- 9628 para Postgres
+Import Dashboard:
+- 9628 for Postgres
 - 4701 Micrometer JVM
 - 6417 K8s Cluster
 - import [Personalized Dashboard](/grafana/personalized.json)
@@ -83,66 +96,34 @@ Console:
 http://localhost/togglz-console/index
 ``` 
 Feature toggle list:
-- "Use MongoDB".
-- ...
+- "Use RabbitMQ producer".
 
 
-## Postman Collection
+### Postman Collection
 [Postman Collection](/your-race/your-race.postman_collection.json).
 
 
-# Performance Testing
+## How to run a performance test with Artillery
 
-## Test data
+Checkout step-by-step walkthrough in [How to run a test](./docs/how-to-run-a-test.md).
 
-### Import data for testing 
-Import this script: [/db/export_test_data_20221104/export_202211041741.sql](/db/export_test_data_20221104/export_202211041741.sql). 
-
-Generates a set of data for Race, Athlete and Applications are populated.
-
-This list is the source of Application codes for the massive tests: 
- [/db/export_test_data_20221104/application_code_list_202211052018.csv](/db/export_test_data_20221104/application_code_list_202211052018.csv)
-
-If you want to find out the details of how this data has been generated, check out the documentation in docs [How to generate data for testing](/docs/how-to-generate-data-for-testing.md) for the Postgres database.
-
-## Performance tests executed
-
-Artillery scripts and data folder: [/performance/](/performance/)
-
-How to run a test and collect results:
-```
-artillery run performance/raquetelio/artilleryRaceRegistration.yml > performance/raquetelio/results/artilleryRaceRegistration_result_TestX_$(date +"%Y-%m-%d-%H-%M-%s".txt) 
-```
-
-### Mongo experiment
-
-An experiment has been run to compare the peformance between Postgres and MongoDB. It didn't provide any improvement on the results, so this line of investigation has been descarted so far.
-Details are included in docs [Performance-testing-Postgres-Mongo](/docs/Performance-testing-Postgres-Mongo.md)
-
-### Test Results
-
-Tests results and configuration parameters used are gathered in:
-https://docs.google.com/spreadsheets/d/1K2KCRoR6Kmkq3UN-WFXWZY6JZzejWN9V1HZ-6EVJA_Q/edit#gid=1368903262
-
-#### Graphic
-
-![Tests graphic postgres-mongo](/performance/raquetelio/results/tests-graphic-postgres-mongo.jpg "Tests graphic postgres-mongo")
+In [How to generate data for Testing](./docs/how-to-generate-data-for-testing.md) you can find out how to generate test data.
 
 
-# References
+## References
 
-[1] https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
-https://jschmitz.dev/posts/testcontainers_how_to_use_them_in_your_spring_boot_integration_tests/
-
+- [1] https://refactorizando.com/autoescalado-prometheus-spring-boot-kubernetes/
+- https://jschmitz.dev/posts/testcontainers_how_to_use_them_in_your_spring_boot_integration_tests/
+- [Error types](./docs/error-types.md)
 ___
-## :es: Documentación de Entrega
+## :es: Documentación de Entrega TFM Máster CloudApps
 
 ### Memoria
-[Trabajo Fin de Máster.](/docs/TFM-Memoria-Rafa-Raquel.odt)
-Enlace para [verlo en Google Docs.](https://docs.google.com/document/d/17cHzdHlvV2ujh2DzF1rlHlmz_qfKArxPLsnF-EycibQ/edit)
+
+https://docs.google.com/document/d/17cHzdHlvV2ujh2DzF1rlHlmz_qfKArxPLsnF-EycibQ/edit?usp=sharing
 
 ### Presentación
-_Pendiente de creación_
+https://docs.google.com/presentation/d/1F3jRpaACY1rKTt9T7lfJ5u6ywyYn1eU1fU61MXd-buE/edit?usp=sharing 
 
 
 
