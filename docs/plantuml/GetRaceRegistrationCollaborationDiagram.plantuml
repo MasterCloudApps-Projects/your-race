@@ -1,0 +1,24 @@
+@startuml
+title Get Race Registration Collaboration Diagram
+
+actor Athlete
+
+rectangle TrackResource
+rectangle TrackService
+rectangle TrackRepository
+
+
+
+Athlete -> TrackResource : "1:getTrack"
+
+TrackResource -> TrackService : "2: findByAthleteAndRace"
+
+TrackService -> TrackRepository : "3: findByAthleteAndRace"
+
+TrackRepository -> TrackService : "4: trackDTO"
+
+TrackService -> TrackResource : "5: trackDTO"
+
+TrackResource -> Athlete : "6: OK - trackDTO"
+
+@enduml
