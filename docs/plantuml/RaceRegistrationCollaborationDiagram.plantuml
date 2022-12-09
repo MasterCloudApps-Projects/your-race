@@ -1,0 +1,40 @@
+@startuml
+title Race Registration Collaboration Diagram (With Rabbit MQ)
+
+actor Athlete
+
+rectangle TrackResource
+rectangle TrackService
+rectangle RaceByOrderCreationMQ
+rectangle Race
+rectangle consumer
+
+rectangle TrackRepository
+
+Athlete -> TrackResource : "1:createRegistrationByOrder"
+
+TrackResource -> TrackService : "2: createByOrderAsync"
+
+TrackService -> Race : "4: isRegistrableStatus"
+Race --> TrackService : "4.a.1: Yes"
+
+TrackService -> RaceByOrderCreationMQ : "4.a.2: New RaceByOrderCreation"
+
+Race --> TrackService : "4.b.1: No"
+
+TrackService -> TrackResource : "4.b.2: RaceFullCapacityException"
+
+TrackService -> TrackResource : "4.a.3: OK"
+TrackResource -> Athlete : "4.a.4: Accepted"
+
+TrackResource -> Athlete : "4.b.3: RaceFullCapacityException"
+
+consumer -> RaceByOrderCreationMQ : "5: Pull RaceByOrderCreation"
+
+RaceByOrderCreationMQ -> consumer  : "6: raceByOrderCreation"
+
+consumer -> TrackService : "7: createByOrder"
+
+TrackService -> TrackRepository : "8: save"
+
+@enduml
